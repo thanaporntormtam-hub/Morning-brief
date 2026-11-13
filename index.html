@@ -2,340 +2,592 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ประเด็นสำคัญเช้านี้</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.png">
 <meta name="theme-color" content="#17324f">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="ประเด็นเช้านี้">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700&family=Sarabun:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700&family=Sarabun:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
-/* Layout: colored summary band → key-number tiles + biggest movers → sticky color-coded category nav → compact price lists per category (tap a row for its chart) → news with colored tags → history. */
+/* ---------- Design tokens ---------- */
 :root{
-  --bg:#f3f7fa; --surface:#ffffff; --ink:#132430; --muted:#566978; --line:#dde6ec;
-  --brand:#d6336c; --brand2:#3aa8e8;
-  --up:#c8372d; --up-bg:#fde9e7; --down:#1d8a52; --down-bg:#e3f5ea; --flat:#6c7a85; --flat-bg:#eef1f4;
-  --c-fx:#2563eb; --c-energy:#f97316; --c-gold:#d4a106; --c-feed:#16a34a; --c-global:#0891b2; --c-livestock:#e11d63; --c-rice:#b7791f; --c-feedad:#7c3aed;
-  --hi:#fff7d6; --hi-line:#f5b301;
-  --hero-bg:linear-gradient(120deg,#17324f 0%,#1f4570 100%); --hero-ink:#ffffff; --hero-line:#17324f; --hero-ring:rgba(255,255,255,.06); --hero-pill:rgba(255,255,255,.14);
+  --bg:#f2f5f8; --surface:#ffffff; --surface2:#f6f8fa; --ink:#0f1e2c; --ink2:#2f4252; --muted:#5b6c7a; --line:#e1e7ed; --line2:#cdd6de;
+  --navy:#17324f; --navy2:#1f4570; --on-navy:#ffffff; --on-navy2:rgba(255,255,255,.78);
+  --brand:#c2255c; --brand-bg:#d6336c; --brand-soft:#fde8ef;
+  --up:#c62828; --up-bg:#fdecea; --down:#16794a; --down-bg:#e3f3ea; --flat:#5f6f7d; --flat-bg:#edf1f4;
+  --c-fx:#2563eb; --c-energy:#ea580c; --c-gold:#b98a00; --c-feed:#16a34a; --c-global:#0e7490; --c-livestock:#db2777; --c-rice:#a16207; --c-feedad:#7c3aed;
+  --hi:#b45309; --hi-bg:#fff7e6;
+  --r-lg:16px; --r-md:12px; --r-sm:8px;
+  --sh:0 1px 2px rgba(15,30,44,.04),0 6px 18px rgba(15,30,44,.05);
+  --sh-lg:0 18px 50px rgba(10,25,40,.22);
+  --appbar-h:60px; --botnav-h:0px;
   --font-head:"Prompt","Sarabun",system-ui,sans-serif;
   --font-body:"Sarabun",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
-  --font-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --font-num:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0e1419; --surface:#18212a; --ink:#e8eef2; --muted:#9fb0bc; --line:#2a3743;
-    --brand:#f48fb1; --brand2:#81d4fa;
-    --up:#ff8a7d; --up-bg:#3d201d; --down:#62d396; --down-bg:#163525; --flat:#a0adb6; --flat-bg:#24303a;
-    --c-fx:#6aa0f5; --c-energy:#f59a52; --c-gold:#e7c24a; --c-feed:#5fcc8a; --c-global:#45bccb; --c-livestock:#f27a98; --c-rice:#d0a066; --c-feedad:#a98af0; --hi:#3a3115; --hi-line:#f5c84a; --hero-bg:linear-gradient(120deg,#132a42 0%,#1a3a5e 100%); --hero-ink:#ffffff; --hero-line:#24425f; --hero-ring:rgba(255,255,255,.05); --hero-pill:rgba(255,255,255,.12);
+    --bg:#0b1218; --surface:#131c25; --surface2:#18232e; --ink:#e8eef3; --ink2:#c5d1db; --muted:#94a5b2; --line:#233040; --line2:#33424f;
+    --navy:#0e2136; --navy2:#16304d; --brand:#f48fb1; --brand-bg:#c2185b; --brand-soft:#3a1a27;
+    --up:#ff8a80; --up-bg:#3a1d1c; --down:#6fd6a0; --down-bg:#12301f; --flat:#9eacb7; --flat-bg:#1f2a34;
+    --c-fx:#7aa7f7; --c-energy:#fb923c; --c-gold:#e5c04b; --c-feed:#5fd08b; --c-global:#4cc3d4; --c-livestock:#f47aa8; --c-rice:#d9a55f; --c-feedad:#ad8cf5;
+    --hi:#fbbf24; --hi-bg:#2b2310;
+    --sh:0 1px 2px rgba(0,0,0,.3); --sh-lg:0 18px 50px rgba(0,0,0,.55);
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0e1419; --surface:#18212a; --ink:#e8eef2; --muted:#9fb0bc; --line:#2a3743;
-  --brand:#f48fb1; --brand2:#81d4fa;
-  --up:#ff8a7d; --up-bg:#3d201d; --down:#62d396; --down-bg:#163525; --flat:#a0adb6; --flat-bg:#24303a;
-  --c-fx:#6aa0f5; --c-energy:#f59a52; --c-gold:#e7c24a; --c-feed:#5fcc8a; --c-global:#45bccb; --c-livestock:#f27a98; --c-rice:#d0a066; --c-feedad:#a98af0; --hi:#3a3115; --hi-line:#f5c84a; --hero-bg:linear-gradient(120deg,#132a42 0%,#1a3a5e 100%); --hero-ink:#ffffff; --hero-line:#24425f; --hero-ring:rgba(255,255,255,.05); --hero-pill:rgba(255,255,255,.12);
+  --bg:#0b1218; --surface:#131c25; --surface2:#18232e; --ink:#e8eef3; --ink2:#c5d1db; --muted:#94a5b2; --line:#233040; --line2:#33424f;
+  --navy:#0e2136; --navy2:#16304d; --brand:#f48fb1; --brand-bg:#c2185b; --brand-soft:#3a1a27;
+  --up:#ff8a80; --up-bg:#3a1d1c; --down:#6fd6a0; --down-bg:#12301f; --flat:#9eacb7; --flat-bg:#1f2a34;
+  --c-fx:#7aa7f7; --c-energy:#fb923c; --c-gold:#e5c04b; --c-feed:#5fd08b; --c-global:#4cc3d4; --c-livestock:#f47aa8; --c-rice:#d9a55f; --c-feedad:#ad8cf5;
+  --hi:#fbbf24; --hi-bg:#2b2310;
+  --sh:0 1px 2px rgba(0,0,0,.3); --sh-lg:0 18px 50px rgba(0,0,0,.55);
   color-scheme:dark;
 }
+
+/* ---------- Base ---------- */
 *{box-sizing:border-box}
 [hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--appbar-h) + 56px)}
 html,body{margin:0}
-body{background:radial-gradient(1200px 500px at 100% -10%,color-mix(in srgb,#14b8a6 10%,transparent),transparent),radial-gradient(900px 400px at -10% 30%,color-mix(in srgb,#fbbf24 9%,transparent),transparent),var(--bg);background-attachment:fixed;color:var(--ink);font-family:var(--font-body);font-size:15.5px;line-height:1.55}
-a{color:var(--brand)}
-button,select{font:inherit}
-:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-.wrap{max-width:1120px;margin:0 auto;padding:16px 16px 48px;display:grid;gap:18px}
-h1,h2,h3,h4{font-family:var(--font-head);font-weight:600;margin:0;text-wrap:balance}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:calc(var(--botnav-h) + env(safe-area-inset-bottom))}
+a{color:var(--brand);text-underline-offset:2px}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+h1,h2,h3,h4{font-family:var(--font-head);font-weight:600;margin:0;line-height:1.3}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ic{display:inline-flex;width:1.15em;height:1.15em;flex:none}
+.ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 
-/* hero */
-.hero{position:relative;overflow:hidden;border-radius:18px;padding:20px 22px;color:var(--hero-ink);background:var(--hero-bg);border:1px solid var(--hero-line);display:grid;gap:12px;box-shadow:0 6px 20px rgba(30,60,90,.08)}
-.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;border:28px solid var(--hero-ring);pointer-events:none}
-.hero::before{content:"";position:absolute;left:38%;bottom:-90px;width:180px;height:180px;border-radius:50%;background:var(--hero-ring);pointer-events:none}
-.hero > *{position:relative;z-index:1}
-.logo{display:inline-block;margin-right:4px}
-.hero h1{font-size:1.7rem!important;letter-spacing:.2px}
-.hero-top{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
-.hero h1{font-size:1.5rem;line-height:1.2}
-.hero .sub{opacity:.85;font-size:.88rem}
-.daypick{display:flex;align-items:center;gap:8px;background:var(--hero-pill);padding:6px 10px;border-radius:10px}
-.daypick label{font-size:.82rem}
-.daypick select{border:0;border-radius:7px;padding:4px 8px;background:#fff;color:#18232d}
-.hero .headline{font-size:1rem;max-width:80ch;margin:0}
-.hero .stamp{font-size:.78rem;opacity:.85}
+/* ---------- App bar ---------- */
+.appbar{position:sticky;top:0;z-index:30;background:linear-gradient(115deg,var(--navy) 0%,var(--navy2) 100%);color:var(--on-navy);padding-top:env(safe-area-inset-top);box-shadow:0 2px 12px rgba(10,25,40,.18)}
+.appbar-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:9px max(14px,env(safe-area-inset-right)) 9px max(14px,env(safe-area-inset-left));min-height:58px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.brand img{width:34px;height:34px;border-radius:9px;flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.15)}
+.brand h1{font-size:1rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-sub{font-size:.76rem;color:var(--on-navy2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand > div{min-width:0}
+.topnav{display:none;gap:4px;background:rgba(255,255,255,.08);padding:4px;border-radius:12px}
+.topnav button{border:0;background:none;color:var(--on-navy2);padding:7px 14px;border-radius:9px;font-family:var(--font-head);font-weight:500;font-size:.92rem;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.topnav button:hover{color:#fff;background:rgba(255,255,255,.08)}
+.topnav button[aria-selected="true"]{background:#fff;color:var(--navy)}
+:root[data-theme="dark"] .topnav button[aria-selected="true"]{background:var(--brand-bg);color:#fff}
+.acts{display:flex;align-items:center;gap:6px;flex:none}
+.datepick{position:relative;display:flex;align-items:center}
+.datepick select{appearance:none;-webkit-appearance:none;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;border-radius:10px;padding:7px 28px 7px 10px;font-size:.86rem;font-weight:600;min-height:38px;max-width:132px}
+.datepick select option{color:#0f1e2c}
+.datepick::after{content:"";position:absolute;right:11px;top:50%;width:7px;height:7px;border-right:2px solid #fff;border-bottom:2px solid #fff;transform:translateY(-70%) rotate(45deg);pointer-events:none;opacity:.8}
+.iconbtn{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;border-radius:10px;width:38px;height:38px;display:grid;place-items:center;padding:0}
+.iconbtn:hover{background:rgba(255,255,255,.18)}
 
-/* key tiles */
-.keys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-@media (max-width:760px){.keys{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:420px){.keys{grid-template-columns:1fr 1fr}.key .k-val{color:color-mix(in srgb,var(--gc) 35%,var(--ink));font-size:1.3rem}}
-.key{background:linear-gradient(160deg,color-mix(in srgb,var(--gc) 13%,var(--surface)) 0%,var(--surface) 70%);border-radius:16px;padding:13px 15px;border:1px solid color-mix(in srgb,var(--gc) 25%,var(--line));border-top:5px solid var(--gc,var(--brand));box-shadow:0 2px 10px color-mix(in srgb,var(--gc) 10%,transparent);display:grid;gap:3px;cursor:pointer;text-align:left;color:inherit}
-.key:hover{box-shadow:0 4px 14px rgba(0,0,0,.07)}
-.key .k-name{font-size:.84rem;color:var(--muted);font-weight:600}
-.key .k-val{font-family:var(--font-num);font-size:1.6rem;font-weight:600;line-height:1.15;font-variant-numeric:tabular-nums}
-.key .k-unit{font-family:var(--font-body);font-size:.8rem;color:var(--muted);margin-left:4px;font-weight:500}
+/* ---------- Bottom nav (mobile) ---------- */
+.botnav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:4px max(6px,env(safe-area-inset-right)) calc(4px + env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left))}
+.botnav button{border:0;background:none;display:grid;justify-items:center;gap:1px;padding:6px 2px;min-height:52px;color:var(--muted);font-size:.72rem;font-weight:600;border-radius:12px}
+.botnav button .ic{width:23px;height:23px}
+.botnav button[aria-selected="true"]{color:var(--brand)}
+.botnav button[aria-selected="true"] .ic{background:var(--brand-soft);border-radius:999px;width:46px;padding:2px 11px;box-sizing:border-box;height:25px}
+@media (max-width:400px){.brand img{width:30px;height:30px}.datepick select{font-size:.8rem;padding:7px 24px 7px 8px;max-width:118px}.appbar-in{gap:8px}}
+@media (min-width:900px){
+  .topnav{display:flex}
+  .botnav{display:none}
+}
 
-/* note + movers */
-.duo{display:grid;grid-template-columns:1.4fr 1fr;gap:12px}
-@media (max-width:820px){.duo{grid-template-columns:1fr}}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 2px 10px rgba(19,36,48,.04);padding:14px 16px;display:grid;gap:10px;align-content:start}
-.panel h2{font-size:1.02rem;display:flex;align-items:center;gap:8px}
-.panel h2 .dot{width:10px;height:10px;border-radius:50%;background:var(--brand2)}
-#notePanel{background:linear-gradient(160deg,var(--hi) 0%,var(--surface) 85%);border:1px solid color-mix(in srgb,var(--hi-line) 45%,var(--line));border-left:6px solid var(--hi-line)}
-#notePanel h2 .dot{background:var(--hi-line)}
-.tips{margin:0;padding:0;list-style:none;display:grid;gap:8px}
-.tips li{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start;font-size:.97rem;font-weight:500}
-.tips li .n{width:22px;height:22px;border-radius:50%;background:var(--hi-line);color:#3a2a00!important;color:#fff;font-size:.75rem;font-weight:600;display:grid;place-items:center;font-family:var(--font-num)}
-.movers{display:grid;gap:6px}
-.mover{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:7px 10px;border-radius:10px;background:var(--bg);cursor:pointer;border:0;color:inherit;text-align:left}
-.mover .m-name{font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:6px;min-width:0}
-.mover .m-name span.t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.gdot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--gc)}
+/* ---------- Layout ---------- */
+.wrap{max-width:1200px;margin:0 auto;padding:16px max(14px,env(safe-area-inset-right)) 28px max(14px,env(safe-area-inset-left));display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.view{display:none;grid-template-columns:minmax(0,1fr);gap:16px;min-width:0}
+.view.on{display:grid;animation:fadein .22s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh);min-width:0}
+.sec{display:grid;gap:10px;min-width:0}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.sec-h h2{font-size:1.04rem;display:flex;align-items:center;gap:8px}
+.sec-h h2 .ic{color:var(--muted)}
+.sec-note{font-size:.78rem;color:var(--muted)}
+.panel{padding:14px 16px;display:grid;gap:12px;align-content:start}
+.duo{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+@media (min-width:960px){.duo{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}}
 
-/* change pills */
-.chg{display:inline-flex;align-items:center;gap:3px;font-size:.8rem;font-weight:600;border-radius:999px;padding:1px 8px;white-space:nowrap;font-variant-numeric:tabular-nums}
+/* ---------- Summary ---------- */
+.summary{border:1px solid rgba(255,255,255,.06);background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:var(--on-navy);border-radius:var(--r-lg);padding:16px 18px;display:grid;gap:12px;box-shadow:var(--sh);position:relative;overflow:hidden}
+.summary::after{content:"";position:absolute;right:-70px;top:-70px;width:220px;height:220px;border-radius:50%;border:30px solid rgba(255,255,255,.05);pointer-events:none}
+.summary > *{position:relative}
+.sum-k{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--on-navy2);font-weight:600;display:flex;align-items:center;gap:6px}
+.headline{margin:0;font-size:1rem;line-height:1.65;max-width:95ch}
+.headline.clamp{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.linkbtn{border:0;background:none;padding:0;color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px;font-size:.86rem;justify-self:start}
+.pills{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 11px;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.12);color:#fff}
+.pill.up{background:#fff;color:#c62828}
+.pill.down{background:#fff;color:#16794a}
+.pill b{font-family:var(--font-num)}
+.sum-legend{font-size:.76rem;color:var(--on-navy2)}
+.oldday{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;background:var(--hi-bg);border:1px solid color-mix(in srgb,var(--hi) 40%,var(--line));color:var(--ink);border-radius:var(--r-md);padding:9px 12px;font-size:.88rem}
+.oldday button{border:0;background:var(--brand-bg);color:#fff;border-radius:8px;padding:6px 12px;font-weight:600;font-size:.84rem}
+
+/* ---------- Change chip ---------- */
+.chg{display:inline-flex;align-items:center;gap:3px;font-family:var(--font-num);font-size:.78rem;font-weight:600;border-radius:999px;padding:2px 8px;white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.35}
 .chg.up{color:var(--up);background:var(--up-bg)}
 .chg.down{color:var(--down);background:var(--down-bg)}
 .chg.flat{color:var(--flat);background:var(--flat-bg)}
+.chg.none{font-family:var(--font-body);font-weight:500}
 
-/* tabs */
-.tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:5px;width:max-content;max-width:100%;overflow-x:auto}
-.tabs button{border:0;background:none;padding:7px 16px;border-radius:8px;font-family:var(--font-head);font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap}
-.tabs button[aria-selected="true"]{background:var(--brand);color:#fff}
-.view{display:none;gap:16px}
-.view.on{display:grid}
+/* ---------- Key metrics ---------- */
+.keys{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:640px){.keys{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1180px){.keys{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.key{position:relative;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r-lg);padding:12px 13px 11px;display:grid;gap:5px;align-content:start;box-shadow:var(--sh);transition:transform .15s ease,box-shadow .15s ease,border-color .15s;min-width:0;overflow:hidden}
+.key::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gc)}
+.key:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--gc) 45%,var(--line));box-shadow:0 8px 22px rgba(15,30,44,.08)}
+.key:active{transform:scale(.985)}
+.k-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;min-width:0}
+.k-name{font-size:.8rem;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:5px;min-width:0;line-height:1.3}
+.k-name .ic{color:var(--gc)}
+.k-name span.t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.spark{width:50px;height:22px;flex:none;overflow:visible;margin-top:1px}
+.k-val{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:1.45rem;font-weight:600;line-height:1.1;letter-spacing:-.02em;color:var(--ink);white-space:nowrap}
+.k-unit{display:block;font-family:var(--font-body);font-size:.74rem;color:var(--muted);font-weight:500;letter-spacing:0;margin-top:2px}
+.k-asof{font-size:.7rem;color:var(--muted);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media (min-width:640px){.k-val{font-size:1.6rem}}
 
-/* category nav */
-.catnav{position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;padding:8px 0;background:var(--bg)}
-.catnav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.85rem;white-space:nowrap}
-.catnav a .cnt{font-size:.72rem;color:var(--muted)}
+/* ---------- Insights ---------- */
+.ins-h{display:flex;align-items:center;gap:8px}
+.ins-h h2{font-size:1.04rem}
+.ins-badge{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--hi-bg);color:var(--hi)}
+.ins{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:ins}
+.ins li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:10px;align-items:start;padding:10px 12px;border-radius:var(--r-md);background:var(--surface2);border:1px solid var(--line);font-size:.95rem;line-height:1.55}
+.ins li:first-child{background:var(--hi-bg);border-color:color-mix(in srgb,var(--hi) 35%,var(--line));font-weight:600}
+.ins .n{width:26px;height:26px;border-radius:8px;background:var(--navy);color:#fff;display:grid;place-items:center;font-family:var(--font-num);font-size:.8rem;font-weight:600}
+:root[data-theme="dark"] .ins .n{background:var(--navy2)}
+.ins li:first-child .n{background:var(--hi);color:#fff}
+.disclaim{font-size:.72rem;color:var(--muted)}
 
-/* category sections */
-.cat{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;scroll-margin-top:56px}
-.cat > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 16px;background:linear-gradient(90deg,color-mix(in srgb,var(--gc) 22%,var(--surface)),color-mix(in srgb,var(--gc) 6%,var(--surface)));border-left:6px solid var(--gc)}
-.cat > summary::-webkit-details-marker{display:none}
-.cat > summary h3{font-size:1.02rem;flex:1}
-.cat > summary .hint{font-size:.78rem;color:var(--muted)}
-.cat > summary .chev{transition:transform .2s;color:var(--gc);font-weight:700}
-.cat[open] > summary .chev{transform:rotate(90deg)}
-.rows{display:grid}
-.row{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) auto;gap:4px 14px;align-items:center;padding:10px 16px;border-top:1px solid var(--line);cursor:pointer;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;color:inherit;width:100%}
-.row:hover{background:color-mix(in srgb,var(--gc) 6%,var(--surface))}
-.row .r-name{font-weight:600;font-size:.94rem;line-height:1.35}
-.row .r-meta{font-size:.76rem;color:var(--muted);font-weight:400;display:block;margin-top:1px}
-.row .r-val{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:1.12rem;font-weight:600;text-align:right;white-space:nowrap}
-.row .r-unit{font-family:var(--font-body);font-size:.75rem;color:var(--muted);font-weight:500;margin-left:4px}
-.row .r-chg{justify-self:end;min-width:110px;text-align:right}
-.row .r-note{grid-column:1/-1;font-size:.78rem;color:var(--muted);font-style:italic}
-@media (max-width:560px){
-  .row{grid-template-columns:1fr auto}
-  .row .r-val{text-align:right}
-  .row .r-chg{grid-column:1/-1;justify-self:start;min-width:0;text-align:left}
-}
-.k-foot{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.spark{width:96px;height:28px;flex:none}
-.k-basis{font-size:.72rem;color:var(--muted);line-height:1.35}
-.hero .stamp{display:flex;flex-wrap:wrap;gap:6px;align-items:center;opacity:1}
-.hpill{background:var(--hero-pill);border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:600}
-.hpill.up{background:rgba(255,255,255,.92);color:#c8372d}
-.hpill.down{background:rgba(255,255,255,.92);color:#1d8a52}
-.htime{font-size:.78rem;opacity:.85;margin-left:4px}
-.tag-old{display:inline-block;margin-left:6px;font-size:.7rem;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:0 6px}
-.r-basis{display:block;font-size:.68rem;color:var(--muted);margin-top:2px;font-weight:400}
-.morebtn{border:0;border-top:1px solid var(--line);background:var(--bg);color:var(--gc,var(--brand));font-weight:600;padding:9px 16px;width:100%;text-align:left;cursor:pointer;font-size:.86rem}
-.morebtn.wide{grid-column:1/-1;border:1px solid var(--line);border-radius:12px;text-align:center;color:var(--brand);background:var(--surface)}
-.alerts{border-left:6px solid var(--c-livestock)}
-.sub2{font-family:var(--font-body);font-weight:400;font-size:.78rem;color:var(--muted)}
-.alist{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
-.alert{border-radius:10px;padding:10px 12px;background:var(--surface);display:grid;gap:4px;border:1px solid var(--line);border-left:6px solid #4b5563}
+/* ---------- Movers ---------- */
+.movers{display:grid;gap:4px}
+.mover{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;align-items:center;padding:9px 10px;border-radius:var(--r-md);border:0;background:none;text-align:left;width:100%;transition:background .15s}
+.mover:hover{background:var(--surface2)}
+.m-name{font-weight:600;font-size:.9rem;display:flex;align-items:center;gap:7px;min-width:0}
+.m-name .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gdot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--gc)}
+.m-sub{grid-column:1;font-size:.76rem;color:var(--muted);display:flex;gap:6px;align-items:center;padding-left:15px;min-width:0;white-space:nowrap;overflow:hidden}
+.m-sub .num{color:var(--ink2);font-weight:600}
+.m-bar{grid-column:1/-1;height:4px;border-radius:4px;background:var(--surface2);overflow:hidden;margin:3px 0 0 15px}
+.m-bar i{display:block;height:100%;border-radius:4px}
+.m-bar i.up{background:var(--up)} .m-bar i.down{background:var(--down)} .m-bar i.flat{background:var(--flat)}
+.sidetag{font-size:.66rem;font-weight:700;border:1px solid var(--line2);border-radius:5px;padding:0 5px;color:var(--muted)}
+.morebtn{border:1px solid var(--line);background:var(--surface);color:var(--brand);font-weight:600;border-radius:10px;padding:9px 14px;font-size:.86rem;width:100%;min-height:42px}
+.morebtn:hover{background:var(--surface2)}
+
+/* ---------- Alerts ---------- */
+.al-h{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.al-h h2{font-size:1.04rem;display:flex;align-items:center;gap:8px}
+.al-h h2 .ic{color:#b91c1c}
+:root[data-theme="dark"] .al-h h2 .ic{color:#ff8a80}
+.lvcount{display:flex;gap:6px;flex-wrap:wrap}
+.lv{font-size:.74rem;font-weight:700;color:#fff;border-radius:6px;padding:2px 9px;background:#4b5563;white-space:nowrap}
+.lv.high{background:#b91c1c} .lv.medium{background:#c2410c}
+.alist{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px}
+.alert{border:1px solid var(--line);border-left:5px solid #4b5563;border-radius:var(--r-md);background:var(--surface);padding:11px 12px;display:grid;gap:5px;align-content:start;min-width:0}
 .alert.high{border-left-color:#b91c1c}
 .alert.medium{border-left-color:#c2410c}
-.alert .a-top{display:flex;gap:6px;align-items:center;font-size:.76rem;color:var(--muted)}
-.alert .a-lv{font-weight:700;color:#fff;background:#4b5563;border-radius:6px;padding:1px 9px;font-size:.78rem}
-.alert.high .a-lv{background:#b91c1c} .alert.medium .a-lv{background:#c2410c}
-.alert .a-title{font-weight:600;font-size:.92rem;line-height:1.4}
-.alert .a-detail{font-size:.84rem}
-.alert .a-src{font-size:.74rem;color:var(--muted)}
-.harvest{border-left:6px solid var(--c-feed)}
-.hlegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.8rem;color:var(--muted);align-items:center}
-.sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:5px}
-.sw.peak,.hb .peak{background:#16a34a}
-.sw.on,.hb .on{background:#fcd34d}
-.sw.off,.hb .off{background:var(--line)}
-.hlist{display:grid;gap:10px}
-.hrow{display:grid;grid-template-columns:minmax(170px,1fr) minmax(300px,1.6fr);gap:8px 16px;align-items:center;background:var(--bg);border-radius:12px;padding:10px 12px}
-@media (max-width:640px){.hrow{grid-template-columns:1fr}}
-.hcrop{display:grid;gap:4px}
-.hcrop b{font-family:var(--font-head);font-weight:600;font-size:.98rem}
-.hstate{display:inline-flex;gap:4px;align-items:center;font-size:.78rem;font-weight:700;border-radius:999px;padding:2px 10px;width:max-content}
+.a-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.76rem;color:var(--muted)}
+.a-title{font-weight:600;font-size:.93rem;line-height:1.45}
+.a-detail{font-size:.85rem;color:var(--ink2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.alert.open .a-detail{display:block}
+.a-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.74rem;color:var(--muted);flex-wrap:wrap}
+.a-more{border:0;background:none;color:var(--brand);font-weight:600;font-size:.78rem;padding:2px 0}
+
+/* ---------- Harvest strip (overview) ---------- */
+.hstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:8px}
+.hs{border:1px solid var(--line);background:var(--surface);border-radius:var(--r-md);padding:10px 12px;display:grid;gap:5px;text-align:left;min-width:0}
+.hs:hover{background:var(--surface2)}
+.hs b{font-family:var(--font-head);font-weight:600;font-size:.9rem;line-height:1.35}
+.hstate{display:inline-flex;align-items:center;gap:5px;font-size:.74rem;font-weight:700;border-radius:999px;padding:2px 9px;width:max-content;max-width:100%}
+.hstate::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .hstate.peak{background:#dcfce7;color:#15803d}
 .hstate.on{background:#fef3c7;color:#92400e}
 .hstate.off{background:var(--flat-bg);color:var(--flat)}
-.hnext{font-size:.78rem;color:var(--muted)}
-.hb{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
-.hb span{height:16px;border-radius:4px;position:relative}
+:root[data-theme="dark"] .hstate.peak{background:#12301f;color:#6fd6a0}
+:root[data-theme="dark"] .hstate.on{background:#33280f;color:#fbbf24}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .hstate.peak{background:#12301f;color:#6fd6a0}
+  :root:not([data-theme="light"]) .hstate.on{background:#33280f;color:#fbbf24}
+  :root:not([data-theme="light"]) .topnav button[aria-selected="true"]{background:var(--brand-bg);color:#fff}
+  :root:not([data-theme="light"]) .ins .n{background:var(--navy2)}
+  :root:not([data-theme="light"]) .al-h h2 .ic{color:#ff8a80}
+}
+.hnext{font-size:.74rem;color:var(--muted)}
+
+/* ---------- Prices view ---------- */
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.search{flex:1 1 240px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line2);border-radius:12px;padding:0 12px;min-height:44px;min-width:0}
+.search:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.search .ic{color:var(--muted)}
+.search input{border:0;background:none;outline:none;flex:1;min-width:0;font-size:16px;padding:10px 0}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none}
+.clearq{border:0;background:var(--surface2);border-radius:999px;width:26px;height:26px;display:grid;place-items:center;color:var(--muted);padding:0}
+.tbtn{border:1px solid var(--line2);background:var(--surface);border-radius:12px;padding:0 13px;min-height:44px;font-size:.86rem;font-weight:600;color:var(--ink2);white-space:nowrap}
+.tbtn:hover{background:var(--surface2)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.78rem;color:var(--muted);align-items:center}
+.catnav{position:sticky;top:var(--appbar-h);z-index:20;display:flex;gap:6px;overflow-x:auto;padding:8px 2px;margin:0 -2px;background:var(--bg);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.catnav::-webkit-scrollbar{display:none}
+.catnav button{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:.84rem;font-weight:600;white-space:nowrap;min-height:36px;color:var(--ink2)}
+.catnav button .ic{color:var(--gc)}
+.catnav button .cnt{font-family:var(--font-num);font-size:.72rem;color:var(--muted);font-weight:500}
+.catnav button.cur{border-color:var(--gc);background:color-mix(in srgb,var(--gc) 10%,var(--surface));color:var(--ink)}
+.cats{display:grid;gap:12px;min-width:0}
+.cat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh);scroll-margin-top:calc(var(--appbar-h) + 60px)}
+.cat > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 14px;min-height:54px;position:relative}
+.cat > summary::-webkit-details-marker{display:none}
+.cat > summary::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gc)}
+.cat-ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:color-mix(in srgb,var(--gc) 13%,var(--surface));color:var(--gc);flex:none}
+.cat-ic .ic{width:18px;height:18px}
+.cat-t{flex:1;min-width:0;display:grid}
+.cat-t h3{font-size:1rem}
+.cat-t span{font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cat-sum{display:flex;gap:4px;flex:none}
+.cat-sum .chg{font-size:.7rem;padding:1px 6px}
+.chev{color:var(--muted);transition:transform .2s;display:inline-flex}
+.cat[open] > summary .chev{transform:rotate(90deg)}
+.rows{display:grid}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;align-items:center;padding:11px 14px;border:0;border-top:1px solid var(--line);background:none;text-align:left;width:100%;transition:background .12s}
+.row.clk:hover{background:var(--surface2)}
+.row.clk{cursor:pointer}
+.r-name{font-weight:600;font-size:.93rem;line-height:1.38;min-width:0}
+.r-val{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:1.08rem;font-weight:600;text-align:right;white-space:nowrap;letter-spacing:-.01em}
+.r-unit{font-family:var(--font-body);font-size:.72rem;color:var(--muted);font-weight:500;margin-left:4px;letter-spacing:0}
+.r-meta{font-size:.74rem;color:var(--muted);min-width:0;line-height:1.4}
+.r-chg{justify-self:end;text-align:right}
+.r-note{grid-column:1/-1;font-size:.76rem;color:var(--muted);background:var(--surface2);border-radius:8px;padding:5px 8px;margin-top:3px}
+@media (min-width:900px){
+  .row{grid-template-columns:minmax(0,1fr) 200px 180px;gap:2px 16px}
+  .r-name{grid-column:1;grid-row:1}
+  .r-meta{grid-column:1;grid-row:2}
+  .r-val{grid-column:2;grid-row:1/3}
+  .r-chg{grid-column:3;grid-row:1/3}
+  .r-note{grid-row:3}
+}
+.row mark{background:color-mix(in srgb,var(--brand) 22%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+.morerow{border:0;border-top:1px solid var(--line);background:var(--surface2);color:var(--brand);font-weight:600;padding:11px 14px;width:100%;text-align:left;font-size:.86rem;min-height:44px}
+.srcline{font-size:.74rem;color:var(--muted);padding:9px 14px;border-top:1px solid var(--line);background:var(--surface2);line-height:1.6}
+.noresult{padding:26px 16px;text-align:center;color:var(--muted)}
+
+/* harvest inside rice */
+.harvest{border-top:1px solid var(--line);padding:14px;display:grid;gap:12px}
+.harvest h4{font-size:.98rem}
+.hlegend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.76rem;color:var(--muted);align-items:center}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:5px}
+.sw.peak,.hb .peak{background:#16a34a}
+.sw.on,.hb .on{background:#f6c343}
+.sw.off,.hb .off{background:var(--line2)}
+.hlist{display:grid;gap:10px}
+.hrow{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;background:var(--surface2);border:1px solid var(--line);border-radius:var(--r-md);padding:11px 12px;scroll-margin-top:calc(var(--appbar-h) + 60px)}
+@media (min-width:760px){.hrow{grid-template-columns:minmax(200px,1fr) minmax(320px,1.7fr);align-items:center;gap:10px 18px}}
+.hcrop{display:grid;gap:4px}
+.hcrop b{font-family:var(--font-head);font-weight:600;font-size:.95rem}
+.hb{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px}
+.hb span{height:16px;border-radius:4px}
 .hb span.cur{outline:2px solid var(--ink);outline-offset:1px}
-.hbl{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;font-size:.66rem;color:var(--muted);text-align:center;margin-top:2px}
+.hbl{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px;font-size:.6rem;color:var(--muted);text-align:center;margin-top:3px;white-space:nowrap}
+.hbl span{overflow:hidden}
 .hbl .cur{color:var(--ink);font-weight:700}
-.himpact{grid-column:1/-1;font-size:.88rem;border-left:3px solid var(--c-feed);padding-left:9px}
-.himpact b{color:var(--c-feed)}
+.himpact{grid-column:1/-1;font-size:.86rem;border-left:3px solid var(--c-feed);padding-left:9px}
+.himpact b{font-family:var(--font-head);font-weight:600}
 .hrow details{grid-column:1/-1;font-size:.84rem}
 .hrow details summary{cursor:pointer;color:var(--brand);font-weight:600;font-size:.8rem}
 .hrow details p{margin:4px 0}
 .hrow details small{color:var(--muted)}
-.harvest.in-cat{border:0;border-top:1px solid var(--line);border-radius:0}
-.srcline{font-size:.76rem;color:var(--muted);padding:8px 16px;border-top:1px solid var(--line);background:var(--bg)}
 
-/* news */
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chips button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:4px 12px;cursor:pointer;font-size:.86rem;display:inline-flex;gap:6px;align-items:center}
-.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.news{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
-@media (max-width:420px){.news{grid-template-columns:1fr}}
-.nitem{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:8px;align-content:start;border-top:5px solid var(--nc,var(--brand))}
-.ntag{font-size:.78rem;font-weight:700;color:#fff;background:var(--nc,var(--brand));border-radius:6px;padding:2px 10px;width:max-content}
-.nitem h4{font-size:1rem;line-height:1.4}
-.impact{font-size:.92rem;background:var(--bg);border-left:4px solid var(--nc,var(--brand));border-radius:6px;padding:8px 10px;color:var(--ink)}
-.impact b{color:var(--ink);font-family:var(--font-head);font-weight:600}
-.nitem details summary{cursor:pointer;font-size:.84rem;color:var(--brand);font-weight:600}
-.nitem details p{margin:6px 0 0;font-size:.92rem}
-.nsrc{font-size:.78rem;color:var(--muted)}
+/* ---------- News ---------- */
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+@media (min-width:900px){.chips{flex-wrap:wrap;overflow:visible}}
+.chips button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:.84rem;font-weight:600;display:inline-flex;gap:6px;align-items:center;white-space:nowrap;min-height:36px;color:var(--ink2)}
+.chips button .gdot{background:var(--nc)}
+.chips button .cnt{font-family:var(--font-num);font-size:.72rem;color:var(--muted)}
+.chips button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.chips button[aria-pressed="true"] .cnt{color:rgba(255,255,255,.75)}
+:root[data-theme="dark"] .chips button[aria-pressed="true"]{background:var(--brand-bg);border-color:var(--brand-bg)}
+.news{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:12px}
+.nitem{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px 15px;display:grid;gap:9px;align-content:start;box-shadow:var(--sh);min-width:0}
+.n-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ntag{font-size:.74rem;font-weight:700;color:#fff;background:var(--nc);border-radius:6px;padding:2px 9px}
+.n-idx{font-family:var(--font-num);font-size:.72rem;color:var(--muted);margin-left:auto}
+.nitem h4{font-size:1rem;line-height:1.45}
+.impact{font-size:.9rem;background:var(--surface2);border-left:4px solid var(--nc);border-radius:8px;padding:8px 10px;color:var(--ink)}
+.impact b{display:block;font-family:var(--font-head);font-weight:600;font-size:.76rem;color:var(--muted);margin-bottom:1px}
+.nitem details summary{cursor:pointer;font-size:.84rem;color:var(--brand);font-weight:600;list-style:none;display:inline-flex;align-items:center;gap:4px}
+.nitem details summary::-webkit-details-marker{display:none}
+.nitem details summary .chev{color:var(--brand)}
+.nitem details[open] summary .chev{transform:rotate(90deg)}
+.nitem details p{margin:6px 0 0;font-size:.92rem;color:var(--ink2)}
+.nsrc{font-size:.76rem;color:var(--muted);display:flex;gap:4px;flex-wrap:wrap;align-items:center}
 
-/* history */
-.histbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:12px}
-.histhead{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
-.histhead select{border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:var(--surface);color:var(--ink);max-width:100%}
-.histinfo{font-size:.82rem;color:var(--muted)}
-.chart{position:relative;width:100%}
-.chart svg{display:block;width:100%;height:auto}
+/* ---------- History / chart ---------- */
+.histhead{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.selwrap{position:relative;flex:1 1 260px;min-width:0}
+.selwrap select{appearance:none;-webkit-appearance:none;width:100%;border:1px solid var(--line2);border-radius:12px;padding:10px 34px 10px 12px;background:var(--surface);font-size:16px;font-weight:600;min-height:44px}
+.selwrap::after{content:"";position:absolute;right:14px;top:50%;width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (min-width:640px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.stat{background:var(--surface2);border:1px solid var(--line);border-radius:var(--r-md);padding:9px 11px;display:grid;gap:1px;min-width:0}
+.stat span{font-size:.72rem;color:var(--muted);font-weight:600}
+.stat b{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:1.05rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat small{font-size:.7rem;color:var(--muted)}
+.chart{position:relative;width:100%;min-height:200px}
+.chart svg{display:block;width:100%;height:auto;touch-action:pan-y}
 .chart .axis text{fill:var(--muted);font-size:11px;font-family:var(--font-body)}
-.chart .grid line{stroke:var(--line)}
-.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.8rem;padding:5px 8px;border-radius:6px;white-space:nowrap;transform:translate(-50%,-115%);display:none}
-.tablewrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;font-size:.88rem}
-th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-th{color:var(--muted);font-weight:600;font-size:.8rem}
-td.num{font-family:var(--font-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+.chart .grid line{stroke:var(--line);stroke-dasharray:3 4}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.78rem;padding:6px 9px;border-radius:8px;white-space:nowrap;transform:translate(-50%,calc(-100% - 12px));display:none;box-shadow:0 6px 16px rgba(0,0,0,.18);line-height:1.4;z-index:2}
+.tip b{font-family:var(--font-num);font-size:.9rem}
+.histnote{font-size:.78rem;color:var(--muted)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-md)}
+table{border-collapse:collapse;width:100%;min-width:500px;font-size:.86rem}
+td:first-child,td:nth-child(3){white-space:nowrap}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{color:var(--muted);font-weight:600;font-size:.76rem;background:var(--surface2);white-space:nowrap}
+td.n{font-family:var(--font-num);font-variant-numeric:tabular-nums;white-space:nowrap}
 
-.empty{background:var(--surface);border:1px dashed var(--line);border-radius:14px;padding:22px;color:var(--muted);text-align:center}
-.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:.8rem;color:var(--muted)}
-footer{font-size:.8rem;color:var(--muted);display:grid;gap:4px;max-width:90ch}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ---------- Bottom sheet ---------- */
+.sheet{position:fixed;inset:0;z-index:50;display:grid;align-items:end;justify-items:center}
+.sheet-bg{position:absolute;inset:0;background:rgba(8,18,28,.5);animation:bgin .2s ease}
+@keyframes bgin{from{opacity:0}}
+.sheet-p{position:relative;width:100%;max-width:760px;max-height:min(88vh,860px);overflow-y:auto;overscroll-behavior:contain;background:var(--surface);border-radius:20px 20px 0 0;box-shadow:var(--sh-lg);padding:8px 16px calc(18px + env(safe-area-inset-bottom));display:grid;gap:12px;animation:sheetin .26s cubic-bezier(.2,.8,.2,1)}
+@keyframes sheetin{from{transform:translateY(40px);opacity:.4}}
+@media (min-width:760px){.sheet{align-items:center;padding:24px}.sheet-p{border-radius:20px;padding:16px 20px 20px}}
+.grab{width:42px;height:5px;border-radius:5px;background:var(--line2);justify-self:center;margin-bottom:2px}
+@media (min-width:760px){.grab{display:none}}
+.sh-head{display:flex;align-items:flex-start;gap:10px;position:sticky;top:-8px;background:var(--surface);padding:6px 0;z-index:3}
+.sh-head > div{flex:1;min-width:0}
+.sh-head h3{font-size:1.08rem;line-height:1.35}
+.sh-grp{font-size:.76rem;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:5px}
+.sh-grp .ic{color:var(--gc)}
+.xbtn{border:1px solid var(--line);background:var(--surface2);border-radius:10px;width:40px;height:40px;display:grid;place-items:center;padding:0;flex:none;color:var(--ink2)}
+.sh-now{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 10px}
+.sh-now .num{font-size:1.7rem;font-weight:600}
+.sh-now .u{font-size:.82rem;color:var(--muted)}
+.sh-meta{font-size:.8rem;color:var(--muted);line-height:1.5}
+.sh-note{font-size:.84rem;background:var(--surface2);border-radius:10px;padding:8px 10px;color:var(--ink2)}
+.sh-acts{display:flex;gap:8px;flex-wrap:wrap}
+.sh-acts .tbtn{min-height:40px}
+body.lock{overflow:hidden}
+
+/* ---------- States ---------- */
+.empty{background:var(--surface);border:1px dashed var(--line2);border-radius:var(--r-lg);padding:22px 18px;color:var(--muted);text-align:center;display:grid;gap:8px;justify-items:center}
+.empty .ic{width:28px;height:28px;color:var(--line2)}
+.errorbox{background:var(--surface);border:1px solid #f1b8b4;border-radius:var(--r-lg);padding:20px;display:grid;gap:10px;justify-items:start}
+.errorbox h2{font-size:1.05rem;color:var(--up)}
+.errorbox button{border:0;background:var(--brand-bg);color:#fff;border-radius:10px;padding:9px 16px;font-weight:600;min-height:42px}
+.sk{position:relative;overflow:hidden;background:var(--line);border-radius:8px}
+.sk::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-100%);animation:sh 1.3s infinite}
+.summary .sk{background:rgba(255,255,255,.14)}
+.summary .sk::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent)}
+@keyframes sh{to{transform:translateX(100%)}}
+.key.skel{min-height:126px;cursor:default}
+.key.skel::before{background:var(--line)}
+
+footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 0;border-top:1px solid var(--line);margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{.appbar,.botnav,.toolbar,.catnav{display:none}.view{display:grid!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <section class="hero" id="hero">
-    <div class="hero-top">
+<header class="appbar" id="appbar">
+  <div class="appbar-in">
+    <div class="brand">
+      <img src="icon-192.png" alt="" width="34" height="34">
       <div>
-        <h1><span class="logo" aria-hidden="true">☀️</span> ประเด็นสำคัญเช้านี้</h1>
-        <div class="sub">จับสัญญาณราคา ข่าว และฤดูผลผลิต ที่กระทบต้นทุนฟาร์มและอาหารสัตว์ · อัปเดตทุกเช้า</div>
-      </div>
-      <div class="daypick">
-        <label for="daySel">ข้อมูลวันที่</label>
-        <select id="daySel"></select>
+        <h1>ประเด็นสำคัญเช้านี้</h1>
+        <div class="brand-sub" id="brandSub">กำลังโหลดข้อมูล…</div>
       </div>
     </div>
-    <p class="headline" id="headline">กำลังโหลดข้อมูล…</p>
-    <div class="stamp" id="stamp"></div>
+    <nav class="topnav" role="tablist" aria-label="เมนูหลัก" data-nav></nav>
+    <div class="acts">
+      <label class="datepick"><span class="sr">เลือกวันที่ข้อมูล</span><select id="daySel" disabled><option>—</option></select></label>
+      <button class="iconbtn" id="themeBtn" type="button" aria-label="สลับโหมดสว่าง/มืด"></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+
+  <!-- ภาพรวม -->
+  <section class="view on" id="v-overview" role="tabpanel" aria-label="ภาพรวม">
+    <div id="oldDay" class="oldday" hidden></div>
+    <section class="summary" id="summary" aria-live="polite">
+      <div class="sum-k"><span class="ic" data-ic="trend"></span>สรุปภาพรวมเช้านี้</div>
+      <div id="headlineWrap">
+        <div class="sk" style="height:14px;width:96%;margin:6px 0"></div>
+        <div class="sk" style="height:14px;width:88%;margin:6px 0"></div>
+        <div class="sk" style="height:14px;width:62%;margin:6px 0"></div>
+      </div>
+      <div class="pills" id="pills"></div>
+      <div class="sum-legend">นับจากรายการที่มีราคาเทียบได้ · สีแดง = ต้นทุนผู้ซื้อสูงขึ้น · สีเขียว = ต้นทุนลดลง</div>
+    </section>
+
+    <section class="sec" aria-labelledby="h-keys">
+      <div class="sec-h"><h2 id="h-keys"><span class="ic" data-ic="overview"></span>ตัวเลขหลัก</h2><span class="sec-note">แตะการ์ดเพื่อดูกราฟย้อนหลัง</span></div>
+      <div class="keys" id="keys">
+        <div class="key skel"><div class="sk" style="height:12px;width:70%"></div><div class="sk" style="height:26px;width:60%;margin-top:6px"></div><div class="sk" style="height:16px;width:50%;margin-top:6px"></div></div>
+        <div class="key skel"><div class="sk" style="height:12px;width:70%"></div><div class="sk" style="height:26px;width:60%;margin-top:6px"></div><div class="sk" style="height:16px;width:50%;margin-top:6px"></div></div>
+        <div class="key skel"><div class="sk" style="height:12px;width:70%"></div><div class="sk" style="height:26px;width:60%;margin-top:6px"></div><div class="sk" style="height:16px;width:50%;margin-top:6px"></div></div>
+        <div class="key skel"><div class="sk" style="height:12px;width:70%"></div><div class="sk" style="height:26px;width:60%;margin-top:6px"></div><div class="sk" style="height:16px;width:50%;margin-top:6px"></div></div>
+        <div class="key skel"><div class="sk" style="height:12px;width:70%"></div><div class="sk" style="height:26px;width:60%;margin-top:6px"></div><div class="sk" style="height:16px;width:50%;margin-top:6px"></div></div>
+        <div class="key skel"><div class="sk" style="height:12px;width:70%"></div><div class="sk" style="height:26px;width:60%;margin-top:6px"></div><div class="sk" style="height:16px;width:50%;margin-top:6px"></div></div>
+      </div>
+    </section>
+
+    <div class="duo">
+      <section class="card panel" aria-labelledby="h-ins">
+        <div class="ins-h"><span class="ins-badge"><span class="ic" data-ic="bulb"></span></span><h2 id="h-ins">สิ่งที่จัดซื้อควรรู้วันนี้</h2></div>
+        <ol class="ins" id="tips"></ol>
+        <div class="disclaim">เรียบเรียงจากข่าวและราคาที่มีแหล่งอ้างอิงในวันนั้น ไม่ใช่คำแนะนำการลงทุน</div>
+      </section>
+      <section class="card panel" aria-labelledby="h-mov">
+        <div class="sec-h"><h2 id="h-mov"><span class="ic" data-ic="trend"></span>ราคาที่ขยับแรงที่สุด</h2><span class="sec-note">เรียงตาม % การเปลี่ยนแปลง</span></div>
+        <div class="movers" id="movers"></div>
+      </section>
+    </div>
+
+    <section class="card panel" id="alertsPanel" hidden aria-labelledby="h-al">
+      <div class="al-h"><h2 id="h-al"><span class="ic" data-ic="alert"></span>เฝ้าระวังโรคระบาดสัตว์ปีก</h2><div class="lvcount" id="lvcount"></div></div>
+      <div class="sec-note">ใช้วางแผนยาฆ่าเชื้อ วัคซีน และอุปกรณ์ไบโอซีเคียวริตี้</div>
+      <div class="alist" id="alerts"></div>
+    </section>
+
+    <section class="sec" id="hstripSec" hidden aria-labelledby="h-hs">
+      <div class="sec-h"><h2 id="h-hs"><span class="ic" data-ic="rice"></span>ฤดูเก็บเกี่ยวเดือนนี้</h2><span class="sec-note">แตะเพื่อดูปฏิทิน 12 เดือน</span></div>
+      <div class="hstrip" id="hstrip"></div>
+    </section>
   </section>
 
-  <section class="keys" id="keys" aria-label="ตัวเลขสำคัญ"></section>
-
-  <section class="duo">
-    <div class="panel" id="notePanel">
-      <h2><span class="dot"></span>สิ่งที่จัดซื้อควรรู้วันนี้</h2>
-      <ol class="tips" id="tips"></ol>
+  <!-- ราคา -->
+  <section class="view" id="v-prices" role="tabpanel" aria-label="ราคาทั้งหมด">
+    <div class="toolbar">
+      <label class="search"><span class="ic" data-ic="search"></span><span class="sr">ค้นหารายการราคา</span><input id="q" type="search" placeholder="ค้นหา เช่น ข้าวโพด ดีเซล ไข่" autocomplete="off" enterkeyhint="search"><button type="button" class="clearq" id="clearQ" hidden aria-label="ล้างคำค้น"><span class="ic" data-ic="close"></span></button></label>
+      <button type="button" class="tbtn" id="toggleAll">ย่อทุกหมวด</button>
     </div>
-    <div class="panel">
-      <h2><span class="dot" style="background:var(--up)"></span>ราคาที่ขยับแรงที่สุด</h2>
-      <div class="movers" id="movers"></div>
-    </div>
-  </section>
-
-  <section class="panel alerts" id="alertsPanel" hidden>
-    <h2><span class="dot" style="background:var(--c-livestock)"></span>เฝ้าระวังโรคระบาดสัตว์ปีก <small class="sub2">ใช้วางแผนยาฆ่าเชื้อ วัคซีน และอุปกรณ์ไบโอซีเคียวริตี้</small></h2>
-    <div class="alist" id="alerts"></div>
-  </section>
-
-  <nav class="tabs" role="tablist" aria-label="มุมมอง">
-    <button role="tab" id="tab-prices" aria-selected="true" aria-controls="v-prices">ราคาทั้งหมด</button>
-    <button role="tab" id="tab-news" aria-selected="false" aria-controls="v-news">ข่าว</button>
-    <button role="tab" id="tab-hist" aria-selected="false" aria-controls="v-hist">กราฟย้อนหลัง</button>
-  </nav>
-
-  <section class="view on" id="v-prices" role="tabpanel" aria-labelledby="tab-prices">
-    <div class="legend">
-      <span><span class="chg up">▲ แดง</span> ต้นทุนผู้ซื้อสูงขึ้น</span>
-      <span><span class="chg down">▼ เขียว</span> ต้นทุนลดลง</span>
-      <span>ไก่ หมู ไข่ (ฟาร์มเป็นผู้ขาย) สีจะกลับกัน · แตะแถวเพื่อดูกราฟ</span>
-    </div>
+    <div class="legend"><span class="chg up">▲ แดง</span><span>ต้นทุนผู้ซื้อสูงขึ้น</span><span class="chg down">▼ เขียว</span><span>ต้นทุนลดลง</span><span>ไก่ หมู ไข่ (ฝั่งขาย) สีกลับกัน · แตะรายการเพื่อดูกราฟ</span></div>
     <nav class="catnav" id="catnav" aria-label="ไปยังหมวด"></nav>
-    <section class="panel harvest" id="harvestPanel" hidden>
-      <h2><span class="dot" style="background:var(--c-feed)"></span>ฤดูเก็บเกี่ยว: ตอนนี้ของออกเยอะหรือน้อย</h2>
-      <div class="hlegend"><span><i class="sw peak"></i>ออกมาก (ของเยอะ ราคามักอ่อน)</span><span><i class="sw on"></i>ทยอยออก</span><span><i class="sw off"></i>นอกฤดู (ของน้อย)</span><span>แถบเริ่มจากเดือนนี้ ไปอีก 12 เดือน</span></div>
+    <div class="cats" id="cats"></div>
+    <section class="harvest" id="harvestPanel" hidden>
+      <h4>ปฏิทินฤดูเก็บเกี่ยว: ตอนนี้ผลผลิตออกเยอะหรือน้อย</h4>
+      <div class="hlegend"><span><i class="sw peak"></i>ออกมาก (ของเยอะ ราคามักอ่อน)</span><span><i class="sw on"></i>ทยอยออก</span><span><i class="sw off"></i>นอกฤดู (ของน้อย)</span><span>แถบเริ่มจากเดือนนี้ไปอีก 12 เดือน</span></div>
       <div class="hlist" id="hlist"></div>
     </section>
-    <div id="cats" style="display:grid;gap:14px"></div>
   </section>
 
-  <section class="view" id="v-news" role="tabpanel" aria-labelledby="tab-news">
-    <div class="chips" id="newsChips"></div>
+  <!-- ข่าว -->
+  <section class="view" id="v-news" role="tabpanel" aria-label="ข่าว">
+    <div class="sec-h"><h2><span class="ic" data-ic="news"></span>ข่าวที่กระทบงานจัดซื้อ</h2><span class="sec-note" id="newsNote"></span></div>
+    <div class="chips" id="newsChips" role="group" aria-label="กรองหมวดข่าว"></div>
     <div class="news" id="newsList"></div>
   </section>
 
-  <section class="view" id="v-hist" role="tabpanel" aria-labelledby="tab-hist">
-    <div class="histbox">
-      <div class="histhead">
-        <select id="histSel" aria-label="เลือกรายการ"></select>
-        <span class="histinfo" id="histInfo"></span>
-      </div>
-      <div class="chart" id="chart"><div class="tip" id="tip"></div></div>
-      <div class="tablewrap"><table id="histTable"></table></div>
+  <!-- กราฟ -->
+  <section class="view" id="v-hist" role="tabpanel" aria-label="กราฟย้อนหลัง">
+    <div class="card panel">
+      <div class="sec-h"><h2><span class="ic" data-ic="chart"></span>กราฟราคาย้อนหลัง</h2><span class="sec-note">ใช้เฉพาะราคาที่บันทึกจริงในแต่ละวัน</span></div>
+      <div class="histhead"><label class="selwrap"><span class="sr">เลือกรายการ</span><select id="histSel"></select></label></div>
+      <div id="histBody"></div>
     </div>
   </section>
 
   <footer>
-    <span>อัปเดตอัตโนมัติทุกเช้าก่อน 07:30 น. และเก็บสถิติไว้ทุกวัน</span>
-    <span>ทุกตัวเลขมีแหล่งที่มาและวันที่ประกาศ ราคาบางรายการประกาศรายสัปดาห์ จึงอาจไม่เปลี่ยนทุกวัน</span>
-    <span>บทสรุปและมุมมองจัดซื้อเรียบเรียงโดย Claude จากข่าว ไม่ใช่คำแนะนำการลงทุน</span>
+    <span>อัปเดตอัตโนมัติทุกเช้าก่อน 07:30 น. และเก็บสถิติไว้ทุกวัน · ทุกตัวเลขมีแหล่งที่มาและวันที่ประกาศ</span>
+    <span>ราคาบางรายการประกาศรายสัปดาห์ จึงอาจไม่เปลี่ยนทุกวัน · บทสรุปเรียบเรียงโดย Claude จากข่าว ไม่ใช่คำแนะนำการลงทุน</span>
   </footer>
+</main>
+
+<nav class="botnav" role="tablist" aria-label="เมนูหลัก" data-nav></nav>
+
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="shTitle">
+  <div class="sheet-bg" data-close></div>
+  <div class="sheet-p" id="sheetP"></div>
 </div>
 
 <script>
 (function(){
+  "use strict";
+  // ---------- icons (one stroke style) ----------
+  const ICONS = {
+    overview:'<rect x="3" y="3" width="7.5" height="9" rx="2"/><rect x="13.5" y="3" width="7.5" height="5.5" rx="2"/><rect x="13.5" y="11.5" width="7.5" height="9.5" rx="2"/><rect x="3" y="15" width="7.5" height="6" rx="2"/>',
+    prices:'<path d="M4 6h16M4 12h16M4 18h10"/>',
+    news:'<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h10A1.5 1.5 0 0 1 17 5.5V19a1 1 0 0 0 1 1H6a2 2 0 0 1-2-2z"/><path d="M17 9h2.5a.5.5 0 0 1 .5.5V18a2 2 0 0 1-2 2M8 8h5M8 12h5M8 16h3"/>',
+    chart:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-6"/>',
+    trend:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+    search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+    sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
+    close:'<path d="M6 6l12 12M18 6L6 18"/>',
+    chev:'<path d="M9 6l6 6-6 6"/>',
+    alert:'<path d="M10.3 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+    bulb:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/>',
+    ext:'<path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+    feed:'<path d="M12 21V8"/><path d="M12 8c0-2.8 1.8-4.6 4.5-5 0 2.8-1.8 4.6-4.5 5zM12 8c0-2.8-1.8-4.6-4.5-5 0 2.8 1.8 4.6 4.5 5zM12 14c0-2.8 1.8-4.6 4.5-5 0 2.8-1.8 4.6-4.5 5zM12 14c0-2.8-1.8-4.6-4.5-5 0 2.8 1.8 4.6 4.5 5z"/>',
+    fx:'<circle cx="12" cy="12" r="9"/><path d="M14.8 9.3c-.5-.9-1.5-1.3-2.8-1.3-1.7 0-2.9.8-2.9 2s1.2 1.6 2.9 1.9 2.9.8 2.9 2-1.2 2.1-2.9 2.1c-1.3 0-2.4-.5-2.9-1.4M12 6v2M12 16v2"/>',
+    energy:'<path d="M5 21V5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v16M3.5 21h12M8 8h3"/><path d="M14 10h1.5a1.5 1.5 0 0 1 1.5 1.5V15a1.5 1.5 0 0 0 3 0V8.5L17.5 6"/>',
+    gold:'<path d="M2.5 20l2-5h6l2 5zM11.5 20l2-5h6l2 5zM7 15l2-5h6l2 5z"/>',
+    global:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.6 3.7 5.6 3.7 9s-1.3 6.4-3.7 9c-2.4-2.6-3.7-5.6-3.7-9S9.6 5.6 12 3z"/>',
+    livestock:'<path d="M12 3c3.6 0 6.5 5.2 6.5 10a6.5 6.5 0 0 1-13 0C5.5 8.2 8.4 3 12 3z"/>',
+    rice:'<path d="M12 21v-9"/><path d="M12 12c0-4.4-3.2-7.5-7.5-7.5 0 4.4 3.2 7.5 7.5 7.5zM12 12c0-4.4 3.2-7.5 7.5-7.5 0 4.4-3.2 7.5-7.5 7.5z"/>',
+    feedad:'<path d="M10.6 3.6l-7 7a4.9 4.9 0 0 0 6.9 6.9l7-7a4.9 4.9 0 0 0-6.9-6.9zM7 7l6.9 6.9"/>'
+  };
+  function ic(name, cls){
+    const s = document.createElement("span");
+    s.className = "ic" + (cls ? " " + cls : "");
+    s.setAttribute("aria-hidden","true");
+    s.innerHTML = '<svg viewBox="0 0 24 24">' + (ICONS[name] || "") + '</svg>';
+    return s;
+  }
+  document.querySelectorAll("[data-ic]").forEach(n => { n.replaceWith(ic(n.getAttribute("data-ic"))); });
+
+  // ---------- configuration (ids and groups unchanged) ----------
   const GROUPS = [
-    {id:"feed", name:"วัตถุดิบอาหารสัตว์", hint:"ราคาในประเทศ", icon:"🌽", open:true},
-    {id:"fx", name:"ค่าเงิน", hint:"กระทบราคานำเข้า", icon:"💱", open:true},
-    {id:"energy", name:"น้ำมัน / พลังงาน", hint:"ค่าขนส่ง", icon:"⛽", open:true},
-    {id:"gold", name:"ทองคำ", hint:"", icon:"🥇", open:true},
-    {id:"global", name:"ตลาดโลก (CBOT)", hint:"ราคาล่วงหน้าชิคาโก", icon:"🌎", open:true},
-    {id:"livestock", name:"ไก่ · หมู · ไข่", hint:"ราคาหน้าฟาร์ม", icon:"🐔", open:true},
-    {id:"rice", name:"ข้าว / พืชไร่", hint:"รวมปฏิทินฤดูเก็บเกี่ยว", icon:"🌾", open:true},
-    {id:"feedad", name:"วิตามิน / แร่ธาตุ / FeedAd", hint:"", icon:"💊", open:false}
+    {id:"feed", name:"วัตถุดิบอาหารสัตว์", hint:"ราคาในประเทศ", open:true},
+    {id:"fx", name:"ค่าเงิน", hint:"กระทบราคานำเข้า", open:true},
+    {id:"energy", name:"น้ำมัน / พลังงาน", hint:"ค่าขนส่ง", open:true},
+    {id:"gold", name:"ทองคำ", hint:"", open:true},
+    {id:"global", name:"ตลาดโลก (CBOT)", hint:"ราคาล่วงหน้าชิคาโก", open:true},
+    {id:"livestock", name:"ไก่ · หมู · ไข่", hint:"ราคาหน้าฟาร์มและขายปลีก", open:true},
+    {id:"rice", name:"ข้าว / พืชไร่", hint:"รวมปฏิทินฤดูเก็บเกี่ยว", open:true},
+    {id:"feedad", name:"วิตามิน / แร่ธาตุ / FeedAd", hint:"", open:false}
   ];
   const GMAP = {}; GROUPS.forEach(g => GMAP[g.id] = g);
   const KEY_IDS = ["usd_thb","cny_thb","diesel_b7","corn_th","sbm_th","rice_bran"];
-  const KEY_LABEL = {usd_thb:"ค่าเงินบาท (ต่อ USD)",diesel_b7:"ดีเซล B7",corn_th:"ข้าวโพดเม็ด",sbm_th:"กากถั่วเหลือง",rice_bran:"รำละเอียด",broiler:"ไก่เนื้อหน้าฟาร์ม",cny_thb:"ค่าเงินหยวน (ต่อ CNY)"};
-  // Secondary detail rows, shown on request so each category stays short.
+  const KEY_LABEL = {usd_thb:"USD/THB",cny_thb:"CNY/THB",diesel_b7:"ดีเซล B7",corn_th:"ข้าวโพดเม็ด",sbm_th:"กากถั่วเหลือง",rice_bran:"รำละเอียด"};
   const EXTRA = new Set(["diesel_b20","corn_silo","rice_bran_ext","fishmeal_60","pig_west","duck_egg_retail"]);
   const NEWS_COLORS = {"เศรษฐกิจ":"#1d4ed8","ค่าเงิน":"#1e3a8a","สงคราม/ภูมิรัฐศาสตร์":"#b91c1c","พลังงาน":"#c2410c","วัตถุดิบอาหารสัตว์":"#15803d","ปศุสัตว์":"#be185d","ข้าว/เก็บเกี่ยว":"#92400e","วิตามิน/FeedAd":"#6d28d9","เวชภัณฑ์/วัคซีน":"#0e7490"};
-  const state = {days:[], byDate:{}, current:null, newsCat:"ทั้งหมด", histId:null};
+  const VIEWS = [
+    {id:"overview", label:"ภาพรวม", icon:"overview"},
+    {id:"prices", label:"ราคา", icon:"prices"},
+    {id:"news", label:"ข่าว", icon:"news"},
+    {id:"hist", label:"กราฟ", icon:"chart"}
+  ];
+  const state = {days:[], byDate:{}, current:null, newsCat:"ทั้งหมด", histId:null, allNews:false, moversAll:false, q:"", view:"overview"};
   const $ = id => document.getElementById(id);
 
+  // ---------- helpers ----------
   function el(tag, attrs, ...kids){
     const n = document.createElement(tag);
     if (attrs) for (const k in attrs){
-      if (k === "class") n.className = attrs[k];
-      else if (k === "text") n.textContent = attrs[k];
-      else if (k === "style") n.setAttribute("style", attrs[k]);
-      else n.setAttribute(k, attrs[k]);
+      const v = attrs[k]; if (v == null || v === false) continue;
+      if (k === "class") n.className = v;
+      else if (k === "text") n.textContent = v;
+      else n.setAttribute(k, v);
     }
     for (const c of kids){ if (c == null) continue; n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); }
     return n;
@@ -345,9 +597,11 @@ footer{font-size:.8rem;color:var(--muted);display:grid;gap:4px;max-width:90ch}
   const nf = (v, d) => (typeof v === "number" && isFinite(v)) ? v.toLocaleString("th-TH",{minimumFractionDigits:d,maximumFractionDigits:d}) : "—";
   const decimals = v => (typeof v === "number" && Math.abs(v) >= 1000) ? 0 : (typeof v === "number" && Math.abs(v) < 10 && Math.abs(v*100 - Math.round(v*100)) > 1e-6 ? 4 : 2);
   function thDate(iso){ try{ return new Date(iso + "T00:00:00+07:00").toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"2-digit",timeZone:"Asia/Bangkok"}); }catch(e){ return iso; } }
+  function thTime(iso){ try{ return new Date(iso).toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit",timeZone:"Asia/Bangkok"}) + " น."; }catch(e){ return ""; } }
   const gcol = gid => "var(--c-" + (gid || "feed") + ")";
+  const gcolVal = gid => getComputedStyle(document.documentElement).getPropertyValue("--c-" + (gid || "feed")).trim() || "#16a34a";
 
-  // change vs previous record
+  // ---------- change logic (unchanged from previous version) ----------
   // The source's own previous price is the most accurate comparison; fall back to our previous record.
   function prevOf(item, date){
     if (typeof item.prev === "number") return {v: item.prev, basis: item.prevLabel || "เทียบประกาศก่อน"};
@@ -359,34 +613,10 @@ footer{font-size:.8rem;color:var(--muted);display:grid;gap:4px;max-width:90ch}
     }
     return null;
   }
-  // True when the source has not published anything new since our previous record.
-  function isCarried(item, date){
-    for (let i = state.days.length - 1; i >= 0; i--){
-      const d = state.days[i];
-      if (d.date >= date) continue;
-      const it = (d.items || []).find(x => x.id === item.id);
-      return !!(it && it.asOf === item.asOf && it.value === item.value);
-    }
-    return false;
-  }
   function seriesUpTo(id, date){
     const pts = [];
     state.days.forEach(d => { if (d.date > date) return; const it = (d.items || []).find(x => x.id === id); if (it && typeof it.value === "number") pts.push(it.value); });
     return pts;
-  }
-  function spark(pts, color){
-    if (pts.length < 3) return null;
-    const W = 96, H = 28, lo = Math.min(...pts), hi = Math.max(...pts), r = (hi - lo) || 1;
-    const xy = pts.map((v,i) => [i * W / (pts.length - 1), H - 3 - (v - lo) * (H - 6) / r]);
-    const NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS,"svg");
-    svg.setAttribute("viewBox","0 0 " + W + " " + H); svg.setAttribute("class","spark"); svg.setAttribute("aria-hidden","true");
-    const p = document.createElementNS(NS,"path");
-    p.setAttribute("d", xy.map((q,i) => (i ? "L" : "M") + q[0].toFixed(1) + "," + q[1].toFixed(1)).join(""));
-    p.setAttribute("fill","none"); p.setAttribute("stroke",color); p.setAttribute("stroke-width","2"); p.setAttribute("stroke-linejoin","round");
-    svg.appendChild(p);
-    const c = document.createElementNS(NS,"circle"); const L = xy[xy.length-1];
-    c.setAttribute("cx",L[0]); c.setAttribute("cy",L[1]); c.setAttribute("r","2.8"); c.setAttribute("fill",color); svg.appendChild(c);
-    return svg;
   }
   function change(item, date){
     if (typeof item.value !== "number") return null;
@@ -398,269 +628,246 @@ footer{font-size:.8rem;color:var(--muted);display:grid;gap:4px;max-width:90ch}
     return {diff, pct, cls, basis: p.basis};
   }
   function chip(c, item, withBasis){
-    if (!c) return el("span",{class:"chg flat",text:"ไม่มีข้อมูลเทียบ"});
-    const arrow = Math.abs(c.diff) < 1e-9 ? "■ คงที่" : (c.diff > 0 ? "▲" : "▼");
+    if (!c) return el("span",{class:"chg flat none",text:"ไม่มีข้อมูลเทียบ"});
+    const same = Math.abs(c.diff) < 1e-9;
     const sign = c.diff > 0 ? "+" : "";
-    const txt = Math.abs(c.diff) < 1e-9 ? arrow : arrow + " " + sign + nf(c.diff, Math.abs(c.diff) < 0.01 ? 4 : decimals(item.value)) + " (" + sign + c.pct.toFixed(1) + "%)";
+    const txt = same ? "■ คงที่" : (c.diff > 0 ? "▲ " : "▼ ") + sign + nf(c.diff, Math.abs(c.diff) < 0.01 ? 4 : decimals(item.value)) + " (" + sign + c.pct.toFixed(1) + "%)";
     const s = el("span",{class:"chg " + c.cls, text: txt});
     if (withBasis) s.title = c.basis;
     return s;
   }
   function valText(it){ return it.valueText || (typeof it.value === "number" ? nf(it.value, decimals(it.value)) : "—"); }
-  function openHist(id){ state.histId = id; selectTab("hist"); window.scrollTo({top: $("v-hist").offsetTop - 10, behavior:"smooth"}); }
+  function spark(pts, color, W, H){
+    if (pts.length < 2) return null;
+    W = W || 58; H = H || 24;
+    const lo = Math.min(...pts), hi = Math.max(...pts), r = (hi - lo) || 1;
+    const xy = pts.map((v,i) => [i * W / (pts.length - 1), hi === lo ? H/2 : H - 3 - (v - lo) * (H - 6) / r]);
+    const NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS,"svg");
+    svg.setAttribute("viewBox","0 0 " + W + " " + H); svg.setAttribute("class","spark"); svg.setAttribute("aria-hidden","true");
+    const d = xy.map((q,i) => (i ? "L" : "M") + q[0].toFixed(1) + "," + q[1].toFixed(1)).join("");
+    const a = document.createElementNS(NS,"path");
+    a.setAttribute("d", d + "L" + W + "," + H + "L0," + H + "Z"); a.setAttribute("fill", color); a.setAttribute("fill-opacity", ".12");
+    const p = document.createElementNS(NS,"path");
+    p.setAttribute("d", d); p.setAttribute("fill","none"); p.setAttribute("stroke",color); p.setAttribute("stroke-width","1.8"); p.setAttribute("stroke-linejoin","round"); p.setAttribute("stroke-linecap","round");
+    const c = document.createElementNS(NS,"circle"); const L = xy[xy.length-1];
+    c.setAttribute("cx",L[0]); c.setAttribute("cy",L[1]); c.setAttribute("r","2.6"); c.setAttribute("fill",color);
+    svg.appendChild(a); svg.appendChild(p); svg.appendChild(c);
+    return svg;
+  }
+  function curDay(){ return state.current ? state.byDate[state.current] : null; }
+  function isLatest(){ return state.days.length && state.current === state.days[state.days.length-1].date; }
 
-  // hero
-  function renderHero(day){
-    $("headline").textContent = day ? (day.headline || "") : "ยังไม่มีข้อมูล ข้อมูลชุดแรกจะขึ้นหลังการอัปเดตครั้งถัดไป";
-    const st = $("stamp"); st.textContent = "";
-    if (!day) return;
+  // ---------- navigation ----------
+  function buildNav(){
+    document.querySelectorAll("[data-nav]").forEach(nav => {
+      nav.textContent = "";
+      VIEWS.forEach(v => {
+        const b = el("button",{type:"button",role:"tab","data-view":v.id,"aria-selected":String(v.id === state.view),"aria-controls":"v-" + v.id}, ic(v.icon), el("span",{text:v.label}));
+        b.addEventListener("click", () => selectView(v.id, true));
+        nav.appendChild(b);
+      });
+    });
+  }
+  function selectView(name, scroll){
+    if (!VIEWS.some(v => v.id === name)) name = "overview";
+    state.view = name;
+    document.querySelectorAll("[data-view]").forEach(b => b.setAttribute("aria-selected", String(b.getAttribute("data-view") === name)));
+    VIEWS.forEach(v => $("v-" + v.id).classList.toggle("on", v.id === name));
+    try{ history.replaceState(null, "", name === "overview" ? location.pathname + location.search : "#" + name); }catch(e){}
+    if (name === "hist") renderHistory();
+    if (scroll) window.scrollTo({top:0, behavior:"auto"});
+  }
+  function measure(){
+    document.documentElement.style.setProperty("--appbar-h", $("appbar").offsetHeight + "px");
+    const bn = document.querySelector(".botnav");
+    document.documentElement.style.setProperty("--botnav-h", (bn && getComputedStyle(bn).display !== "none") ? (bn.offsetHeight - 0) + "px" : "0px");
+  }
+
+  // ---------- theme ----------
+  function getTheme(){ try{ return localStorage.getItem("mb-theme"); }catch(e){ return null; } }
+  function effectiveDark(){ const t = document.documentElement.getAttribute("data-theme"); return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; }
+  function paintThemeBtn(){
+    const b = $("themeBtn"); b.textContent = "";
+    const dark = effectiveDark();
+    b.appendChild(ic(dark ? "sun" : "moon"));
+    b.setAttribute("aria-label", dark ? "เปลี่ยนเป็นโหมดสว่าง" : "เปลี่ยนเป็นโหมดมืด");
+    b.title = b.getAttribute("aria-label");
+  }
+  (function initTheme(){ const t = getTheme(); if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t); })();
+  $("themeBtn").addEventListener("click", () => {
+    const next = effectiveDark() ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try{ localStorage.setItem("mb-theme", next); }catch(e){}
+    paintThemeBtn(); renderAll(true);
+  });
+  try{ matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { if (!document.documentElement.getAttribute("data-theme")){ paintThemeBtn(); renderAll(true); } }); }catch(e){}
+
+  // ---------- header + summary ----------
+  function renderHeader(day){
+    const sel = $("daySel"); sel.textContent = ""; sel.disabled = !state.days.length;
+    state.days.slice().reverse().forEach((d, i) => sel.appendChild(el("option",{value:d.date,text:thDate(d.date)})));
+    if (state.current) sel.value = state.current;
+    $("brandSub").textContent = day ? (isLatest() ? "ข้อมูลล่าสุด" : "ข้อมูลย้อนหลัง") + (day.updatedAt ? " · อัปเดต " + thTime(day.updatedAt) : "") : "ยังไม่มีข้อมูล";
+    const od = $("oldDay"); od.textContent = "";
+    od.hidden = !day || isLatest();
+    if (!od.hidden){
+      od.appendChild(el("span",{text:"กำลังดูข้อมูลย้อนหลังของวันที่ " + thDate(day.date)}));
+      const b = el("button",{type:"button",text:"กลับไปวันล่าสุด"});
+      b.addEventListener("click", () => { state.current = state.days[state.days.length-1].date; renderAll(); });
+      od.appendChild(b);
+    }
+  }
+  function renderSummary(day){
+    const w = $("headlineWrap"); w.textContent = "";
+    const pills = $("pills"); pills.textContent = "";
+    if (!day){ w.appendChild(el("p",{class:"headline",text:"ยังไม่มีข้อมูล ข้อมูลชุดแรกจะขึ้นหลังการอัปเดตครั้งถัดไป"})); return; }
+    const p = el("p",{class:"headline clamp",text:day.headline || ""});
+    w.appendChild(p);
+    requestAnimationFrame(() => {
+      if (p.scrollHeight > p.clientHeight + 2){
+        const b = el("button",{type:"button",class:"linkbtn",text:"อ่านสรุปเต็ม","aria-expanded":"false"});
+        b.addEventListener("click", () => { const open = p.classList.toggle("clamp"); b.textContent = open ? "อ่านสรุปเต็ม" : "ย่อสรุป"; b.setAttribute("aria-expanded", String(!open)); });
+        w.appendChild(b);
+      }
+    });
     let up = 0, down = 0, flat = 0;
     (day.items || []).forEach(it => { const c = change(it, day.date); if (!c) return; if (c.cls === "up") up++; else if (c.cls === "down") down++; else flat++; });
-    st.appendChild(el("span",{class:"hpill up",text:"▲ ต้นทุนขึ้น " + up}));
-    st.appendChild(el("span",{class:"hpill down",text:"▼ ต้นทุนลง " + down}));
-    st.appendChild(el("span",{class:"hpill",text:"■ ทรงตัว " + flat}));
-    if (day.updatedAt) st.appendChild(el("span",{class:"htime",text:"อัปเดต " + new Date(day.updatedAt).toLocaleString("th-TH",{dateStyle:"medium",timeStyle:"short",timeZone:"Asia/Bangkok"})}));
+    pills.appendChild(el("span",{class:"pill up"}, "▲ ต้นทุนขึ้น ", el("b",{text:String(up)})));
+    pills.appendChild(el("span",{class:"pill down"}, "▼ ต้นทุนลง ", el("b",{text:String(down)})));
+    pills.appendChild(el("span",{class:"pill"}, "■ ทรงตัว ", el("b",{text:String(flat)})));
   }
-  // key tiles
+
+  // ---------- key metrics ----------
   function renderKeys(day){
     const box = $("keys"); box.textContent = "";
     if (!day) return;
+    let n = 0;
     KEY_IDS.forEach(id => {
-      const it = (day.items || []).find(x => x.id === id); if (!it) return;
-      const b = el("button",{class:"key",type:"button",style:"--gc:" + gcol(it.group),id:"key-" + id,"aria-label":"ดูกราฟ " + it.name});
-      b.appendChild(el("span",{class:"k-name",text:(GMAP[it.group] ? GMAP[it.group].icon + " " : "") + (KEY_LABEL[id] || it.name)}));
+      const it = (day.items || []).find(x => x.id === id); if (!it) return; n++;
+      const b = el("button",{class:"key",type:"button",style:"--gc:" + gcol(it.group),"aria-label":"ดูกราฟ " + it.name});
+      const top = el("span",{class:"k-top"}, el("span",{class:"k-name"}, ic(it.group), el("span",{class:"t",text:KEY_LABEL[id] || it.name})));
+      const sp = spark(seriesUpTo(id, day.date), gcolVal(it.group)); if (sp) top.appendChild(sp);
+      b.appendChild(top);
       b.appendChild(el("span",{class:"k-val"}, valText(it), el("span",{class:"k-unit",text:it.unit || ""})));
       const c = change(it, day.date);
-      const foot = el("span",{class:"k-foot"}, chip(c, it, true));
-      const sp = spark(seriesUpTo(id, day.date), getComputedStyle(document.documentElement).getPropertyValue("--c-" + it.group).trim());
-      if (sp) foot.appendChild(sp);
-      b.appendChild(foot);
-      b.appendChild(el("span",{class:"k-basis",text:(c ? c.basis + " · " : "") + "ประกาศ " + (it.asOf || "-")}));
-      b.addEventListener("click", () => openHist(id));
+      b.appendChild(el("span",null, chip(c, it, true)));
+      b.appendChild(el("span",{class:"k-asof",text:"ประกาศ " + (it.asOf || "-") + (c ? " · " + c.basis : "")}));
+      b.addEventListener("click", () => openItem(id));
       box.appendChild(b);
     });
+    if (!n) box.appendChild(el("div",{class:"empty",style:"grid-column:1/-1",text:"ยังไม่มีตัวเลขหลักสำหรับวันนี้"}));
   }
-  // tips from procurementNote
+
+  // ---------- insights (text from data only) ----------
   function renderTips(day){
     const ol = $("tips"); ol.textContent = "";
     const parts = day && day.procurementNote ? day.procurementNote.split("•").map(s => s.trim()).filter(Boolean) : [];
-    if (!parts.length){ ol.appendChild(el("li",null, el("span",{class:"n",text:"–"}), el("span",{text:"ยังไม่มีบทสรุป"}))); return; }
+    if (!parts.length){ ol.appendChild(el("li",null, el("span",{class:"n",text:"–"}), el("span",{text:"ยังไม่มีบทสรุปสำหรับวันนี้"}))); return; }
     parts.forEach((p, i) => ol.appendChild(el("li",null, el("span",{class:"n",text:String(i+1)}), el("span",{text:p}))));
   }
-  // movers
+
+  // ---------- movers ----------
   function renderMovers(day){
     const box = $("movers"); box.textContent = "";
     if (!day) return;
     const list = (day.items || []).map(it => ({it, c: change(it, day.date)})).filter(x => x.c && Math.abs(x.c.diff) > 1e-9);
     list.sort((a,b) => Math.abs(b.c.pct) - Math.abs(a.c.pct));
-    if (!list.length){ box.appendChild(el("div",{class:"empty",text:"ยังไม่มีรายการที่เปลี่ยนแปลง"})); return; }
-    list.slice(0,5).forEach(({it, c}) => {
-      const b = el("button",{class:"mover",type:"button",style:"--gc:" + gcol(it.group)});
+    if (!list.length){ box.appendChild(el("div",{class:"empty",text:"ยังไม่มีรายการที่ราคาเปลี่ยนจากครั้งก่อน"})); return; }
+    const maxPct = Math.abs(list[0].c.pct) || 1;
+    const limit = state.moversAll ? list.length : 6;
+    list.slice(0, limit).forEach(({it, c}) => {
+      const b = el("button",{class:"mover",type:"button",style:"--gc:" + gcol(it.group),"aria-label":"ดูกราฟ " + it.name});
       b.appendChild(el("span",{class:"m-name"}, el("span",{class:"gdot"}), el("span",{class:"t",text:it.name})));
       b.appendChild(chip(c, it, true));
-      b.addEventListener("click", () => openHist(it.id));
+      const sub = el("span",{class:"m-sub"}, el("span",{class:"num",text:valText(it)}), el("span",{text:it.unit || ""}));
+      if (it.side === "sell") sub.appendChild(el("span",{class:"sidetag",title:"ฟาร์มเป็นผู้ขาย ราคาขึ้นเป็นผลดี",text:"ฝั่งขาย"}));
+      b.appendChild(sub);
+      const bar = el("span",{class:"m-bar"}, el("i",{class:c.cls,style:"width:" + Math.max(4, Math.abs(c.pct) / maxPct * 100).toFixed(1) + "%"}));
+      b.appendChild(bar);
+      b.addEventListener("click", () => openItem(it.id));
       box.appendChild(b);
     });
-  }
-  // categories
-  function renderCats(day){
-    const nav = $("catnav"), wrap = $("cats"); nav.textContent = ""; wrap.textContent = "";
-    if (!day || !(day.items || []).length){ wrap.appendChild(el("div",{class:"empty",text:"ยังไม่มีราคาสำหรับวันนี้"})); return; }
-    GROUPS.forEach(g => {
-      const items = day.items.filter(i => i.group === g.id);
-      if (!items.length) return;
-      const a = el("a",{href:"#cat-" + g.id,style:"--gc:" + gcol(g.id)}, el("span",{class:"gdot"}), g.name + " ", el("span",{class:"cnt",text:"(" + items.length + ")"}));
-      a.addEventListener("click", e => { e.preventDefault(); const t = $("cat-" + g.id); t.open = true; t.scrollIntoView({behavior:"smooth", block:"start"}); });
-      nav.appendChild(a);
-      const det = el("details",{class:"cat",id:"cat-" + g.id,style:"--gc:" + gcol(g.id)});
-      if (g.open) det.open = true;
-      const sum = el("summary",null, el("span",{text:g.icon,"aria-hidden":"true"}), el("h3",{text:g.name}), el("span",{class:"hint",text:g.hint ? g.hint + " · " + items.length + " รายการ" : items.length + " รายการ"}), el("span",{class:"chev",text:"›"}));
-      det.appendChild(sum);
-      const rows = el("div",{class:"rows"});
-      const srcs = new Map();
-      const core = items.filter(it => !EXTRA.has(it.id)), extra = items.filter(it => EXTRA.has(it.id));
-      function makeRow(it){
-        const r = el("button",{class:"row",type:"button",id:"row-" + it.id,"aria-label":"ดูกราฟ " + it.name});
-        if (typeof it.value !== "number"){ r.style.cursor = "default"; }
-        const meta = el("span",{class:"r-meta",text:it.asOf ? "ประกาศ " + it.asOf : ""});
-        r.appendChild(el("span",{class:"r-name"}, it.name, meta));
-        r.appendChild(el("span",{class:"r-val"}, valText(it), el("span",{class:"r-unit",text:it.unit || ""})));
-        const c = change(it, day.date);
-        r.appendChild(el("span",{class:"r-chg"}, chip(c, it, true), c ? el("span",{class:"r-basis",text:c.basis}) : null));
-        if (it.note && !/^(ทรงตัว|ยืนราคา|คงราคา)$/.test(it.note)) r.appendChild(el("span",{class:"r-note",text:it.note}));
-        if (typeof it.value === "number") r.addEventListener("click", () => openHist(it.id));
-        if (it.url && !srcs.has(it.url)) srcs.set(it.url, it.source || "ลิงก์");
-        return r;
-      }
-      core.forEach(it => rows.appendChild(makeRow(it)));
-      det.appendChild(rows);
-      if (extra.length){
-        const more = el("div",{class:"rows",hidden:""});
-        extra.forEach(it => more.appendChild(makeRow(it)));
-        const btn = el("button",{class:"morebtn",type:"button","aria-expanded":"false",text:"ดูรายการย่อยเพิ่ม " + extra.length + " รายการ"});
-        btn.addEventListener("click", () => { const open = more.hidden; more.hidden = !open; btn.setAttribute("aria-expanded", String(open)); btn.textContent = open ? "ซ่อนรายการย่อย" : "ดูรายการย่อยเพิ่ม " + extra.length + " รายการ"; });
-        det.appendChild(more); det.appendChild(btn);
-      }
-      const sl = el("div",{class:"srcline"}, "แหล่งข้อมูล: ");
-      let k = 0; srcs.forEach((name, url) => { if (k++) sl.appendChild(document.createTextNode(" · ")); sl.appendChild(link(name, url)); });
-      det.appendChild(sl);
-      wrap.appendChild(det);
-    });
-  }
-  // news
-  function renderNews(day){
-    const chips = $("newsChips"), list = $("newsList"); chips.textContent = ""; list.textContent = "";
-    const news = (day && day.news) || [];
-    if (!news.length){ list.appendChild(el("div",{class:"empty",text:"ยังไม่มีข่าวสำหรับวันนี้"})); return; }
-    const cats = ["ทั้งหมด", ...Array.from(new Set(news.map(n => n.cat || "อื่นๆ")))];
-    if (!cats.includes(state.newsCat)) state.newsCat = "ทั้งหมด";
-    cats.forEach(c => {
-      const cnt = c === "ทั้งหมด" ? news.length : news.filter(n => (n.cat || "อื่นๆ") === c).length;
-      const b = el("button",{type:"button","aria-pressed":String(c === state.newsCat)}, c + " (" + cnt + ")");
-      b.addEventListener("click", () => { state.newsCat = c; renderNews(day); });
-      chips.appendChild(b);
-    });
-    const shown = news.filter(n => state.newsCat === "ทั้งหมด" || (n.cat || "อื่นๆ") === state.newsCat);
-    const limit = (state.newsCat === "ทั้งหมด" && !state.allNews) ? 6 : shown.length;
-    if (shown.length > limit){
-      setTimeout(() => {
-        const b = el("button",{class:"morebtn wide",type:"button",text:"ดูข่าวทั้งหมด " + shown.length + " ข่าว"});
-        b.addEventListener("click", () => { state.allNews = true; renderNews(day); });
-        list.appendChild(b);
-      }, 0);
+    if (list.length > 6){
+      const m = el("button",{type:"button",class:"morebtn",text:state.moversAll ? "แสดงเฉพาะ 6 อันดับแรก" : "ดูทั้งหมด " + list.length + " รายการที่เปลี่ยนแปลง"});
+      m.addEventListener("click", () => { state.moversAll = !state.moversAll; renderMovers(day); });
+      box.appendChild(m);
     }
-    shown.slice(0, limit).forEach((n, i) => {
-      const color = NEWS_COLORS[n.cat] || "#334155";
-      const box = el("article",{class:"nitem",style:"--nc:" + color,id:"news-" + i});
-      box.appendChild(el("span",{class:"ntag",text:n.cat || "อื่นๆ"}));
-      box.appendChild(el("h4",{text:n.title || ""}));
-      if (n.impact) box.appendChild(el("div",{class:"impact"}, el("b",{text:"ผลต่อจัดซื้อ: "}), document.createTextNode(n.impact)));
-      if (n.summary){ const d = el("details"); d.appendChild(el("summary",{text:"อ่านรายละเอียดข่าว"})); d.appendChild(el("p",{text:n.summary})); box.appendChild(d); }
-      const src = el("div",{class:"nsrc"}, "ที่มา: ");
-      const sources = Array.isArray(n.sources) ? n.sources : [{name:n.source, url:n.url}];
-      sources.forEach((s, k) => { if (k) src.appendChild(document.createTextNode(" · ")); src.appendChild(link(s.name || "ลิงก์", s.url)); });
-      box.appendChild(src);
-      list.appendChild(box);
-    });
-  }
-  // history
-  function allSeries(){
-    const map = new Map();
-    state.days.forEach(d => (d.items || []).forEach(it => {
-      if (!map.has(it.id)) map.set(it.id, {id:it.id, pts:[]});
-      const s = map.get(it.id); s.name = it.name; s.unit = it.unit; s.group = it.group;
-      if (typeof it.value === "number") s.pts.push({date:d.date, v:it.value, asOf:it.asOf, source:it.source, url:it.url});
-    }));
-    return map;
-  }
-  function renderHistory(){
-    const series = allSeries(), sel = $("histSel"); sel.textContent = "";
-    GROUPS.forEach(g => {
-      const og = el("optgroup",{label:g.icon + " " + g.name});
-      series.forEach(s => { if (s.group === g.id && s.pts.length) og.appendChild(el("option",{value:s.id,text:s.name})); });
-      if (og.children.length) sel.appendChild(og);
-    });
-    if (!state.histId || !series.has(state.histId) || !series.get(state.histId).pts.length){ const f = sel.querySelector("option"); state.histId = f ? f.value : null; }
-    if (state.histId) sel.value = state.histId;
-    drawSeries(state.histId ? series.get(state.histId) : null);
-  }
-  function drawSeries(s){
-    const box = $("chart"), tip = $("tip"), tbl = $("histTable");
-    box.querySelectorAll("svg,.empty").forEach(n => n.remove()); tbl.textContent = "";
-    if (!s || !s.pts.length){ box.appendChild(el("div",{class:"empty",text:"ยังไม่มีสถิติ"})); $("histInfo").textContent = ""; return; }
-    const pts = s.pts.slice().sort((a,b) => a.date < b.date ? -1 : 1);
-    $("histInfo").textContent = "บันทึกแล้ว " + pts.length + " วัน · หน่วย " + (s.unit || "") + (pts.length < 3 ? " · กราฟจะยาวขึ้นทุกวัน" : "");
-    const W = Math.max(300, box.clientWidth || 600), H = Math.round(Math.min(320, Math.max(200, W * 0.42)));
-    const m = {l:60, r:20, t:18, b:30};
-    let lo = Math.min(...pts.map(p => p.v)), hi = Math.max(...pts.map(p => p.v));
-    if (lo === hi){ const pd = Math.abs(lo) * 0.02 || 1; lo -= pd; hi += pd; }
-    const pad = (hi - lo) * 0.15; lo -= pad; hi += pad;
-    const x = i => pts.length === 1 ? m.l + (W - m.l - m.r) / 2 : m.l + i * (W - m.l - m.r) / (pts.length - 1);
-    const y = v => m.t + (hi - v) * (H - m.t - m.b) / (hi - lo);
-    const NS = "http://www.w3.org/2000/svg";
-    const mk = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
-    const svg = mk("svg",{viewBox:"0 0 " + W + " " + H, role:"img", "aria-label":"กราฟ " + s.name});
-    const gG = mk("g",{class:"grid"}), gA = mk("g",{class:"axis"}), d = decimals(hi);
-    for (let i = 0; i <= 4; i++){
-      const v = lo + (hi - lo) * i / 4, yy = y(v);
-      gG.appendChild(mk("line",{x1:m.l, x2:W - m.r, y1:yy, y2:yy}));
-      const t = mk("text",{x:m.l - 6, y:yy + 4, "text-anchor":"end"}); t.textContent = nf(v, d); gA.appendChild(t);
-    }
-    const step = Math.max(1, Math.ceil(pts.length / Math.max(2, Math.floor((W - m.l - m.r) / 70))));
-    pts.forEach((p, i) => { if (i % step === 0 || i === pts.length - 1){ const t = mk("text",{x:x(i), y:H - 8, "text-anchor":"middle"}); t.textContent = thDate(p.date); gA.appendChild(t); } });
-    svg.appendChild(gG); svg.appendChild(gA);
-    const col = getComputedStyle(document.documentElement).getPropertyValue("--c-" + (s.group || "feed")).trim() || "#0f6e6a";
-    if (pts.length > 1){
-      const line = pts.map((p,i) => (i ? "L" : "M") + x(i).toFixed(1) + "," + y(p.v).toFixed(1)).join("");
-      svg.appendChild(mk("path",{d: line + "L" + x(pts.length-1).toFixed(1) + "," + (H - m.b) + "L" + x(0).toFixed(1) + "," + (H - m.b) + "Z", fill:col, "fill-opacity":"0.14"}));
-      svg.appendChild(mk("path",{d:line, fill:"none", stroke:col, "stroke-width":"2.4", "stroke-linejoin":"round"}));
-    }
-    pts.forEach((p,i) => svg.appendChild(mk("circle",{cx:x(i), cy:y(p.v), r: i === pts.length-1 ? 5 : 3, fill:col})));
-    const last = pts[pts.length-1];
-    const lt = mk("text",{x:Math.min(x(pts.length-1), W - m.r - 4), y:y(last.v) - 11, "text-anchor":"end", fill:col, "font-size":"12.5", "font-weight":"600"});
-    lt.textContent = nf(last.v, decimals(last.v)); svg.appendChild(lt);
-    const hit = mk("rect",{x:m.l, y:m.t, width:W - m.l - m.r, height:H - m.t - m.b, fill:"transparent"});
-    function show(ev){
-      const r = svg.getBoundingClientRect(), cx = (ev.touches ? ev.touches[0].clientX : ev.clientX) - r.left, sx = cx * W / r.width;
-      let best = 0, bd = Infinity; pts.forEach((p,i) => { const dd = Math.abs(x(i) - sx); if (dd < bd){ bd = dd; best = i; } });
-      const p = pts[best];
-      tip.textContent = thDate(p.date) + " · " + nf(p.v, decimals(p.v)) + " " + (s.unit || "");
-      tip.style.display = "block";
-      tip.style.left = Math.max(70, Math.min(r.width - 70, x(best) * r.width / W)) + "px";
-      tip.style.top = (y(p.v) * r.height / H) + "px";
-    }
-    hit.addEventListener("mousemove", show); hit.addEventListener("touchstart", show, {passive:true}); hit.addEventListener("touchmove", show, {passive:true});
-    hit.addEventListener("mouseleave", () => { tip.style.display = "none"; });
-    svg.appendChild(hit); box.insertBefore(svg, tip);
-    tbl.appendChild(el("thead",null, el("tr",null, el("th",{text:"วันที่บันทึก"}), el("th",{text:"ราคา"}), el("th",{text:"ประกาศ"}), el("th",{text:"ที่มา"}))));
-    const tb = el("tbody");
-    pts.slice().reverse().forEach(p => tb.appendChild(el("tr",null, el("td",{text:thDate(p.date)}), el("td",{class:"num",text:nf(p.v, decimals(p.v)) + " " + (s.unit || "")}), el("td",{text:p.asOf || ""}), el("td",null, link(p.source || "ลิงก์", p.url)))));
-    tbl.appendChild(tb);
   }
 
-  // disease alerts
+  // ---------- disease alerts ----------
   function renderAlerts(day){
-    const panel = $("alertsPanel"), box = $("alerts"); box.textContent = "";
-    const list = (day && day.alerts) || [];
+    const panel = $("alertsPanel"), box = $("alerts"), cnt = $("lvcount"); box.textContent = ""; cnt.textContent = "";
+    const list = ((day && day.alerts) || []).slice();
     panel.hidden = !list.length;
-    const LV = {high:"สูง", medium:"ปานกลาง", low:"ต่ำ"};
+    if (!list.length) return;
+    const LV = {high:"สูง", medium:"ปานกลาง", low:"ต่ำ"}, ORD = {high:0, medium:1, low:2};
+    list.sort((a,b) => (ORD[a.level] ?? 3) - (ORD[b.level] ?? 3));
+    ["high","medium","low"].forEach(l => { const n = list.filter(a => a.level === l).length; if (n) cnt.appendChild(el("span",{class:"lv " + l,text:"เสี่ยง" + LV[l] + " " + n})); });
     list.forEach(a => {
-      const card = el("div",{class:"alert " + (a.level || "low")});
-      card.appendChild(el("div",{class:"a-top"}, el("span",{class:"a-lv",text:"ความเสี่ยง" + (LV[a.level] || "")}), el("span",{text:(a.area || "") + (a.date ? " · " + a.date : "")})));
+      const lvl = LV[a.level] ? a.level : "low";
+      const card = el("article",{class:"alert " + lvl});
+      card.appendChild(el("div",{class:"a-top"}, el("span",{class:"lv " + lvl,text:"ความเสี่ยง" + LV[lvl]}), el("span",{text:(a.area || "") + (a.date ? " · " + a.date : "")})));
       card.appendChild(el("div",{class:"a-title",text:a.title || ""}));
-      if (a.detail) card.appendChild(el("div",{class:"a-detail",text:a.detail}));
-      card.appendChild(el("div",{class:"a-src"}, "ที่มา: ", link(a.source || "ลิงก์", a.url)));
+      let det = null;
+      if (a.detail){ det = el("div",{class:"a-detail",text:a.detail}); card.appendChild(det); }
+      const foot = el("div",{class:"a-foot"}, el("span",null, "ที่มา: ", link(a.source || "ลิงก์", a.url)));
+      card.appendChild(foot);
+      if (det) requestAnimationFrame(() => {
+        if (det.scrollHeight > det.clientHeight + 2){
+          const mb = el("button",{type:"button",class:"a-more",text:"อ่านต่อ","aria-expanded":"false"});
+          mb.addEventListener("click", () => { const o = card.classList.toggle("open"); mb.textContent = o ? "ย่อ" : "อ่านต่อ"; mb.setAttribute("aria-expanded", String(o)); });
+          foot.appendChild(mb);
+        }
+      });
       box.appendChild(card);
     });
   }
 
-  // harvest calendar
-  const HP = document.getElementById("harvestPanel");
-  function renderHarvest(day){
-    const panel = HP, box = HP.querySelector("#hlist");
-    box.textContent = "";
-    const list = (day && day.harvest) || [];
-    panel.hidden = !list.length;
-    if (!list.length) return;
-    const MN = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+  // ---------- harvest ----------
+  const MN = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+  const cropIcon = c => /ปาล์ม/.test(c) ? "🌴" : /โพด/.test(c) ? "🌽" : /มัน/.test(c) ? "🥔" : "🌾";
+  function harvestInfo(h, day){
     const cur = parseInt((day.date || "").slice(5,7), 10) || (new Date().getMonth() + 1);
     const mAt = k => ((cur - 1 + k) % 12) + 1;
-    const icon = c => /ปาล์ม/.test(c) ? "🌴" : /โพด/.test(c) ? "🌽" : /มัน/.test(c) ? "🥔" : "🌾";
-    list.forEach(h => {
-      const st = m => (h.peak || []).includes(m) ? "peak" : (h.months || []).includes(m) ? "on" : "off";
-      const now = st(cur);
-      const label = {peak:"เดือนนี้: ออกมาก", on:"เดือนนี้: ทยอยออก", off:"เดือนนี้: นอกฤดู"}[now];
-      let next = "";
-      if (now === "peak"){ let k = 0; while (k < 11 && st(mAt(k+1)) === "peak") k++; next = k ? "ออกมากต่อถึง " + MN[mAt(k)-1] : "เดือนหน้าเริ่มน้อยลง"; }
-      else { let k = 1; while (k < 12 && st(mAt(k)) !== "peak") k++; if (k < 12){ let e = k; while (e < 11 && st(mAt(e+1)) === "peak") e++; next = "ช่วงออกมากถัดไป: " + MN[mAt(k)-1] + (e > k ? "–" + MN[mAt(e)-1] : ""); } }
-      const row = el("div",{class:"hrow"});
-      const crop = el("div",{class:"hcrop"}, el("b",{text:icon(h.crop) + " " + h.crop}), el("span",{class:"hstate " + now,text:label}));
-      if (next) crop.appendChild(el("span",{class:"hnext",text:next}));
+    const st = m => (h.peak || []).includes(m) ? "peak" : (h.months || []).includes(m) ? "on" : "off";
+    const now = st(cur);
+    let next = "";
+    if (now === "peak"){ let k = 0; while (k < 11 && st(mAt(k+1)) === "peak") k++; next = k ? "ออกมากต่อถึง " + MN[mAt(k)-1] : "เดือนหน้าเริ่มน้อยลง"; }
+    else { let k = 1; while (k < 12 && st(mAt(k)) !== "peak") k++; if (k < 12){ let e = k; while (e < 11 && st(mAt(e+1)) === "peak") e++; next = "ช่วงออกมากถัดไป: " + MN[mAt(k)-1] + (e > k ? "–" + MN[mAt(e)-1] : ""); } }
+    return {cur, mAt, st, now, next, label:{peak:"เดือนนี้: ออกมาก", on:"เดือนนี้: ทยอยออก", off:"เดือนนี้: นอกฤดู"}[now]};
+  }
+  function renderHarvestStrip(day){
+    const sec = $("hstripSec"), box = $("hstrip"); box.textContent = "";
+    const list = (day && day.harvest) || [];
+    sec.hidden = !list.length;
+    list.forEach((h, i) => {
+      const inf = harvestInfo(h, day);
+      const b = el("button",{type:"button",class:"hs"}, el("b",{text:cropIcon(h.crop) + " " + (h.crop || "")}), el("span",{class:"hstate " + inf.now,text:inf.label}), inf.next ? el("span",{class:"hnext",text:inf.next}) : null);
+      b.addEventListener("click", () => {
+        selectView("prices", false); state.q = ""; $("q").value = ""; renderCats(curDay()); renderHarvest(curDay());
+        const rc = $("cat-rice"); if (rc) rc.open = true;
+        const t = $("hrow-" + i) || $("harvestPanel");
+        requestAnimationFrame(() => t.scrollIntoView({behavior:"smooth", block:"start"}));
+      });
+      box.appendChild(b);
+    });
+  }
+  const HP = $("harvestPanel");
+  function renderHarvest(day){
+    const box = $("hlist"); box.textContent = "";
+    const list = (day && day.harvest) || [];
+    HP.hidden = !list.length || !!state.q;
+    if (!list.length) return;
+    list.forEach((h, i) => {
+      const inf = harvestInfo(h, day);
+      const row = el("div",{class:"hrow",id:"hrow-" + i});
+      const crop = el("div",{class:"hcrop"}, el("b",{text:cropIcon(h.crop) + " " + (h.crop || "")}), el("span",{class:"hstate " + inf.now,text:inf.label}));
+      if (inf.next) crop.appendChild(el("span",{class:"hnext",text:inf.next}));
       row.appendChild(crop);
-      const bars = el("div"), hb = el("div",{class:"hb"}), hl = el("div",{class:"hbl"});
+      const bars = el("div"), hb = el("div",{class:"hb",role:"img","aria-label":"ปฏิทิน 12 เดือนของ " + (h.crop || "")}), hl = el("div",{class:"hbl","aria-hidden":"true"});
       for (let k = 0; k < 12; k++){
-        const m = mAt(k), c = st(m);
-        const sp = el("span",{class:c + (k === 0 ? " cur" : "")}); sp.title = MN[m-1] + " · " + {peak:"ออกมาก",on:"ทยอยออก",off:"นอกฤดู"}[c];
+        const m = inf.mAt(k), c = inf.st(m);
+        const sp = el("span",{class:c + (k === 0 ? " cur" : ""),title:MN[m-1] + " · " + {peak:"ออกมาก",on:"ทยอยออก",off:"นอกฤดู"}[c]});
         hb.appendChild(sp);
         hl.appendChild(el("span",{class:k === 0 ? "cur" : "",text:k === 0 ? "ตอนนี้" : MN[m-1]}));
       }
@@ -675,29 +882,329 @@ footer{font-size:.8rem;color:var(--muted);display:grid;gap:4px;max-width:90ch}
       box.appendChild(row);
     });
     const rc = $("cat-rice");
-    if (rc){ rc.querySelector(".rows").after(panel); panel.classList.add("in-cat"); }
+    if (rc && !state.q){ const anchor = rc.querySelector(".srcline"); if (anchor) rc.insertBefore(HP, anchor); else rc.appendChild(HP); }
   }
 
-  function selectTab(name){
-    ["prices","news","hist"].forEach(t => { $("tab-" + t).setAttribute("aria-selected", String(t === name)); $("v-" + t).classList.toggle("on", t === name); });
-    if (name === "hist") renderHistory();
+  // ---------- price categories + search ----------
+  const norm = s => (s || "").toString().toLowerCase().replace(/\s+/g, "");
+  function hl(text, q){
+    const needle = (state.q || "").trim().toLowerCase();
+    const j = q && needle ? text.toLowerCase().indexOf(needle) : -1;
+    if (j < 0) return document.createTextNode(text);
+    const f = document.createDocumentFragment();
+    f.appendChild(document.createTextNode(text.slice(0, j)));
+    f.appendChild(el("mark",{text:text.slice(j, j + needle.length)}));
+    f.appendChild(document.createTextNode(text.slice(j + needle.length)));
+    return f;
   }
-  ["prices","news","hist"].forEach(t => $("tab-" + t).addEventListener("click", () => selectTab(t)));
-  $("daySel").addEventListener("change", e => { state.current = e.target.value; renderAll(); });
+  function matches(it, q){
+    if (!q) return true;
+    const g = GMAP[it.group];
+    return [it.name, KEY_LABEL[it.id], it.source].some(s => norm(s).includes(q));
+  }
+  let navObs = null;
+  function renderCats(day){
+    const nav = $("catnav"), wrap = $("cats"); nav.textContent = ""; wrap.textContent = "";
+    if (HP.parentNode !== $("v-prices")) $("v-prices").appendChild(HP);
+    if (!day || !(day.items || []).length){ wrap.appendChild(el("div",{class:"empty"}, ic("prices"), el("span",{text:"ยังไม่มีราคาสำหรับวันนี้"}))); return; }
+    const q = norm(state.q);
+    let total = 0;
+    GROUPS.forEach(g => {
+      const all = day.items.filter(i => i.group === g.id);
+      const items = all.filter(i => matches(i, q));
+      if (!items.length) return;
+      total += items.length;
+      const b = el("button",{type:"button",style:"--gc:" + gcol(g.id),"data-cat":g.id}, ic(g.id), el("span",{text:g.name}), el("span",{class:"cnt",text:String(items.length)}));
+      b.addEventListener("click", () => { const t = $("cat-" + g.id); t.open = true; t.scrollIntoView({behavior:"smooth", block:"start"}); });
+      nav.appendChild(b);
+      const det = el("details",{class:"cat",id:"cat-" + g.id,style:"--gc:" + gcol(g.id)});
+      det.open = q ? true : g.open;
+      let up = 0, down = 0;
+      items.forEach(it => { const c = change(it, day.date); if (c && c.cls === "up") up++; else if (c && c.cls === "down") down++; });
+      const sumTags = el("span",{class:"cat-sum"});
+      if (up) sumTags.appendChild(el("span",{class:"chg up",text:"▲" + up}));
+      if (down) sumTags.appendChild(el("span",{class:"chg down",text:"▼" + down}));
+      const sum = el("summary",null, el("span",{class:"cat-ic"}, ic(g.id)), el("span",{class:"cat-t"}, el("h3",{text:g.name}), el("span",{text:(g.hint ? g.hint + " · " : "") + items.length + " รายการ"})), sumTags, el("span",{class:"chev"}, ic("chev")));
+      det.appendChild(sum);
+      const rows = el("div",{class:"rows"});
+      const srcs = new Map();
+      const core = q ? items : items.filter(it => !EXTRA.has(it.id)), extra = q ? [] : items.filter(it => EXTRA.has(it.id));
+      function makeRow(it){
+        const clickable = typeof it.value === "number";
+        const r = el(clickable ? "button" : "div",{class:"row" + (clickable ? " clk" : ""),type:clickable ? "button" : null,id:"row-" + it.id,"aria-label":clickable ? "ดูกราฟ " + it.name : null});
+        r.appendChild(el("span",{class:"r-name"}, hl(it.name || "", q)));
+        r.appendChild(el("span",{class:"r-val"}, valText(it), el("span",{class:"r-unit",text:it.unit || ""})));
+        const c = change(it, day.date);
+        r.appendChild(el("span",{class:"r-meta",text:(it.asOf ? "ประกาศ " + it.asOf : "") + (c ? " · " + c.basis : "")}));
+        r.appendChild(el("span",{class:"r-chg"}, chip(c, it, true)));
+        if (it.note && !/^(ทรงตัว|ยืนราคา|คงราคา)$/.test(it.note)) r.appendChild(el("span",{class:"r-note",text:it.note}));
+        if (clickable) r.addEventListener("click", () => openItem(it.id));
+        if (it.url && !srcs.has(it.url)) srcs.set(it.url, it.source || "ลิงก์");
+        return r;
+      }
+      core.forEach(it => rows.appendChild(makeRow(it)));
+      det.appendChild(rows);
+      if (extra.length){
+        const more = el("div",{class:"rows",hidden:""});
+        extra.forEach(it => more.appendChild(makeRow(it)));
+        const btn = el("button",{class:"morerow",type:"button","aria-expanded":"false",text:"ดูรายการย่อยเพิ่ม " + extra.length + " รายการ"});
+        btn.addEventListener("click", () => { const open = more.hidden; more.hidden = !open; btn.setAttribute("aria-expanded", String(open)); btn.textContent = open ? "ซ่อนรายการย่อย" : "ดูรายการย่อยเพิ่ม " + extra.length + " รายการ"; });
+        det.appendChild(more); det.appendChild(btn);
+      }
+      const sl = el("div",{class:"srcline"}, "แหล่งข้อมูล: ");
+      let k = 0; srcs.forEach((name, url) => { if (k++) sl.appendChild(document.createTextNode(" · ")); sl.appendChild(link(name, url)); });
+      det.appendChild(sl);
+      det.addEventListener("toggle", updateToggleAll);
+      wrap.appendChild(det);
+    });
+    if (!total) wrap.appendChild(el("div",{class:"empty"}, ic("search"), el("span",{text:"ไม่พบรายการที่ตรงกับ \"" + state.q.trim() + "\""}), el("span",{style:"font-size:.8rem",text:"ลองพิมพ์คำสั้นลง เช่น ข้าวโพด ไข่ หรือ ดีเซล"})));
+    updateToggleAll();
+    // highlight the category chip that is on screen
+    if (navObs) navObs.disconnect();
+    if ("IntersectionObserver" in window){
+      navObs = new IntersectionObserver(ents => {
+        ents.forEach(e => { if (e.isIntersecting){ nav.querySelectorAll("button").forEach(b => b.classList.toggle("cur", b.getAttribute("data-cat") === e.target.id.slice(4))); } });
+      }, {rootMargin:"-" + (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--appbar-h")) + 60) + "px 0px -65% 0px"});
+      wrap.querySelectorAll(".cat").forEach(c => navObs.observe(c));
+    }
+  }
+  function updateToggleAll(){
+    const cats = Array.from(document.querySelectorAll("#cats .cat"));
+    const anyOpen = cats.some(c => c.open);
+    const b = $("toggleAll"); b.textContent = anyOpen ? "ย่อทุกหมวด" : "เปิดทุกหมวด"; b.hidden = !cats.length;
+  }
+  $("toggleAll").addEventListener("click", () => {
+    const cats = Array.from(document.querySelectorAll("#cats .cat")); const anyOpen = cats.some(c => c.open);
+    cats.forEach(c => c.open = !anyOpen); updateToggleAll();
+  });
+  let qt;
+  $("q").addEventListener("input", e => {
+    clearTimeout(qt);
+    qt = setTimeout(() => { state.q = e.target.value; $("clearQ").hidden = !state.q; const d = curDay(); renderCats(d); renderHarvest(d); }, 120);
+  });
+  $("clearQ").addEventListener("click", () => { $("q").value = ""; state.q = ""; $("clearQ").hidden = true; const d = curDay(); renderCats(d); renderHarvest(d); $("q").focus(); });
+
+  // ---------- news ----------
+  function renderNews(day){
+    const chips = $("newsChips"), list = $("newsList"); chips.textContent = ""; list.textContent = "";
+    const news = (day && day.news) || [];
+    $("newsNote").textContent = news.length ? news.length + " ข่าว · " + (day ? thDate(day.date) : "") : "";
+    if (!news.length){ list.appendChild(el("div",{class:"empty"}, ic("news"), el("span",{text:"ยังไม่มีข่าวสำหรับวันนี้"}))); return; }
+    const cats = ["ทั้งหมด", ...Array.from(new Set(news.map(n => n.cat || "อื่นๆ")))];
+    if (!cats.includes(state.newsCat)) state.newsCat = "ทั้งหมด";
+    cats.forEach(c => {
+      const cnt = c === "ทั้งหมด" ? news.length : news.filter(n => (n.cat || "อื่นๆ") === c).length;
+      const b = el("button",{type:"button","aria-pressed":String(c === state.newsCat),style:"--nc:" + (NEWS_COLORS[c] || "#334155")}, c === "ทั้งหมด" ? null : el("span",{class:"gdot"}), el("span",{text:c}), el("span",{class:"cnt",text:String(cnt)}));
+      b.addEventListener("click", () => { state.newsCat = c; state.allNews = false; renderNews(day); });
+      chips.appendChild(b);
+    });
+    const shown = news.filter(n => state.newsCat === "ทั้งหมด" || (n.cat || "อื่นๆ") === state.newsCat);
+    const limit = (state.newsCat === "ทั้งหมด" && !state.allNews) ? 6 : shown.length;
+    shown.slice(0, limit).forEach((n, i) => {
+      const color = NEWS_COLORS[n.cat] || "#334155";
+      const box = el("article",{class:"nitem",style:"--nc:" + color});
+      box.appendChild(el("div",{class:"n-top"}, el("span",{class:"ntag",text:n.cat || "อื่นๆ"}), el("span",{class:"n-idx",text:"#" + (news.indexOf(n) + 1)})));
+      box.appendChild(el("h4",{text:n.title || ""}));
+      if (n.impact) box.appendChild(el("div",{class:"impact"}, el("b",{text:"ผลต่อจัดซื้อ"}), document.createTextNode(n.impact)));
+      if (n.summary){ const d = el("details"); d.appendChild(el("summary",null, el("span",{class:"chev"}, ic("chev")), "อ่านรายละเอียดข่าว")); d.appendChild(el("p",{text:n.summary})); box.appendChild(d); }
+      const src = el("div",{class:"nsrc"}, ic("ext"), "ที่มา: ");
+      const sources = Array.isArray(n.sources) ? n.sources : [{name:n.source, url:n.url}];
+      sources.forEach((s, k) => { if (k) src.appendChild(document.createTextNode(" · ")); src.appendChild(link(s.name || "ลิงก์", s.url)); });
+      box.appendChild(src);
+      list.appendChild(box);
+    });
+    if (shown.length > limit){
+      const b = el("button",{class:"morebtn",type:"button",style:"grid-column:1/-1",text:"ดูข่าวทั้งหมด " + shown.length + " ข่าว"});
+      b.addEventListener("click", () => { state.allNews = true; renderNews(day); });
+      list.appendChild(b);
+    }
+  }
+
+  // ---------- history ----------
+  function allSeries(){
+    const map = new Map();
+    state.days.forEach(d => (d.items || []).forEach(it => {
+      if (!map.has(it.id)) map.set(it.id, {id:it.id, pts:[]});
+      const s = map.get(it.id); s.name = it.name; s.unit = it.unit; s.group = it.group;
+      if (typeof it.value === "number") s.pts.push({date:d.date, v:it.value, asOf:it.asOf, source:it.source, url:it.url});
+    }));
+    return map;
+  }
+  function statsBlock(s){
+    const pts = s.pts.slice().sort((a,b) => a.date < b.date ? -1 : 1);
+    const vals = pts.map(p => p.v), last = pts[pts.length-1], first = pts[0];
+    const lo = Math.min(...vals), hi = Math.max(...vals);
+    const loP = pts.find(p => p.v === lo), hiP = pts.find(p => p.v === hi);
+    const box = el("div",{class:"stats"});
+    const st = (label, val, sub) => el("div",{class:"stat"}, el("span",{text:label}), el("b",{text:val}), sub ? el("small",{text:sub}) : null);
+    box.appendChild(st("ล่าสุด", nf(last.v, decimals(last.v)), thDate(last.date)));
+    if (pts.length > 1){
+      const d = last.v - first.v, pct = first.v ? d / first.v * 100 : 0, sg = d > 0 ? "+" : "";
+      box.appendChild(st("เทียบบันทึกแรก", sg + nf(d, Math.abs(d) < 0.01 && d !== 0 ? 4 : decimals(last.v)), sg + pct.toFixed(1) + "% ตั้งแต่ " + thDate(first.date)));
+    } else box.appendChild(st("เทียบบันทึกแรก", "—", "ต้องมีอย่างน้อย 2 วัน"));
+    box.appendChild(st("ต่ำสุด", nf(lo, decimals(lo)), thDate(loP.date)));
+    box.appendChild(st("สูงสุด", nf(hi, decimals(hi)), thDate(hiP.date)));
+    return box;
+  }
+  function drawChart(box, s){
+    box.textContent = "";
+    const tip = el("div",{class:"tip"}); box.appendChild(tip);
+    const pts = s.pts.slice().sort((a,b) => a.date < b.date ? -1 : 1);
+    const W = Math.max(280, box.clientWidth || 600), H = Math.round(Math.min(320, Math.max(210, W * 0.45)));
+    const NS = "http://www.w3.org/2000/svg";
+    const mk = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    let lo = Math.min(...pts.map(p => p.v)), hi = Math.max(...pts.map(p => p.v));
+    if (lo === hi){ const pd = Math.abs(lo) * 0.02 || 1; lo -= pd; hi += pd; }
+    const pad = (hi - lo) * 0.15; lo -= pad; hi += pad;
+    const d = decimals(hi);
+    const labelW = Math.max(...[0,1,2,3,4].map(i => nf(lo + (hi - lo) * i / 4, d).length)) * 6.6 + 10;
+    const m = {l:Math.min(78, Math.max(40, labelW)), r:16, t:22, b:30};
+    const x = i => pts.length === 1 ? m.l + (W - m.l - m.r) / 2 : m.l + i * (W - m.l - m.r) / (pts.length - 1);
+    const y = v => m.t + (hi - v) * (H - m.t - m.b) / (hi - lo);
+    const svg = mk("svg",{viewBox:"0 0 " + W + " " + H, role:"img", "aria-label":"กราฟ " + s.name + " " + pts.length + " วัน"});
+    const gG = mk("g",{class:"grid"}), gA = mk("g",{class:"axis"});
+    for (let i = 0; i <= 4; i++){
+      const v = lo + (hi - lo) * i / 4, yy = y(v);
+      gG.appendChild(mk("line",{x1:m.l, x2:W - m.r, y1:yy, y2:yy}));
+      const t = mk("text",{x:m.l - 6, y:yy + 4, "text-anchor":"end"}); t.textContent = nf(v, d); gA.appendChild(t);
+    }
+    const step = Math.max(1, Math.ceil(pts.length / Math.max(2, Math.floor((W - m.l - m.r) / 72))));
+    pts.forEach((p, i) => { if (i % step === 0 || i === pts.length - 1){ const anchor = pts.length === 1 ? "middle" : (i === 0 ? "start" : (i === pts.length - 1 ? "end" : "middle")); const t = mk("text",{x:x(i), y:H - 8, "text-anchor":anchor}); t.textContent = thDate(p.date); gA.appendChild(t); } });
+    svg.appendChild(gG); svg.appendChild(gA);
+    const col = gcolVal(s.group);
+    const gid = "g" + Math.random().toString(36).slice(2,8);
+    const defs = mk("defs",{}), lg = mk("linearGradient",{id:gid, x1:"0", x2:"0", y1:"0", y2:"1"});
+    lg.appendChild(mk("stop",{offset:"0%", "stop-color":col, "stop-opacity":"0.28"}));
+    lg.appendChild(mk("stop",{offset:"100%", "stop-color":col, "stop-opacity":"0.02"}));
+    defs.appendChild(lg); svg.appendChild(defs);
+    if (pts.length > 1){
+      const line = pts.map((p,i) => (i ? "L" : "M") + x(i).toFixed(1) + "," + y(p.v).toFixed(1)).join("");
+      svg.appendChild(mk("path",{d: line + "L" + x(pts.length-1).toFixed(1) + "," + (H - m.b) + "L" + x(0).toFixed(1) + "," + (H - m.b) + "Z", fill:"url(#" + gid + ")"}));
+      svg.appendChild(mk("path",{d:line, fill:"none", stroke:col, "stroke-width":"2.4", "stroke-linejoin":"round", "stroke-linecap":"round"}));
+    }
+    pts.forEach((p,i) => svg.appendChild(mk("circle",{cx:x(i), cy:y(p.v), r: i === pts.length-1 ? 4.5 : 3, fill: i === pts.length-1 ? col : "var(--surface)", stroke:col, "stroke-width":"2"})));
+    const last = pts[pts.length-1];
+    const lx = x(pts.length-1), anchorEnd = lx > W * 0.6;
+    const lt = mk("text",{x: anchorEnd ? lx - 8 : lx + 8, y:Math.max(14, y(last.v) - 10), "text-anchor": anchorEnd ? "end" : "start", fill:col, "font-size":"12.5", "font-weight":"700", "font-family":"IBM Plex Mono, monospace"});
+    lt.textContent = nf(last.v, decimals(last.v)); svg.appendChild(lt);
+    const cross = mk("line",{x1:0, x2:0, y1:m.t, y2:H - m.b, stroke:"var(--muted)", "stroke-dasharray":"3 3", "stroke-width":"1", opacity:"0"});
+    const focus = mk("circle",{r:"6", fill:col, stroke:"var(--surface)", "stroke-width":"2.5", opacity:"0"});
+    svg.appendChild(cross); svg.appendChild(focus);
+    const hit = mk("rect",{x:0, y:0, width:W, height:H, fill:"transparent"});
+    function show(ev){
+      const r = svg.getBoundingClientRect(), cx = (ev.touches ? ev.touches[0].clientX : ev.clientX) - r.left, sx = cx * W / r.width;
+      let best = 0, bd = Infinity; pts.forEach((p,i) => { const dd = Math.abs(x(i) - sx); if (dd < bd){ bd = dd; best = i; } });
+      const p = pts[best];
+      tip.textContent = "";
+      tip.appendChild(el("div",{text:thDate(p.date)}));
+      tip.appendChild(el("b",{text:nf(p.v, decimals(p.v))}));
+      tip.appendChild(document.createTextNode(" " + (s.unit || "")));
+      if (p.asOf) tip.appendChild(el("div",{style:"opacity:.75;font-size:.72rem",text:"ประกาศ " + p.asOf}));
+      tip.style.display = "block";
+      const px = x(best) * r.width / W, py = y(p.v) * r.height / H;
+      const tw = tip.offsetWidth / 2 + 4;
+      tip.style.left = Math.max(tw, Math.min(r.width - tw, px)) + "px";
+      tip.style.top = py + "px";
+      cross.setAttribute("x1", x(best)); cross.setAttribute("x2", x(best)); cross.setAttribute("opacity","1");
+      focus.setAttribute("cx", x(best)); focus.setAttribute("cy", y(p.v)); focus.setAttribute("opacity","1");
+    }
+    function hide(){ tip.style.display = "none"; cross.setAttribute("opacity","0"); focus.setAttribute("opacity","0"); }
+    hit.addEventListener("mousemove", show); hit.addEventListener("mouseleave", hide);
+    hit.addEventListener("touchstart", show, {passive:true}); hit.addEventListener("touchmove", show, {passive:true});
+    svg.appendChild(hit); box.insertBefore(svg, tip);
+  }
+  function historyTable(s){
+    const pts = s.pts.slice().sort((a,b) => a.date < b.date ? -1 : 1);
+    const tbl = el("table");
+    tbl.appendChild(el("thead",null, el("tr",null, el("th",{text:"วันที่บันทึก"}), el("th",{text:"ราคา (" + (s.unit || "") + ")"}), el("th",{text:"วันที่ประกาศ"}), el("th",{text:"ที่มา"}))));
+    const tb = el("tbody");
+    pts.slice().reverse().forEach(p => tb.appendChild(el("tr",null, el("td",{text:thDate(p.date)}), el("td",{class:"n",text:nf(p.v, decimals(p.v))}), el("td",{text:p.asOf || ""}), el("td",null, link(p.source || "ลิงก์", p.url)))));
+    tbl.appendChild(tb);
+    return el("div",{class:"tablewrap"}, tbl);
+  }
+  function seriesView(s, target){
+    target.textContent = "";
+    if (!s || !s.pts.length){ target.appendChild(el("div",{class:"empty"}, ic("chart"), el("span",{text:"ยังไม่มีสถิติของรายการนี้"}))); return; }
+    target.appendChild(statsBlock(s));
+    const chart = el("div",{class:"chart"}); target.appendChild(chart);
+    target.appendChild(el("div",{class:"histnote",text:"บันทึกแล้ว " + s.pts.length + " วัน · หน่วย " + (s.unit || "-") + (s.pts.length < 5 ? " · กราฟจะยาวขึ้นทุกวันที่มีการอัปเดต (ไม่สร้างข้อมูลย้อนหลังขึ้นเอง)" : "") + " · แตะหรือชี้บนกราฟเพื่อดูราคาแต่ละวัน"}));
+    target.appendChild(historyTable(s));
+    requestAnimationFrame(() => drawChart(chart, s));
+  }
+  function renderHistory(){
+    const series = allSeries(), sel = $("histSel"); sel.textContent = "";
+    GROUPS.forEach(g => {
+      const og = el("optgroup",{label:g.name});
+      series.forEach(s => { if (s.group === g.id && s.pts.length) og.appendChild(el("option",{value:s.id,text:s.name})); });
+      if (og.children.length) sel.appendChild(og);
+    });
+    if (!state.histId || !series.has(state.histId) || !series.get(state.histId).pts.length){ const f = sel.querySelector("option"); state.histId = f ? f.value : null; }
+    if (state.histId) sel.value = state.histId;
+    seriesView(state.histId ? series.get(state.histId) : null, $("histBody"));
+  }
   $("histSel").addEventListener("change", e => { state.histId = e.target.value; renderHistory(); });
-  let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { if ($("v-hist").classList.contains("on")) renderHistory(); }, 150); });
 
-  function renderAll(){
-    const sel = $("daySel"); sel.textContent = "";
-    state.days.slice().reverse().forEach(d => sel.appendChild(el("option",{value:d.date,text:thDate(d.date)})));
+  // ---------- item sheet ----------
+  let lastFocus = null;
+  function openItem(id){
+    const s = allSeries().get(id); const day = curDay();
+    const it = day ? (day.items || []).find(x => x.id === id) : null;
+    if (!s && !it) return;
+    lastFocus = document.activeElement; state.sheetId = id;
+    const P = $("sheetP"); P.textContent = "";
+    const g = GMAP[(it || s).group] || {};
+    P.style.setProperty("--gc", gcol((it || s).group));
+    P.appendChild(el("div",{class:"grab"}));
+    const x = el("button",{type:"button",class:"xbtn","aria-label":"ปิด"}, ic("close")); x.addEventListener("click", closeSheet);
+    P.appendChild(el("div",{class:"sh-head"}, el("div",null, el("div",{class:"sh-grp"}, ic((it || s).group), el("span",{text:g.name || ""})), el("h3",{id:"shTitle",text:(it || s).name || ""})), x));
+    if (it){
+      const c = change(it, day.date);
+      P.appendChild(el("div",{class:"sh-now"}, el("span",{class:"num",text:valText(it)}), el("span",{class:"u",text:it.unit || ""}), chip(c, it, true)));
+      P.appendChild(el("div",{class:"sh-meta"}, "ประกาศ " + (it.asOf || "-") + (c ? " · " + c.basis : "") + " · ที่มา: ", link(it.source || "ลิงก์", it.url)));
+      if (it.note && !/^(ทรงตัว|ยืนราคา|คงราคา)$/.test(it.note)) P.appendChild(el("div",{class:"sh-note",text:it.note}));
+    }
+    const body = el("div",{style:"display:grid;gap:12px"}); P.appendChild(body);
+    const acts = el("div",{class:"sh-acts"});
+    const go = el("button",{type:"button",class:"tbtn"}, "เปิดในหน้ากราฟย้อนหลัง");
+    go.addEventListener("click", () => { state.histId = id; closeSheet(); selectView("hist", true); });
+    acts.appendChild(go); P.appendChild(acts);
+    $("sheet").hidden = false; document.body.classList.add("lock");
+    seriesView(s, body);
+    x.focus({preventScroll:true});
+  }
+  function closeSheet(){
+    if ($("sheet").hidden) return;
+    $("sheet").hidden = true; document.body.classList.remove("lock");
+    if (lastFocus && lastFocus.focus) try{ lastFocus.focus({preventScroll:true}); }catch(e){}
+  }
+  $("sheet").addEventListener("click", e => { if (e.target.hasAttribute("data-close")) closeSheet(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet(); });
+
+  // ---------- render all ----------
+  function renderAll(keepScroll){
     if (!state.current || !state.byDate[state.current]) state.current = state.days.length ? state.days[state.days.length-1].date : null;
-    if (state.current) sel.value = state.current;
-    const day = state.current ? state.byDate[state.current] : null;
-    renderHero(day); renderKeys(day); renderTips(day); renderMovers(day); renderAlerts(day); renderCats(day); renderNews(day); renderHarvest(day);
-    if ($("v-hist").classList.contains("on")) renderHistory();
+    const day = curDay();
+    renderHeader(day); renderSummary(day); renderKeys(day); renderTips(day); renderMovers(day); renderAlerts(day); renderHarvestStrip(day);
+    renderCats(day); renderHarvest(day); renderNews(day);
+    if (state.view === "hist") renderHistory();
+    requestAnimationFrame(measure);
+  }
+  $("daySel").addEventListener("change", e => { state.current = e.target.value; state.moversAll = false; state.allNews = false; renderAll(); });
+  let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { measure(); if (state.view === "hist") renderHistory(); const c = document.querySelector("#sheetP .chart"); if (c && !$("sheet").hidden){ const s = allSeries().get(state.sheetId); if (s && s.pts.length) drawChart(c, s); } }, 160); });
+
+  function showError(msg){
+    const w = $("headlineWrap"); w.textContent = "";
+    w.appendChild(el("p",{class:"headline",text:"ยังโหลดข้อมูลไม่ได้"}));
+    const k = $("keys"); k.textContent = "";
+    const box = el("div",{class:"errorbox",style:"grid-column:1/-1"}, el("h2",{text:"อ่านไฟล์ข้อมูลไม่สำเร็จ"}), el("span",{text:"อาจเป็นเพราะสัญญาณอินเทอร์เน็ต หรือระบบกำลังอัปเดตข้อมูลเช้านี้ ลองใหม่อีกครั้ง (" + msg + ")"}));
+    const b = el("button",{type:"button",text:"ลองโหลดใหม่"}); b.addEventListener("click", () => location.reload());
+    box.appendChild(b); k.appendChild(box);
+    $("brandSub").textContent = "โหลดข้อมูลไม่สำเร็จ";
   }
 
-  (async function(){
+  buildNav(); paintThemeBtn(); measure();
+  const h = (location.hash || "").slice(1); if (h) selectView(h, false);
+  (async function load(){
     try {
       const res = await fetch("data.json?v=" + Date.now(), {cache:"no-store"});
       if (!res.ok) throw new Error("HTTP " + res.status);
@@ -706,9 +1213,7 @@ footer{font-size:.8rem;color:var(--muted);display:grid;gap:4px;max-width:90ch}
       days.sort((a,b) => a.date < b.date ? -1 : 1);
       state.days = days; days.forEach(d => state.byDate[d.date] = d);
       renderAll();
-    } catch(e) {
-      $("headline").textContent = "อ่านไฟล์ข้อมูลไม่สำเร็จ ลองรีเฟรชหน้าอีกครั้ง (" + e.message + ")";
-    }
+    } catch(e) { showError(e.message); }
   })();
 })();
 </script>
