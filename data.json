@@ -3498,6 +3498,73 @@
       }
      ]
     }
+   ],
+   "summary": {
+    "what": "บาทอ่อนต่อเป็นวันที่สาม ปิด 33.78 (ตลาดต่างประเทศแตะ 33.91) เพราะตลาดคาดเฟดขึ้นดอกเบี้ย ธ.ค. · เบรนท์ดีด 3.3% หลังทรัมป์ปัดดีลอิหร่าน · CBOT ร่วงทั้งกลุ่ม กากถั่วเหลืองลดกลับมาที่ 325 ดอลลาร์",
+    "impact": "สินค้านำเข้าที่จ่ายเป็นดอลลาร์ เช่น FeedAd เมไทโอนีน และวัคซีน มีต้นทุนสูงขึ้นจากบาทอ่อน ส่วนกากถั่วนำเข้าได้ราคา CBOT ที่ลดลงมาช่วยชดเชย · ดีเซลในประเทศยังคงที่ 40.79 บาท",
+    "watch": "ราคาดีเซลสัปดาห์หน้าหลังเบรนท์เด้ง · ทิศทางค่าเงินบาทก่อนประชุมเฟด ธ.ค. · ไข้หวัดนกที่ขยายวงในญี่ปุ่น เกาหลีใต้ และเม็กซิโก"
+   },
+   "insights": [
+    {
+     "fact": "CBOT ร่วงทั้งกลุ่ม กากถั่วเหลืองลด 4.30 ดอลลาร์ ขณะที่บาทอ่อนค่า",
+     "view": "ราคากากถั่วนำเข้ารอบหน้าน่าจะทรงตัว ทยอยปิดปริมาณ ธ.ค.–ม.ค. เป็นช่วงได้ ไม่ต้องรีบทั้งก้อน",
+     "sources": [
+      {
+       "name": "Pro Farmer",
+       "url": "https://www.profarmer.com/news/after-bell/after-bell-selling-pressure-across-grains-complex"
+      },
+      {
+       "name": "อินโฟเควสท์",
+       "url": "https://infoquest.co.th/2026/678684"
+      }
+     ]
+    },
+    {
+     "fact": "บาทอ่อนสามวันติด ปิด 33.78 บาท/ดอลลาร์ และดอลลาร์แข็งค่าสุดในรอบประมาณ 1.5 ปี",
+     "view": "ควรเร่งเจรจาราคา FeedAd/เมไทโอนีน/วัคซีนนำเข้าไตรมาส 1/70 และขอยืนเรตเดิม",
+     "sources": [
+      {
+       "name": "อินโฟเควสท์",
+       "url": "https://infoquest.co.th/2026/678684"
+      },
+      {
+       "name": "Trading Economics",
+       "url": "https://tradingeconomics.com/thailand/currency"
+      },
+      {
+       "name": "Pro Farmer",
+       "url": "https://www.profarmer.com/news/after-bell/after-bell-selling-pressure-across-grains-complex"
+      }
+     ]
+    },
+    {
+     "fact": "เบรนท์ดีด 3.3% ปิด 95.82 ดอลลาร์ ขณะที่ดีเซลในประเทศยังคงราคา 40.79 บาท",
+     "view": "ดีเซลอาจปรับขึ้นสัปดาห์หน้า ควรยืนยันค่าขนส่ง ธ.ค. ตอนนี้",
+     "sources": [
+      {
+       "name": "Trading Economics",
+       "url": "https://tradingeconomics.com/commodity/brent-crude-oil"
+      },
+      {
+       "name": "ฐานเศรษฐกิจ",
+       "url": "https://www.thansettakij.com/economy/energy/673645"
+      }
+     ]
+    },
+    {
+     "fact": "ไข้หวัดนกพบเพิ่มในญี่ปุ่น เกาหลีใต้ และเม็กซิโก ฮ่องกงระงับนำเข้าสัตว์ปีกจากเกาหลีใต้และเนเธอร์แลนด์",
+     "view": "ตรวจสต็อกยาฆ่าเชื้อ ปูนขาว PPE ของทุกฟาร์มให้พอถึงปลายหนาว",
+     "sources": [
+      {
+       "name": "Bastille Post",
+       "url": "https://www.bastillepost.com/global/article/6348802-hong-kong-suspends-poultry-imports-amid-avian-influenza-outbreaks-in-korea-and-netherlands"
+      },
+      {
+       "name": "The Poultry Site",
+       "url": "https://www.thepoultrysite.com/news/2026/11/mexico-reports-first-bird-flu-outbreak-in-poultry-in-two-years"
+      }
+     ]
+    }
    ]
   }
  ]

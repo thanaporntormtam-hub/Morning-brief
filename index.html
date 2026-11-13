@@ -143,6 +143,43 @@ h1,h2,h3,h4{font-family:var(--font-head);font-weight:600;margin:0;line-height:1.
 .chg.down{color:var(--down);background:var(--down-bg)}
 .chg.flat{color:var(--flat);background:var(--flat-bg)}
 .chg.none{font-family:var(--font-body);font-weight:500}
+.chg.stale{font-family:var(--font-body);font-weight:600;color:#8a5a00;background:#fff4d6;border:1px dashed #e0b44a}
+:root[data-theme="dark"] .chg.stale{color:#fbbf24;background:#2b2310;border-color:#6b5414}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chg.stale{color:#fbbf24;background:#2b2310;border-color:#6b5414}}
+.basis{font-size:.72rem;color:var(--muted);line-height:1.4}
+.chips2{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.seg button{border:0;background:none;border-radius:8px;padding:5px 12px;font-size:.82rem;font-weight:600;color:var(--muted);min-height:32px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.s3{display:grid;gap:8px}
+.s3 > div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:9px 11px}
+.s3 .k{font-family:var(--font-head);font-weight:600;font-size:.74rem;white-space:nowrap;border-radius:7px;padding:3px 8px;background:#fff;color:var(--navy);margin-top:1px}
+.s3 .k.i{background:#ffe2a8;color:#5a3b00}
+.s3 .k.w{background:#c9f0dc;color:#0f5132}
+.s3 p{margin:0;font-size:.95rem;line-height:1.6}
+@media (max-width:640px){.s3 > div{grid-template-columns:minmax(0,1fr);gap:5px}.s3 .k{justify-self:start}}
+.ins .fact{display:block}
+.ins .view{display:flex;gap:6px;align-items:flex-start;margin-top:6px;font-weight:500}
+.ins .tag{flex:none;font-size:.68rem;font-weight:700;border-radius:6px;padding:1px 7px;margin-top:3px;white-space:nowrap}
+.ins .tag.f{background:#e0ecff;color:#1e40af}
+.ins .tag.a{background:#ede9fe;color:#5b21b6}
+:root[data-theme="dark"] .ins .tag.f{background:#172a4d;color:#93c5fd}
+:root[data-theme="dark"] .ins .tag.a{background:#2a2050;color:#c4b5fd}
+.ins .src{display:block;font-size:.72rem;color:var(--muted);margin-top:4px;font-weight:400}
+.sharebtn{display:inline-flex;align-items:center;gap:7px;border:0;background:#fff;color:var(--navy);border-radius:10px;padding:8px 14px;font-weight:700;font-size:.86rem;min-height:40px;justify-self:start}
+.sharebtn:hover{background:#eef3f8}
+.sum-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.share-prev{width:100%;border-radius:12px;border:1px solid var(--line);display:block}
+.share-acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.share-acts button{border:1px solid var(--line2);background:var(--surface);border-radius:12px;min-height:46px;font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.share-acts button.primary{background:#06c755;border-color:#06c755;color:#fff}
+#printArea{display:none}
+@media print{
+  body.printing > *:not(#printArea){display:none!important}
+  body.printing #printArea{display:block!important}
+  body.printing #printArea img{width:100%;height:auto}
+  @page{margin:8mm}
+}
 
 /* ---------- Key metrics ---------- */
 .keys{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -437,7 +474,7 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
         <div class="sk" style="height:14px;width:62%;margin:6px 0"></div>
       </div>
       <div class="pills" id="pills"></div>
-      <div class="sum-legend">นับจากรายการที่มีราคาเทียบได้ · สีแดง = ต้นทุนผู้ซื้อสูงขึ้น · สีเขียว = ต้นทุนลดลง</div>
+      <div class="sum-foot"><div class="sum-legend">นับจากรายการที่มีราคาเทียบได้ · แต่ละรายการเทียบกับประกาศก่อนหน้าของตัวเอง (วันที่ระบุใต้ราคา) · แดง = ต้นทุนผู้ซื้อสูงขึ้น · เขียว = ต้นทุนลดลง</div><button type="button" class="sharebtn" id="shareBtn">📤 แชร์สรุปวันนี้</button></div>
     </section>
 
     <section class="sec" aria-labelledby="h-keys">
@@ -515,6 +552,8 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
 </main>
 
 <nav class="botnav" role="tablist" aria-label="เมนูหลัก" data-nav></nav>
+
+<div id="printArea" aria-hidden="true"></div>
 
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="shTitle">
   <div class="sheet-bg" data-close></div>
@@ -606,15 +645,30 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
   // ---------- change logic (unchanged from previous version) ----------
   // The source's own previous price is the most accurate comparison; fall back to our previous record.
   function prevOf(item, date){
-    if (typeof item.prev === "number") return {v: item.prev, basis: item.prevLabel || "เทียบประกาศก่อน"};
+    if (typeof item.prev === "number") return {v: item.prev, basis: item.prevLabel || "เทียบประกาศก่อน", src:true};
     for (let i = state.days.length - 1; i >= 0; i--){
       const d = state.days[i];
       if (d.date >= date) continue;
       const it = (d.items || []).find(x => x.id === item.id);
-      if (it && typeof it.value === "number") return {v: it.value, basis: "เทียบ " + thDate(d.date)};
+      if (it && typeof it.value === "number") return {v: it.value, basis: "เทียบ " + thDate(d.date), src:false, baseDate:d.date, baseAsOf:it.asOf};
     }
     return null;
   }
+  // The nearest earlier record of this item, used to tell "unchanged" from "no new announcement".
+  function prevRecord(item, date){
+    for (let i = state.days.length - 1; i >= 0; i--){
+      const d = state.days[i];
+      if (d.date >= date) continue;
+      const it = (d.items || []).find(x => x.id === item.id);
+      if (it) return it;
+    }
+    return null;
+  }
+  function isStale(item, date){
+    const p = prevRecord(item, date);
+    return !!(p && p.asOf === item.asOf && p.value === item.value && (p.valueText || "") === (item.valueText || ""));
+  }
+  const isWeekly = it => /สัปดาห์/.test((it.asOf || "") + " " + (it.prevLabel || ""));
   function seriesUpTo(id, date){
     const pts = [];
     state.days.forEach(d => { if (d.date > date) return; const it = (d.items || []).find(x => x.id === id); if (it && typeof it.value === "number") pts.push(it.value); });
@@ -627,10 +681,14 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
     const side = item.side || "buy";
     let cls = "flat";
     if (Math.abs(diff) > 1e-9 && side !== "neutral") cls = (side === "sell") === (diff > 0) ? "down" : "up";
-    return {diff, pct, cls, basis: p.basis};
+    const stale = isStale(item, date);
+    const baseTxt = nf(p.v, decimals(p.v));
+    const basisFull = p.src ? (p.basis + " (" + baseTxt + ")") : ("เทียบประกาศ " + (p.baseAsOf || thDate(p.baseDate)) + " (" + baseTxt + ")");
+    return {diff, pct, cls, basis: basisFull, src: !!p.src, stale, base: p.v};
   }
   function chip(c, item, withBasis){
     if (!c) return el("span",{class:"chg flat none",text:"ไม่มีข้อมูลเทียบ"});
+    if (c.stale && !c.src){ const s0 = el("span",{class:"chg stale",text:"ยังไม่มีประกาศใหม่"}); s0.title = "ใช้ราคาประกาศล่าสุด · " + c.basis; return s0; }
     const same = Math.abs(c.diff) < 1e-9;
     const sign = c.diff > 0 ? "+" : "";
     const txt = same ? "■ คงที่" : (c.diff > 0 ? "▲ " : "▼ ") + sign + nf(c.diff, Math.abs(c.diff) < 0.01 ? 4 : decimals(item.value)) + " (" + sign + c.pct.toFixed(1) + "%)";
@@ -638,6 +696,7 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
     if (withBasis) s.title = c.basis;
     return s;
   }
+  function staleTag(c){ return (c && c.stale && c.src) ? el("span",{class:"chg stale",title:"ยังไม่มีประกาศใหม่ ใช้ราคาประกาศล่าสุด",text:"ประกาศเดิม"}) : null; }
   function valText(it){ return it.valueText || (typeof it.value === "number" ? nf(it.value, decimals(it.value)) : "—"); }
   function spark(pts, color, W, H){
     if (pts.length < 2) return null;
@@ -723,20 +782,34 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
     const w = $("headlineWrap"); w.textContent = "";
     const pills = $("pills"); pills.textContent = "";
     if (!day){ w.appendChild(el("p",{class:"headline",text:"ยังไม่มีข้อมูล ข้อมูลชุดแรกจะขึ้นหลังการอัปเดตครั้งถัดไป"})); return; }
-    const p = el("p",{class:"headline clamp",text:day.headline || ""});
-    w.appendChild(p);
-    requestAnimationFrame(() => {
-      if (p.scrollHeight > p.clientHeight + 2){
-        const b = el("button",{type:"button",class:"linkbtn",text:"อ่านสรุปเต็ม","aria-expanded":"false"});
-        b.addEventListener("click", () => { const open = p.classList.toggle("clamp"); b.textContent = open ? "อ่านสรุปเต็ม" : "ย่อสรุป"; b.setAttribute("aria-expanded", String(!open)); });
-        w.appendChild(b);
-      }
-    });
-    let up = 0, down = 0, flat = 0;
-    (day.items || []).forEach(it => { const c = change(it, day.date); if (!c) return; if (c.cls === "up") up++; else if (c.cls === "down") down++; else flat++; });
-    pills.appendChild(el("span",{class:"pill up"}, "▲ ต้นทุนขึ้น ", el("b",{text:String(up)})));
-    pills.appendChild(el("span",{class:"pill down"}, "▼ ต้นทุนลง ", el("b",{text:String(down)})));
-    pills.appendChild(el("span",{class:"pill"}, "■ ทรงตัว ", el("b",{text:String(flat)})));
+    const s3 = day.summary && (day.summary.what || day.summary.impact || day.summary.watch) ? day.summary : null;
+    if (s3){
+      const box = el("div",{class:"s3"});
+      [["what","เกิดอะไรขึ้น",""],["impact","กระทบอะไร","i"],["watch","ควรติดตามอะไร","w"]].forEach(([k,lab,cls]) => {
+        if (s3[k]) box.appendChild(el("div",null, el("span",{class:"k " + cls,text:lab}), el("p",{text:s3[k]})));
+      });
+      w.appendChild(box);
+    } else {
+      const p = el("p",{class:"headline clamp",text:day.headline || ""});
+      w.appendChild(p);
+      requestAnimationFrame(() => {
+        if (p.scrollHeight > p.clientHeight + 2){
+          const b = el("button",{type:"button",class:"linkbtn",text:"อ่านสรุปเต็ม","aria-expanded":"false"});
+          b.addEventListener("click", () => { const open = p.classList.toggle("clamp"); b.textContent = open ? "อ่านสรุปเต็ม" : "ย่อสรุป"; b.setAttribute("aria-expanded", String(!open)); });
+          w.appendChild(b);
+        }
+      });
+    }
+    const n = countMoves(day);
+    pills.appendChild(el("span",{class:"pill up"}, "▲ ต้นทุนขึ้น ", el("b",{text:String(n.up)})));
+    pills.appendChild(el("span",{class:"pill down"}, "▼ ต้นทุนลง ", el("b",{text:String(n.down)})));
+    pills.appendChild(el("span",{class:"pill"}, "■ คงที่ ", el("b",{text:String(n.flat)})));
+    pills.appendChild(el("span",{class:"pill"}, "⏸ ยังไม่มีประกาศใหม่ ", el("b",{text:String(n.stale)})));
+  }
+  function countMoves(day){
+    const n = {up:0, down:0, flat:0, stale:0};
+    (day.items || []).forEach(it => { const c = change(it, day.date); if (!c) return; if (c.stale && !c.src) n.stale++; else if (c.cls === "up") n.up++; else if (c.cls === "down") n.down++; else n.flat++; });
+    return n;
   }
 
   // ---------- key metrics ----------
@@ -752,8 +825,9 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
       b.appendChild(top);
       b.appendChild(el("span",{class:"k-val"}, valText(it), el("span",{class:"k-unit",text:it.unit || ""})));
       const c = change(it, day.date);
-      b.appendChild(el("span",null, chip(c, it, true)));
-      b.appendChild(el("span",{class:"k-asof",text:"ประกาศ " + (it.asOf || "-") + (c ? " · " + c.basis : "")}));
+      b.appendChild(el("span",{class:"chips2"}, chip(c, it, true), staleTag(c)));
+      b.appendChild(el("span",{class:"k-asof",text:"ประกาศ " + (it.asOf || "-")}));
+      if (c) b.appendChild(el("span",{class:"k-asof",text:c.basis}));
       b.addEventListener("click", () => openItem(id));
       box.appendChild(b);
     });
@@ -763,20 +837,48 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
   // ---------- insights (text from data only) ----------
   function renderTips(day){
     const ol = $("tips"); ol.textContent = "";
+    const ins = day && Array.isArray(day.insights) ? day.insights.filter(x => x && (x.fact || x.view)) : [];
+    if (ins.length){
+      ins.forEach((x, i) => {
+        const body = el("span",null);
+        if (x.fact){
+          body.appendChild(el("span",{class:"fact"}, el("span",{class:"tag f",text:"ข้อเท็จจริง",style:"margin-right:6px;display:inline-block"}), x.fact));
+          const srcs = Array.isArray(x.sources) ? x.sources : [];
+          if (srcs.length){ const sl = el("span",{class:"src"}, "อ้างอิง: "); srcs.forEach((s2, k) => { if (k) sl.appendChild(document.createTextNode(" · ")); sl.appendChild(link(s2.name || "ลิงก์", s2.url)); }); body.appendChild(sl); }
+        }
+        if (x.view) body.appendChild(el("span",{class:"view"}, el("span",{class:"tag a",text:"ข้อวิเคราะห์"}), el("span",{text:x.view})));
+        ol.appendChild(el("li",null, el("span",{class:"n",text:String(i+1)}), body));
+      });
+      return;
+    }
     const parts = day && day.procurementNote ? day.procurementNote.split("•").map(s => s.trim()).filter(Boolean) : [];
     if (!parts.length){ ol.appendChild(el("li",null, el("span",{class:"n",text:"–"}), el("span",{text:"ยังไม่มีบทสรุปสำหรับวันนี้"}))); return; }
     parts.forEach((p, i) => ol.appendChild(el("li",null, el("span",{class:"n",text:String(i+1)}), el("span",{text:p}))));
   }
 
   // ---------- movers ----------
+  function moverList(day){
+    const all = (day.items || []).map(it => ({it, c: change(it, day.date)})).filter(x => x.c && Math.abs(x.c.diff) > 1e-9);
+    all.sort((a,b) => Math.abs(b.c.pct) - Math.abs(a.c.pct));
+    return {daily: all.filter(x => !isWeekly(x.it)), weekly: all.filter(x => isWeekly(x.it))};
+  }
   function renderMovers(day){
     const box = $("movers"); box.textContent = "";
     if (!day) return;
-    const list = (day.items || []).map(it => ({it, c: change(it, day.date)})).filter(x => x.c && Math.abs(x.c.diff) > 1e-9);
-    list.sort((a,b) => Math.abs(b.c.pct) - Math.abs(a.c.pct));
-    if (!list.length){ box.appendChild(el("div",{class:"empty",text:"ยังไม่มีรายการที่ราคาเปลี่ยนจากครั้งก่อน"})); return; }
+    const L = moverList(day);
+    if (!state.moverTab) state.moverTab = L.daily.length ? "daily" : "weekly";
+    const seg = el("div",{class:"seg",role:"group","aria-label":"ช่วงเวลา"});
+    [["daily","รายวัน",L.daily.length],["weekly","รายสัปดาห์",L.weekly.length]].forEach(([k,lab,n]) => {
+      const b = el("button",{type:"button","aria-pressed":String(state.moverTab === k)}, lab + " (" + n + ")");
+      b.addEventListener("click", () => { state.moverTab = k; state.moversAll = false; renderMovers(day); });
+      seg.appendChild(b);
+    });
+    box.appendChild(seg);
+    box.appendChild(el("div",{class:"basis",text: state.moverTab === "daily" ? "ราคาที่ประกาศรายวัน เทียบกับประกาศครั้งก่อนของแต่ละรายการ" : "ราคาที่ประกาศรายสัปดาห์ เทียบกับสัปดาห์ก่อน"}));
+    const list = state.moverTab === "daily" ? L.daily : L.weekly;
+    if (!list.length){ box.appendChild(el("div",{class:"empty",text:"ยังไม่มีรายการที่ราคาเปลี่ยนในกลุ่มนี้"})); return; }
     const maxPct = Math.abs(list[0].c.pct) || 1;
-    const limit = state.moversAll ? list.length : 6;
+    const limit = state.moversAll ? list.length : 5;
     list.slice(0, limit).forEach(({it, c}) => {
       const b = el("button",{class:"mover",type:"button",style:"--gc:" + gcol(it.group),"aria-label":"ดูกราฟ " + it.name});
       b.appendChild(el("span",{class:"m-name"}, el("span",{class:"gdot"}), el("span",{class:"t",text:it.name})));
@@ -784,13 +886,13 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
       const sub = el("span",{class:"m-sub"}, el("span",{class:"num",text:valText(it)}), el("span",{text:it.unit || ""}));
       if (it.side === "sell") sub.appendChild(el("span",{class:"sidetag",title:"ฟาร์มเป็นผู้ขาย ราคาขึ้นเป็นผลดี",text:"ฝั่งขาย"}));
       b.appendChild(sub);
-      const bar = el("span",{class:"m-bar"}, el("i",{class:c.cls,style:"width:" + Math.max(4, Math.abs(c.pct) / maxPct * 100).toFixed(1) + "%"}));
-      b.appendChild(bar);
+      b.appendChild(el("span",{class:"m-sub",style:"white-space:normal;flex-wrap:wrap"}, staleTag(c), el("span",{text:c.basis})));
+      b.appendChild(el("span",{class:"m-bar"}, el("i",{class:c.cls,style:"width:" + Math.max(4, Math.abs(c.pct) / maxPct * 100).toFixed(1) + "%"})));
       b.addEventListener("click", () => openItem(it.id));
       box.appendChild(b);
     });
-    if (list.length > 6){
-      const m = el("button",{type:"button",class:"morebtn",text:state.moversAll ? "แสดงเฉพาะ 6 อันดับแรก" : "ดูทั้งหมด " + list.length + " รายการที่เปลี่ยนแปลง"});
+    if (list.length > 5){
+      const m = el("button",{type:"button",class:"morebtn",text:state.moversAll ? "แสดงเฉพาะ 5 อันดับแรก" : "ดูทั้งหมด " + list.length + " รายการ"});
       m.addEventListener("click", () => { state.moversAll = !state.moversAll; renderMovers(day); });
       box.appendChild(m);
     }
@@ -922,8 +1024,9 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
       const det = el("details",{class:"cat",id:"cat-" + g.id,style:"--gc:" + gcol(g.id)});
       det.open = q ? true : g.open;
       let up = 0, down = 0;
-      items.forEach(it => { const c = change(it, day.date); if (c && c.cls === "up") up++; else if (c && c.cls === "down") down++; });
+      items.forEach(it => { const c = change(it, day.date); if (!c || (c.stale && !c.src)) return; if (c.cls === "up") up++; else if (c.cls === "down") down++; });
       const sumTags = el("span",{class:"cat-sum"});
+      sumTags.title = "จำนวนรายการที่ขึ้น/ลง เทียบประกาศก่อนหน้าของแต่ละรายการ";
       if (up) sumTags.appendChild(el("span",{class:"chg up",text:"▲" + up}));
       if (down) sumTags.appendChild(el("span",{class:"chg down",text:"▼" + down}));
       const sum = el("summary",null, el("span",{class:"cat-ic"}, ic(g.id)), el("span",{class:"cat-t"}, el("h3",{text:g.name}), el("span",{text:(g.hint ? g.hint + " · " : "") + items.length + " รายการ"})), sumTags, el("span",{class:"chev"}, ic("chev")));
@@ -937,7 +1040,7 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
         r.appendChild(el("span",{class:"r-name"}, hl(it.name || "", q)));
         r.appendChild(el("span",{class:"r-val"}, valText(it), el("span",{class:"r-unit",text:it.unit || ""})));
         const c = change(it, day.date);
-        r.appendChild(el("span",{class:"r-meta",text:(it.asOf ? "ประกาศ " + it.asOf : "") + (c ? " · " + c.basis : "")}));
+        r.appendChild(el("span",{class:"r-meta"}, (it.asOf ? "ประกาศ " + it.asOf : ""), staleTag(c) ? el("span",{style:"margin-left:6px"}, staleTag(c)) : null, c ? el("span",{style:"display:block",text:c.basis}) : null));
         r.appendChild(el("span",{class:"r-chg"}, chip(c, it, true)));
         if (it.note && !/^(ทรงตัว|ยืนราคา|คงราคา)$/.test(it.note)) r.appendChild(el("span",{class:"r-note",text:it.note}));
         if (clickable) r.addEventListener("click", () => openItem(it.id));
@@ -1123,9 +1226,13 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
   function historyTable(s){
     const pts = s.pts.slice().sort((a,b) => a.date < b.date ? -1 : 1);
     const tbl = el("table");
-    tbl.appendChild(el("thead",null, el("tr",null, el("th",{text:"วันที่บันทึก"}), el("th",{text:"ราคา (" + (s.unit || "") + ")"}), el("th",{text:"วันที่ประกาศ"}), el("th",{text:"ที่มา"}))));
+    tbl.appendChild(el("thead",null, el("tr",null, el("th",{text:"วันที่บันทึก"}), el("th",{text:"ราคา (" + (s.unit || "") + ")"}), el("th",{text:"เปลี่ยนแปลง (เทียบแถวก่อนหน้า)"}), el("th",{text:"วันที่ประกาศ"}), el("th",{text:"ที่มา"}))));
     const tb = el("tbody");
-    pts.slice().reverse().forEach(p => tb.appendChild(el("tr",null, el("td",{text:thDate(p.date)}), el("td",{class:"n",text:nf(p.v, decimals(p.v))}), el("td",{text:p.asOf || ""}), el("td",null, link(p.source || "ลิงก์", p.url)))));
+    pts.map((p, i) => ({p, prev: i ? pts[i-1] : null})).reverse().forEach(({p, prev}) => {
+      let ch = "—";
+      if (prev){ const d = p.v - prev.v; ch = Math.abs(d) < 1e-9 ? "0 (" + thDate(prev.date) + ")" : (d > 0 ? "+" : "") + nf(d, Math.abs(d) < 0.01 ? 4 : decimals(p.v)) + " (" + thDate(prev.date) + ")"; if (p.asOf === prev.asOf && Math.abs(d) < 1e-9) ch = "ประกาศเดิม"; }
+      tb.appendChild(el("tr",null, el("td",{text:thDate(p.date)}), el("td",{class:"n",text:nf(p.v, decimals(p.v))}), el("td",{class:"n",text:ch}), el("td",{text:p.asOf || ""}), el("td",null, link(p.source || "ลิงก์", p.url))));
+    });
     tbl.appendChild(tb);
     return el("div",{class:"tablewrap"}, tbl);
   }
@@ -1166,8 +1273,8 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
     P.appendChild(el("div",{class:"sh-head"}, el("div",null, el("div",{class:"sh-grp"}, ic((it || s).group), el("span",{text:g.name || ""})), el("h3",{id:"shTitle",text:(it || s).name || ""})), x));
     if (it){
       const c = change(it, day.date);
-      P.appendChild(el("div",{class:"sh-now"}, el("span",{class:"num",text:valText(it)}), el("span",{class:"u",text:it.unit || ""}), chip(c, it, true)));
-      P.appendChild(el("div",{class:"sh-meta"}, "ประกาศ " + (it.asOf || "-") + (c ? " · " + c.basis : "") + " · ที่มา: ", link(it.source || "ลิงก์", it.url)));
+      P.appendChild(el("div",{class:"sh-now"}, el("span",{class:"num",text:valText(it)}), el("span",{class:"u",text:it.unit || ""}), chip(c, it, true), staleTag(c)));
+      P.appendChild(el("div",{class:"sh-meta"}, "ประกาศ " + (it.asOf || "-") + " · ที่มา: ", link(it.source || "ลิงก์", it.url), c ? el("div",{text:c.basis}) : null));
       if (it.note && !/^(ทรงตัว|ยืนราคา|คงราคา)$/.test(it.note)) P.appendChild(el("div",{class:"sh-note",text:it.note}));
     }
     const body = el("div",{class:"sh-body"}); P.appendChild(body);
@@ -1187,6 +1294,181 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
   $("sheet").addEventListener("click", e => { if (e.target.hasAttribute("data-close")) closeSheet(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet(); });
 
+  // ---------- share daily summary (image / PDF / text) ----------
+  function segWords(t){
+    let segs;
+    try{ if (window.Intl && Intl.Segmenter) segs = Array.from(new Intl.Segmenter("th",{granularity:"word"}).segment(t), x => x.segment); }catch(e){}
+    if (!segs) return Array.from(t);
+    // keep numbers, units and punctuation together (e.g. "3.3%", "33.78)")
+    const out = [];
+    segs.forEach(sg => { const prev = out[out.length-1]; if (prev && /^[%.,:;)\]\-–\d]/.test(sg) && !/\s$/.test(prev)) out[out.length-1] = prev + sg; else out.push(sg); });
+    return out;
+  }
+  function wrapLines(ctx, text, maxW, maxLines){
+    const words = segWords(text || ""), lines = []; let cur = "";
+    for (const w of words){
+      const t = cur + w;
+      if (ctx.measureText(t).width > maxW && cur){ lines.push(cur.trim()); cur = w.trimStart(); if (maxLines && lines.length >= maxLines) break; }
+      else cur = t;
+    }
+    if ((!maxLines || lines.length < maxLines) && cur.trim()) lines.push(cur.trim());
+    if (maxLines && lines.length === maxLines && words.join("").length > lines.join("").length + 2){
+      let l = lines[maxLines-1]; while (l && ctx.measureText(l + "…").width > maxW) l = l.slice(0, -1); lines[maxLines-1] = l + "…";
+    }
+    return lines;
+  }
+  function chipText(c, it){
+    if (!c) return {t:"ไม่มีข้อมูลเทียบ", col:"#5f6f7d"};
+    if (c.stale && !c.src) return {t:"ยังไม่มีประกาศใหม่", col:"#8a5a00"};
+    if (Math.abs(c.diff) < 1e-9) return {t:"■ คงที่", col:"#5f6f7d"};
+    const sg = c.diff > 0 ? "+" : "";
+    return {t:(c.diff > 0 ? "▲ " : "▼ ") + sg + nf(c.diff, Math.abs(c.diff) < 0.01 ? 4 : decimals(it.value)) + " (" + sg + c.pct.toFixed(1) + "%)", col: c.cls === "up" ? "#c62828" : c.cls === "down" ? "#16794a" : "#5f6f7d"};
+  }
+  function shareUrl(){ return location.origin + location.pathname; }
+  function drawSummary(day){
+    const W = 1080, P = 56, IW = W - P * 2;
+    const H_FONT = '"Prompt","Sarabun",sans-serif', B_FONT = '"Sarabun",sans-serif', N_FONT = '"IBM Plex Mono",monospace';
+    const cv = document.createElement("canvas"), ctx = cv.getContext("2d");
+    function pass(paint){
+      let y = 0;
+      const rect = (x, yy, w, h, r, fill, stroke) => { if (!paint) return; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x, yy, w, h, r) : ctx.rect(x, yy, w, h); if (fill){ ctx.fillStyle = fill; ctx.fill(); } if (stroke){ ctx.strokeStyle = stroke; ctx.lineWidth = 2; ctx.stroke(); } };
+      const text = (t, x, yy, font, col, align) => { ctx.font = font; if (!paint) return; ctx.fillStyle = col; ctx.textAlign = align || "left"; ctx.textBaseline = "alphabetic"; ctx.fillText(t, x, yy); };
+      // background + header
+      if (paint){ ctx.fillStyle = "#f2f5f8"; ctx.fillRect(0, 0, cv.width, cv.height); const g = ctx.createLinearGradient(0,0,W,0); g.addColorStop(0,"#17324f"); g.addColorStop(1,"#1f4570"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, 176); }
+      text("☀ ประเด็นสำคัญเช้านี้", P, 84, "700 52px " + H_FONT, "#ffffff");
+      text("ข้อมูล " + thDate(day.date) + (day.updatedAt ? " · อัปเดต " + thTime(day.updatedAt) : "") + " · สรุปสำหรับงานจัดซื้อ", P, 132, "500 27px " + B_FONT, "rgba(255,255,255,.85)");
+      y = 210;
+      // summary
+      const s3 = day.summary && (day.summary.what || day.summary.impact || day.summary.watch) ? day.summary : null;
+      const rows = s3 ? [["เกิดอะไรขึ้น", s3.what, "#17324f","#ffffff"],["กระทบอะไร", s3.impact, "#ffe2a8","#5a3b00"],["ควรติดตาม", s3.watch, "#c9f0dc","#0f5132"]].filter(r => r[1]) : [["สรุป", day.headline || "", "#17324f","#ffffff"]];
+      rows.forEach(([lab, body, bg, fg]) => {
+        ctx.font = "500 29px " + B_FONT;
+        const lines = wrapLines(ctx, body, IW - 210, s3 ? 4 : 6);
+        const h = Math.max(64, lines.length * 42 + 26);
+        rect(P, y, IW, h, 18, "#ffffff", "#e1e7ed");
+        rect(P + 18, y + 16, 168, 40, 10, bg);
+        text(lab, P + 102, y + 45, "700 23px " + H_FONT, fg, "center");
+        lines.forEach((l, i) => text(l, P + 206, y + 46 + i * 42, "500 29px " + B_FONT, "#0f1e2c"));
+        y += h + 14;
+      });
+      // key metrics 2 x 3
+      y += 16; text("ตัวเลขหลัก", P, y + 30, "700 32px " + H_FONT, "#0f1e2c"); y += 50;
+      const keys = KEY_IDS.map(id => (day.items || []).find(x => x.id === id)).filter(Boolean);
+      const cw = (IW - 18) / 2, ch = 214;
+      keys.forEach((it, i) => {
+        const cx = P + (i % 2) * (cw + 18), cy = y + Math.floor(i / 2) * (ch + 16);
+        const c = change(it, day.date), ct = chipText(c, it);
+        rect(cx, cy, cw, ch, 18, "#ffffff", "#e1e7ed");
+        if (paint){ ctx.fillStyle = gcolVal(it.group); ctx.fillRect(cx, cy + 14, 6, ch - 28); }
+        text(KEY_LABEL[it.id] || it.name, cx + 26, cy + 44, "600 26px " + B_FONT, "#5b6c7a");
+        ctx.font = "600 50px " + N_FONT; const vw = ctx.measureText(valText(it)).width;
+        text(valText(it), cx + 26, cy + 104, "600 50px " + N_FONT, "#0f1e2c");
+        text(it.unit || "", cx + 36 + vw, cy + 104, "500 23px " + B_FONT, "#5b6c7a");
+        text(ct.t, cx + 26, cy + 146, "700 26px " + N_FONT, ct.col);
+        ctx.font = "500 20px " + B_FONT;
+        wrapLines(ctx, c ? c.basis : ("ประกาศ " + (it.asOf || "-")), cw - 46, 2).forEach((l, k) => text(l, cx + 26, cy + 178 + k * 25, "500 20px " + B_FONT, "#5b6c7a"));
+      });
+      y += Math.ceil(keys.length / 2) * (ch + 16) + 10;
+      // movers
+      const L = moverList(day);
+      const mv = (L.daily.length ? L.daily : L.weekly).slice(0, 3);
+      if (mv.length){
+        text("ขยับแรงสุด" + (L.daily.length ? " (รายวัน)" : " (รายสัปดาห์)"), P, y + 30, "700 32px " + H_FONT, "#0f1e2c"); y += 46;
+        mv.forEach(({it, c}) => {
+          const ct = chipText(c, it);
+          rect(P, y, IW, 62, 14, "#ffffff", "#e1e7ed");
+          ctx.font = "600 27px " + B_FONT; let nm = it.name; while (ctx.measureText(nm).width > IW - 380 && nm.length > 4) nm = nm.slice(0, -1); if (nm !== it.name) nm += "…";
+          text(nm, P + 22, y + 41, "600 27px " + B_FONT, "#0f1e2c");
+          text(ct.t, P + IW - 22, y + 41, "700 25px " + N_FONT, ct.col, "right");
+          y += 72;
+        });
+      }
+      // alerts
+      const al = day.alerts || [];
+      if (al.length){
+        y += 8; const hi = al.filter(a => a.level === "high").length, md = al.filter(a => a.level === "medium").length;
+        text("เฝ้าระวังโรคสัตว์ปีก", P, y + 30, "700 32px " + H_FONT, "#0f1e2c");
+        text("เสี่ยงสูง " + hi + " · ปานกลาง " + md, P + IW, y + 30, "700 25px " + B_FONT, hi ? "#b91c1c" : "#c2410c", "right"); y += 46;
+        const top = al.slice().sort((a,b) => (a.level === "high" ? 0 : a.level === "medium" ? 1 : 2) - (b.level === "high" ? 0 : b.level === "medium" ? 1 : 2)).slice(0, 2);
+        top.forEach(a => {
+          ctx.font = "500 25px " + B_FONT; const ls = wrapLines(ctx, (a.area ? a.area + ": " : "") + (a.title || ""), IW - 44, 2);
+          const h = ls.length * 34 + 24;
+          rect(P, y, IW, h, 14, "#ffffff", "#e1e7ed");
+          if (paint){ ctx.fillStyle = a.level === "high" ? "#b91c1c" : a.level === "medium" ? "#c2410c" : "#4b5563"; ctx.fillRect(P, y + 10, 6, h - 20); }
+          ls.forEach((l, k) => text(l, P + 24, y + 40 + k * 34, "500 25px " + B_FONT, "#0f1e2c"));
+          y += h + 10;
+        });
+      }
+      // footer
+      y += 18;
+      text("ดูรายละเอียดและแหล่งอ้างอิงทุกตัวเลข:", P, y + 24, "600 23px " + B_FONT, "#5b6c7a");
+      text(shareUrl(), P, y + 58, "600 23px " + N_FONT, "#c2255c");
+      text("สรุปจากข่าวและราคาที่มีแหล่งอ้างอิง ไม่ใช่คำแนะนำการลงทุน", P, y + 94, "500 20px " + B_FONT, "#7a8794");
+      return y + 124;
+    }
+    const H = pass(false);
+    cv.width = W; cv.height = Math.ceil(H);
+    pass(true);
+    return cv;
+  }
+  function summaryText(day){
+    const lines = ["☀ ประเด็นสำคัญเช้านี้ · " + thDate(day.date)];
+    const s3 = day.summary;
+    if (s3 && (s3.what || s3.impact || s3.watch)){
+      if (s3.what) lines.push("• เกิดอะไรขึ้น: " + s3.what);
+      if (s3.impact) lines.push("• กระทบอะไร: " + s3.impact);
+      if (s3.watch) lines.push("• ควรติดตาม: " + s3.watch);
+    } else if (day.headline) lines.push(day.headline);
+    lines.push("");
+    KEY_IDS.forEach(id => { const it = (day.items || []).find(x => x.id === id); if (!it) return; const c = change(it, day.date); lines.push((KEY_LABEL[id] || it.name) + " " + valText(it) + " " + (it.unit || "") + " " + chipText(c, it).t + (c ? " · " + c.basis : "")); });
+    lines.push("", "รายละเอียด: " + shareUrl());
+    return lines.join("\n");
+  }
+  function openShare(){
+    const day = curDay(); if (!day) return;
+    lastFocus = document.activeElement;
+    const P = $("sheetP"); P.textContent = ""; state.sheetId = null;
+    P.appendChild(el("div",{class:"grab"}));
+    const x = el("button",{type:"button",class:"xbtn","aria-label":"ปิด"}, ic("close")); x.addEventListener("click", closeSheet);
+    P.appendChild(el("div",{class:"sh-head"}, el("div",null, el("div",{class:"sh-grp",text:"สรุปหน้าเดียวสำหรับส่ง LINE"}), el("h3",{id:"shTitle",text:"แชร์สรุปวันที่ " + thDate(day.date)})), x));
+    const cv = drawSummary(day);
+    const url = cv.toDataURL("image/png");
+    const img = el("img",{class:"share-prev",src:url,alt:"ภาพสรุปประจำวัน"});
+    const acts = el("div",{class:"share-acts"});
+    const fname = "สรุปประจำวัน-" + day.date + ".png";
+    const status = el("div",{class:"basis",role:"status"});
+    const shareBtn = el("button",{type:"button",class:"primary"}, "แชร์ภาพไป LINE");
+    shareBtn.addEventListener("click", () => {
+      cv.toBlob(async blob => {
+        try{
+          const f = new File([blob], fname, {type:"image/png"});
+          if (navigator.canShare && navigator.canShare({files:[f]})){ await navigator.share({files:[f], title:"ประเด็นสำคัญเช้านี้ " + thDate(day.date)}); status.textContent = ""; }
+          else { download(url, fname); status.textContent = "เครื่องนี้แชร์ไฟล์ตรงไม่ได้ จึงบันทึกรูปไว้แทน ส่งรูปเข้า LINE ได้จากคลังรูป/ดาวน์โหลด"; }
+        }catch(e){ if (e && e.name !== "AbortError"){ download(url, fname); status.textContent = "แชร์ไม่สำเร็จ จึงบันทึกรูปไว้แทน"; } }
+      }, "image/png");
+    });
+    const saveBtn = el("button",{type:"button"}, "บันทึกรูปภาพ");
+    saveBtn.addEventListener("click", () => { download(url, fname); status.textContent = "บันทึกรูปแล้ว (บน iPhone กดค้างที่รูปตัวอย่างแล้วเลือก \"บันทึกรูปภาพ\" ได้ด้วย)"; });
+    const pdfBtn = el("button",{type:"button"}, "บันทึกเป็น PDF");
+    pdfBtn.addEventListener("click", () => {
+      const pa = $("printArea"); pa.textContent = ""; pa.appendChild(el("img",{src:url,alt:""}));
+      document.body.classList.add("printing");
+      const done = () => { document.body.classList.remove("printing"); window.removeEventListener("afterprint", done); };
+      window.addEventListener("afterprint", done);
+      setTimeout(() => { window.print(); setTimeout(done, 1500); }, 60);
+      status.textContent = "หน้าพิมพ์จะเปิดขึ้น เลือก \"บันทึกเป็น PDF\" หรือ \"แชร์\" เพื่อส่งต่อ";
+    });
+    const txtBtn = el("button",{type:"button"}, "คัดลอกข้อความสรุป");
+    txtBtn.addEventListener("click", async () => { try{ await navigator.clipboard.writeText(summaryText(day)); status.textContent = "คัดลอกข้อความแล้ว วางในแชท LINE ได้เลย"; }catch(e){ status.textContent = "คัดลอกไม่สำเร็จ"; } });
+    [shareBtn, saveBtn, pdfBtn, txtBtn].forEach(b => acts.appendChild(b));
+    const body = el("div",{class:"sh-body"}, acts, status, img);
+    P.appendChild(body);
+    $("sheet").hidden = false; document.body.classList.add("lock");
+    x.focus({preventScroll:true});
+  }
+  function download(url, name){ const a = el("a",{href:url,download:name}); document.body.appendChild(a); a.click(); a.remove(); }
+  $("shareBtn").addEventListener("click", () => { (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(openShare); });
+
   // ---------- render all ----------
   function renderAll(keepScroll){
     if (!state.current || !state.byDate[state.current]) state.current = state.days.length ? state.days[state.days.length-1].date : null;
@@ -1196,7 +1478,7 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
     if (state.view === "hist") renderHistory();
     requestAnimationFrame(measure);
   }
-  $("daySel").addEventListener("change", e => { state.current = e.target.value; state.moversAll = false; state.allNews = false; renderAll(); });
+  $("daySel").addEventListener("change", e => { state.current = e.target.value; state.moversAll = false; state.moverTab = null; state.allNews = false; renderAll(); });
   let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { measure(); if (state.view === "hist") renderHistory(); const c = document.querySelector("#sheetP .chart"); if (c && !$("sheet").hidden){ const s = allSeries().get(state.sheetId); if (s && s.pts.length) drawChart(c, s); } }, 160); });
 
   function showError(msg){
