@@ -1,6 +1,1552 @@
 {
  "days": [
   {
+   "date": "2026-10-01",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.61,
+     "asOf": "1 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "gold_bar_sell",
+     "group": "gold",
+     "name": "ทองคำแท่ง 96.5% (ขายออก)",
+     "unit": "บาท/บาททองคำ",
+     "side": "neutral",
+     "value": 66300,
+     "asOf": "1 ต.ค. 69 (เปิดตลาด)",
+     "source": "กรุงเทพธุรกิจ (สมาคมค้าทองคำ)",
+     "url": "https://www.bangkokbiznews.com/finance/1254452"
+    },
+    {
+     "id": "cbot_corn",
+     "group": "global",
+     "name": "ข้าวโพด CBOT (ส่งมอบ ธ.ค.)",
+     "unit": "USD/บุชเชล",
+     "side": "buy",
+     "value": 5.0225,
+     "asOf": "ปิด 1 ต.ค. 69 (สัญญา ธ.ค.)",
+     "source": "กรุงเทพธุรกิจ (อินโฟเควสท์)",
+     "url": "https://www.bangkokbiznews.com/business/1254776"
+    },
+    {
+     "id": "cbot_soy",
+     "group": "global",
+     "name": "ถั่วเหลือง CBOT (ส่งมอบ ม.ค.)",
+     "unit": "USD/บุชเชล",
+     "side": "buy",
+     "value": 12.84,
+     "asOf": "ปิด 1 ต.ค. 69 (สัญญา พ.ย.)",
+     "source": "กรุงเทพธุรกิจ (อินโฟเควสท์)",
+     "url": "https://www.bangkokbiznews.com/business/1254776"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-02",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.53,
+     "asOf": "2 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0008,
+     "asOf": "2 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    },
+    {
+     "id": "gold_bar_sell",
+     "group": "gold",
+     "name": "ทองคำแท่ง 96.5% (ขายออก)",
+     "unit": "บาท/บาททองคำ",
+     "side": "neutral",
+     "value": 66400,
+     "asOf": "2 ต.ค. 69 (ปิดตลาด)",
+     "source": "กรุงเทพธุรกิจ (สมาคมค้าทองคำ)",
+     "url": "https://www.bangkokbiznews.com/news/news-update/1254762"
+    },
+    {
+     "id": "corn_silo",
+     "group": "feed",
+     "name": "ข้าวโพด ณ ไซโลโรงงานอาหารสัตว์",
+     "unit": "บาท/หาบ",
+     "side": "buy",
+     "value": 591,
+     "asOf": "สัปดาห์ 28 ก.ย.–2 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1254776"
+    },
+    {
+     "id": "sbm_import",
+     "group": "feed",
+     "name": "กากถั่วเหลืองนำเข้า (หน้าโรงงาน)",
+     "unit": "บาท/กก.",
+     "side": "buy",
+     "value": 18.5,
+     "asOf": "สัปดาห์ 28 ก.ย.–2 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1254776"
+    },
+    {
+     "id": "fishmeal_60",
+     "group": "feed",
+     "name": "ปลาป่นเบอร์ 1 โปรตีน 60% ขึ้นไป",
+     "unit": "บาท/กก.",
+     "side": "buy",
+     "value": 57.7,
+     "asOf": "สัปดาห์ 28 ก.ย.–2 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1254776"
+    },
+    {
+     "id": "broiler",
+     "group": "livestock",
+     "name": "ไก่เนื้อมีชีวิต หน้าฟาร์ม",
+     "unit": "บาท/กก.",
+     "side": "sell",
+     "value": 44,
+     "asOf": "30 ก.ย. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1254776"
+    },
+    {
+     "id": "egg_farm",
+     "group": "livestock",
+     "name": "ไข่ไก่คละ หน้าฟาร์ม (ราคาแนะนำ)",
+     "unit": "บาท/ฟอง",
+     "side": "sell",
+     "value": 4.0,
+     "asOf": "สัปดาห์ 28 ก.ย.–2 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1254776"
+    },
+    {
+     "id": "pig_east",
+     "group": "livestock",
+     "name": "สุกรขุนมีชีวิต ภาคตะวันออก",
+     "unit": "บาท/กก.",
+     "side": "sell",
+     "value": 65,
+     "asOf": "สัปดาห์ 39 (26 ก.ย. 69)",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF) / สมาคมผู้เลี้ยงสุกรแห่งชาติ",
+     "url": "https://www.bangkokbiznews.com/business/1254776",
+     "valueText": "64–66"
+    },
+    {
+     "id": "white_rice_dom",
+     "group": "rice",
+     "name": "ข้าวขาว 100% ชั้น 2 (ในประเทศ)",
+     "unit": "บาท/100 กก.",
+     "side": "neutral",
+     "value": 1450,
+     "asOf": "สัปดาห์ 28 ก.ย.–2 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1254776"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-03",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "gold_bar_sell",
+     "group": "gold",
+     "name": "ทองคำแท่ง 96.5% (ขายออก)",
+     "unit": "บาท/บาททองคำ",
+     "side": "neutral",
+     "value": 65900,
+     "asOf": "3 ต.ค. 69 (เปิดตลาด)",
+     "source": "ฐานเศรษฐกิจ (สมาคมค้าทองคำ)",
+     "url": "https://www.thansettakij.com/economy/670454"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-04",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "diesel_b7",
+     "group": "energy",
+     "name": "ดีเซล B7 (ปตท. กทม.)",
+     "unit": "บาท/ลิตร",
+     "side": "buy",
+     "value": 42.19,
+     "asOf": "4 ต.ค. 69 (ราคาขายปลีก ปตท. กทม.)",
+     "source": "กรุงเทพธุรกิจ (ราคา ปตท. 4 ต.ค. 69)",
+     "url": "https://www.bangkokbiznews.com/news/news-update/1254908"
+    },
+    {
+     "id": "diesel_b20",
+     "group": "energy",
+     "name": "ดีเซล B20 (ปตท. กทม.)",
+     "unit": "บาท/ลิตร",
+     "side": "buy",
+     "value": 37.19,
+     "asOf": "4 ต.ค. 69 (ราคาขายปลีก ปตท. กทม.)",
+     "source": "กรุงเทพธุรกิจ (ราคา ปตท. 4 ต.ค. 69)",
+     "url": "https://www.bangkokbiznews.com/news/news-update/1254908"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-05",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.67,
+     "asOf": "5 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0212,
+     "asOf": "5 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-06",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.65,
+     "asOf": "6 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0186,
+     "asOf": "6 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-07",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.63,
+     "asOf": "7 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0155,
+     "asOf": "7 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    },
+    {
+     "id": "cbot_corn",
+     "group": "global",
+     "name": "ข้าวโพด CBOT (ส่งมอบ ธ.ค.)",
+     "unit": "USD/บุชเชล",
+     "side": "buy",
+     "value": 5.02,
+     "asOf": "ปิด 7 ต.ค. 69 (สัญญา ธ.ค.)",
+     "source": "กรุงเทพธุรกิจ (อินโฟเควสท์)",
+     "url": "https://www.bangkokbiznews.com/business/1255757"
+    },
+    {
+     "id": "cbot_soy",
+     "group": "global",
+     "name": "ถั่วเหลือง CBOT (ส่งมอบ ม.ค.)",
+     "unit": "USD/บุชเชล",
+     "side": "buy",
+     "value": 12.975,
+     "asOf": "ปิด 7 ต.ค. 69 (สัญญา พ.ย.)",
+     "source": "กรุงเทพธุรกิจ (อินโฟเควสท์)",
+     "url": "https://www.bangkokbiznews.com/business/1255757"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-08",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.57,
+     "asOf": "8 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.008,
+     "asOf": "8 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-09",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.53,
+     "asOf": "9 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.006,
+     "asOf": "9 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    },
+    {
+     "id": "diesel_b7",
+     "group": "energy",
+     "name": "ดีเซล B7 (ปตท. กทม.)",
+     "unit": "บาท/ลิตร",
+     "side": "buy",
+     "value": 42.94,
+     "asOf": "9 ต.ค. 69 (ราคาขายปลีก ปตท. กทม.)",
+     "source": "PPTV (PTT Station ปรับ 9 ต.ค. 69)",
+     "url": "https://www.pptvhd36.com/news/Wealth/285497"
+    },
+    {
+     "id": "diesel_b20",
+     "group": "energy",
+     "name": "ดีเซล B20 (ปตท. กทม.)",
+     "unit": "บาท/ลิตร",
+     "side": "buy",
+     "value": 37.19,
+     "asOf": "9 ต.ค. 69 (ราคาขายปลีก ปตท. กทม.)",
+     "source": "PPTV (PTT Station ปรับ 9 ต.ค. 69)",
+     "url": "https://www.pptvhd36.com/news/Wealth/285497"
+    },
+    {
+     "id": "corn_silo",
+     "group": "feed",
+     "name": "ข้าวโพด ณ ไซโลโรงงานอาหารสัตว์",
+     "unit": "บาท/หาบ",
+     "side": "buy",
+     "value": 588,
+     "asOf": "สัปดาห์ 5–9 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1255757"
+    },
+    {
+     "id": "sbm_import",
+     "group": "feed",
+     "name": "กากถั่วเหลืองนำเข้า (หน้าโรงงาน)",
+     "unit": "บาท/กก.",
+     "side": "buy",
+     "value": 18.7,
+     "asOf": "สัปดาห์ 5–9 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1255757"
+    },
+    {
+     "id": "fishmeal_60",
+     "group": "feed",
+     "name": "ปลาป่นเบอร์ 1 โปรตีน 60% ขึ้นไป",
+     "unit": "บาท/กก.",
+     "side": "buy",
+     "value": 57.7,
+     "asOf": "สัปดาห์ 5–9 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1255757"
+    },
+    {
+     "id": "broiler",
+     "group": "livestock",
+     "name": "ไก่เนื้อมีชีวิต หน้าฟาร์ม",
+     "unit": "บาท/กก.",
+     "side": "sell",
+     "value": 43,
+     "asOf": "6 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1255757"
+    },
+    {
+     "id": "egg_farm",
+     "group": "livestock",
+     "name": "ไข่ไก่คละ หน้าฟาร์ม (ราคาแนะนำ)",
+     "unit": "บาท/ฟอง",
+     "side": "sell",
+     "value": 4.0,
+     "asOf": "สัปดาห์ 5–9 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1255757"
+    },
+    {
+     "id": "pig_east",
+     "group": "livestock",
+     "name": "สุกรขุนมีชีวิต ภาคตะวันออก",
+     "unit": "บาท/กก.",
+     "side": "sell",
+     "value": 63,
+     "asOf": "สัปดาห์ 40 (4 ต.ค. 69)",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF) / สมาคมผู้เลี้ยงสุกรแห่งชาติ",
+     "url": "https://www.bangkokbiznews.com/business/1255757",
+     "valueText": "62–64"
+    },
+    {
+     "id": "white_rice_dom",
+     "group": "rice",
+     "name": "ข้าวขาว 100% ชั้น 2 (ในประเทศ)",
+     "unit": "บาท/100 กก.",
+     "side": "neutral",
+     "value": 1470,
+     "asOf": "สัปดาห์ 5–9 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1255757"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-12",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.59,
+     "asOf": "12 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0159,
+     "asOf": "12 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-13",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.55,
+     "asOf": "13 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0136,
+     "asOf": "13 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    },
+    {
+     "id": "gold_bar_sell",
+     "group": "gold",
+     "name": "ทองคำแท่ง 96.5% (ขายออก)",
+     "unit": "บาท/บาททองคำ",
+     "side": "neutral",
+     "value": 66300,
+     "asOf": "13 ต.ค. 69 (เปิดตลาด)",
+     "source": "ฐานเศรษฐกิจ (สมาคมค้าทองคำ)",
+     "url": "https://www.thansettakij.com/finance/671280"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-14",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.55,
+     "asOf": "14 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.012,
+     "asOf": "14 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-15",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.47,
+     "asOf": "15 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0021,
+     "asOf": "15 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-16",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.46,
+     "asOf": "16 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 4.9997,
+     "asOf": "16 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    },
+    {
+     "id": "brent",
+     "group": "energy",
+     "name": "น้ำมันดิบเบรนท์",
+     "unit": "USD/บาร์เรล",
+     "side": "buy",
+     "value": 108.28,
+     "asOf": "16 ต.ค. 69 (ราคาซื้อขาย)",
+     "source": "Trading Economics",
+     "url": "https://tradingeconomics.com/commodity/brent-crude-oil/news/592857"
+    },
+    {
+     "id": "corn_silo",
+     "group": "feed",
+     "name": "ข้าวโพด ณ ไซโลโรงงานอาหารสัตว์",
+     "unit": "บาท/หาบ",
+     "side": "buy",
+     "value": 612,
+     "asOf": "สัปดาห์ 12–16 ต.ค. 69 (ราคาก่อนหน้าในรายงานสัปดาห์ 19–23 ต.ค.)",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258076"
+    },
+    {
+     "id": "sbm_import",
+     "group": "feed",
+     "name": "กากถั่วเหลืองนำเข้า (หน้าโรงงาน)",
+     "unit": "บาท/กก.",
+     "side": "buy",
+     "value": 18.85,
+     "asOf": "สัปดาห์ 12–16 ต.ค. 69 (ราคาก่อนหน้าในรายงานสัปดาห์ 19–23 ต.ค.)",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258076"
+    },
+    {
+     "id": "white_rice_dom",
+     "group": "rice",
+     "name": "ข้าวขาว 100% ชั้น 2 (ในประเทศ)",
+     "unit": "บาท/100 กก.",
+     "side": "neutral",
+     "value": 1500,
+     "asOf": "สัปดาห์ 12–16 ต.ค. 69 (ราคาก่อนหน้าในรายงานสัปดาห์ 19–23 ต.ค.)",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258076"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-19",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.6,
+     "asOf": "19 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0214,
+     "asOf": "19 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-20",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.65,
+     "asOf": "20 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0382,
+     "asOf": "20 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-21",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.66,
+     "asOf": "21 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0405,
+     "asOf": "21 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    },
+    {
+     "id": "diesel_b7",
+     "group": "energy",
+     "name": "ดีเซล B7 (ปตท. กทม.)",
+     "unit": "บาท/ลิตร",
+     "side": "buy",
+     "value": 43.54,
+     "asOf": "21 ต.ค. 69 (ราคาขายปลีก ปตท. กทม.)",
+     "source": "PPTV (PTT Station ปรับ 21 ต.ค. 69)",
+     "url": "https://www.pptvhd36.com/news/Wealth/285597"
+    },
+    {
+     "id": "diesel_b20",
+     "group": "energy",
+     "name": "ดีเซล B20 (ปตท. กทม.)",
+     "unit": "บาท/ลิตร",
+     "side": "buy",
+     "value": 37.19,
+     "asOf": "21 ต.ค. 69 (ราคาขายปลีก ปตท. กทม.)",
+     "source": "PPTV (PTT Station ปรับ 21 ต.ค. 69)",
+     "url": "https://www.pptvhd36.com/news/Wealth/285597"
+    },
+    {
+     "id": "cbot_corn",
+     "group": "global",
+     "name": "ข้าวโพด CBOT (ส่งมอบ ธ.ค.)",
+     "unit": "USD/บุชเชล",
+     "side": "buy",
+     "value": 4.6325,
+     "asOf": "ปิด 21 ต.ค. 69 (สัญญา ธ.ค.)",
+     "source": "กรุงเทพธุรกิจ (อินโฟเควสท์)",
+     "url": "https://www.bangkokbiznews.com/business/1258076"
+    },
+    {
+     "id": "cbot_soy",
+     "group": "global",
+     "name": "ถั่วเหลือง CBOT (ส่งมอบ ม.ค.)",
+     "unit": "USD/บุชเชล",
+     "side": "buy",
+     "value": 12.4525,
+     "asOf": "ปิด 21 ต.ค. 69 (สัญญา พ.ย.)",
+     "source": "กรุงเทพธุรกิจ (อินโฟเควสท์)",
+     "url": "https://www.bangkokbiznews.com/business/1258076"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-22",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.72,
+     "asOf": "22 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0491,
+     "asOf": "22 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-23",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.77,
+     "asOf": "23 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0568,
+     "asOf": "23 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    },
+    {
+     "id": "corn_silo",
+     "group": "feed",
+     "name": "ข้าวโพด ณ ไซโลโรงงานอาหารสัตว์",
+     "unit": "บาท/หาบ",
+     "side": "buy",
+     "value": 633,
+     "asOf": "สัปดาห์ 19–23 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258076"
+    },
+    {
+     "id": "sbm_import",
+     "group": "feed",
+     "name": "กากถั่วเหลืองนำเข้า (หน้าโรงงาน)",
+     "unit": "บาท/กก.",
+     "side": "buy",
+     "value": 18.65,
+     "asOf": "สัปดาห์ 19–23 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258076"
+    },
+    {
+     "id": "fishmeal_60",
+     "group": "feed",
+     "name": "ปลาป่นเบอร์ 1 โปรตีน 60% ขึ้นไป",
+     "unit": "บาท/กก.",
+     "side": "buy",
+     "value": 57.7,
+     "asOf": "สัปดาห์ 19–23 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258076"
+    },
+    {
+     "id": "broiler",
+     "group": "livestock",
+     "name": "ไก่เนื้อมีชีวิต หน้าฟาร์ม",
+     "unit": "บาท/กก.",
+     "side": "sell",
+     "value": 42,
+     "asOf": "19 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258076"
+    },
+    {
+     "id": "egg_farm",
+     "group": "livestock",
+     "name": "ไข่ไก่คละ หน้าฟาร์ม (ราคาแนะนำ)",
+     "unit": "บาท/ฟอง",
+     "side": "sell",
+     "value": 4.0,
+     "asOf": "สัปดาห์ 19–23 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258076"
+    },
+    {
+     "id": "pig_west",
+     "group": "livestock",
+     "name": "สุกรขุนมีชีวิต ภาคตะวันตก",
+     "unit": "บาท/กก.",
+     "side": "sell",
+     "value": 65,
+     "asOf": "สัปดาห์ 43 (19 ต.ค. 69)",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF) / สมาคมผู้เลี้ยงสุกรแห่งชาติ",
+     "url": "https://www.bangkokbiznews.com/business/1258076",
+     "valueText": "64–66"
+    },
+    {
+     "id": "pig_east",
+     "group": "livestock",
+     "name": "สุกรขุนมีชีวิต ภาคตะวันออก",
+     "unit": "บาท/กก.",
+     "side": "sell",
+     "value": 67,
+     "asOf": "สัปดาห์ 43 (19 ต.ค. 69)",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF) / สมาคมผู้เลี้ยงสุกรแห่งชาติ",
+     "url": "https://www.bangkokbiznews.com/business/1258076",
+     "valueText": "66–68"
+    },
+    {
+     "id": "white_rice_dom",
+     "group": "rice",
+     "name": "ข้าวขาว 100% ชั้น 2 (ในประเทศ)",
+     "unit": "บาท/100 กก.",
+     "side": "neutral",
+     "value": 1520,
+     "asOf": "สัปดาห์ 19–23 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258076"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-26",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.72,
+     "asOf": "26 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0517,
+     "asOf": "26 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    },
+    {
+     "id": "brent",
+     "group": "energy",
+     "name": "น้ำมันดิบเบรนท์",
+     "unit": "USD/บาร์เรล",
+     "side": "buy",
+     "value": 115.81,
+     "asOf": "26 ต.ค. 69 (ราคาซื้อขาย)",
+     "source": "Trading Economics",
+     "url": "https://tradingeconomics.com/commodity/brent-crude-oil"
+    },
+    {
+     "id": "gold_bar_sell",
+     "group": "gold",
+     "name": "ทองคำแท่ง 96.5% (ขายออก)",
+     "unit": "บาท/บาททองคำ",
+     "side": "neutral",
+     "value": 63900,
+     "asOf": "26 ต.ค. 69 (เปิดตลาด)",
+     "source": "ฐานเศรษฐกิจ (สมาคมค้าทองคำ)",
+     "url": "https://www.thansettakij.com/finance/672229"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-27",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.84,
+     "asOf": "27 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0744,
+     "asOf": "27 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    },
+    {
+     "id": "brent",
+     "group": "energy",
+     "name": "น้ำมันดิบเบรนท์",
+     "unit": "USD/บาร์เรล",
+     "side": "buy",
+     "value": 114.55,
+     "asOf": "27 ต.ค. 69 (ราคาซื้อขาย)",
+     "source": "Trading Economics",
+     "url": "https://tradingeconomics.com/commodity/brent-crude-oil"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-28",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.75,
+     "asOf": "28 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0623,
+     "asOf": "28 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-29",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.72,
+     "asOf": "29 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "cny_thb",
+     "group": "fx",
+     "name": "หยวนจีน / บาท",
+     "unit": "บาท/CNY",
+     "side": "buy",
+     "value": 5.0587,
+     "asOf": "29 ต.ค. 69 (คำนวณ: USD/THB ÷ USD/CNY)",
+     "source": "คำนวณจาก CurrencyBeacon และ Pound Sterling Live",
+     "url": "https://www.poundsterlinglive.com/history/USD-CNY-2026/10"
+    },
+    {
+     "id": "diesel_b7",
+     "group": "energy",
+     "name": "ดีเซล B7 (ปตท. กทม.)",
+     "unit": "บาท/ลิตร",
+     "side": "buy",
+     "value": 42.54,
+     "asOf": "29 ต.ค. 69 (ราคาขายปลีก ปตท. กทม.)",
+     "source": "PPTV (PTT Station ปรับ 29 ต.ค. 69)",
+     "url": "https://www.pptvhd36.com/news/Wealth/286083"
+    },
+    {
+     "id": "diesel_b20",
+     "group": "energy",
+     "name": "ดีเซล B20 (ปตท. กทม.)",
+     "unit": "บาท/ลิตร",
+     "side": "buy",
+     "value": 33.5,
+     "asOf": "29 ต.ค. 69 (ราคาขายปลีก ปตท. กทม.)",
+     "source": "PPTV (PTT Station ปรับ 29 ต.ค. 69)",
+     "url": "https://www.pptvhd36.com/news/Wealth/286083"
+    },
+    {
+     "id": "cbot_corn",
+     "group": "global",
+     "name": "ข้าวโพด CBOT (ส่งมอบ ธ.ค.)",
+     "unit": "USD/บุชเชล",
+     "side": "buy",
+     "value": 4.5125,
+     "asOf": "ปิด 29 ต.ค. 69 (สัญญา ธ.ค.)",
+     "source": "กรุงเทพธุรกิจ (อินโฟเควสท์)",
+     "url": "https://www.bangkokbiznews.com/business/1258638"
+    },
+    {
+     "id": "cbot_soy",
+     "group": "global",
+     "name": "ถั่วเหลือง CBOT (ส่งมอบ ม.ค.)",
+     "unit": "USD/บุชเชล",
+     "side": "buy",
+     "value": 12.1975,
+     "asOf": "ปิด 29 ต.ค. 69 (สัญญา ม.ค.)",
+     "source": "กรุงเทพธุรกิจ (อินโฟเควสท์)",
+     "url": "https://www.bangkokbiznews.com/business/1258638"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-10-30",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.77,
+     "asOf": "30 ต.ค. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "corn_silo",
+     "group": "feed",
+     "name": "ข้าวโพด ณ ไซโลโรงงานอาหารสัตว์",
+     "unit": "บาท/หาบ",
+     "side": "buy",
+     "value": 693,
+     "asOf": "สัปดาห์ 26–30 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258638"
+    },
+    {
+     "id": "sbm_import",
+     "group": "feed",
+     "name": "กากถั่วเหลืองนำเข้า (หน้าโรงงาน)",
+     "unit": "บาท/กก.",
+     "side": "buy",
+     "value": 18.35,
+     "asOf": "สัปดาห์ 26–30 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258638"
+    },
+    {
+     "id": "fishmeal_60",
+     "group": "feed",
+     "name": "ปลาป่นเบอร์ 1 โปรตีน 60% ขึ้นไป",
+     "unit": "บาท/กก.",
+     "side": "buy",
+     "value": 57.7,
+     "asOf": "สัปดาห์ 26–30 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258638"
+    },
+    {
+     "id": "broiler",
+     "group": "livestock",
+     "name": "ไก่เนื้อมีชีวิต หน้าฟาร์ม",
+     "unit": "บาท/กก.",
+     "side": "sell",
+     "value": 42,
+     "asOf": "27 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258638"
+    },
+    {
+     "id": "egg_farm",
+     "group": "livestock",
+     "name": "ไข่ไก่คละ หน้าฟาร์ม (ราคาแนะนำ)",
+     "unit": "บาท/ฟอง",
+     "side": "sell",
+     "value": 4.0,
+     "asOf": "สัปดาห์ 26–30 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258638"
+    },
+    {
+     "id": "pig_west",
+     "group": "livestock",
+     "name": "สุกรขุนมีชีวิต ภาคตะวันตก",
+     "unit": "บาท/กก.",
+     "side": "sell",
+     "value": 67,
+     "asOf": "สัปดาห์ 44 (26 ต.ค. 69)",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF) / สมาคมผู้เลี้ยงสุกรแห่งชาติ",
+     "url": "https://www.bangkokbiznews.com/business/1258638",
+     "valueText": "66–68"
+    },
+    {
+     "id": "pig_east",
+     "group": "livestock",
+     "name": "สุกรขุนมีชีวิต ภาคตะวันออก",
+     "unit": "บาท/กก.",
+     "side": "sell",
+     "value": 69,
+     "asOf": "สัปดาห์ 44 (26 ต.ค. 69)",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF) / สมาคมผู้เลี้ยงสุกรแห่งชาติ",
+     "url": "https://www.bangkokbiznews.com/business/1258638",
+     "valueText": "68–70"
+    },
+    {
+     "id": "white_rice_dom",
+     "group": "rice",
+     "name": "ข้าวขาว 100% ชั้น 2 (ในประเทศ)",
+     "unit": "บาท/100 กก.",
+     "side": "neutral",
+     "value": 1520,
+     "asOf": "สัปดาห์ 26–30 ต.ค. 69",
+     "source": "กรุงเทพธุรกิจ (สรุปภาวะสินค้าเกษตร CPF)",
+     "url": "https://www.bangkokbiznews.com/business/1258638"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-11-02",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.74,
+     "asOf": "2 พ.ย. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "gold_bar_sell",
+     "group": "gold",
+     "name": "ทองคำแท่ง 96.5% (ขายออก)",
+     "unit": "บาท/บาททองคำ",
+     "side": "neutral",
+     "value": 62400,
+     "asOf": "2 พ.ย. 69 (ปิดตลาด)",
+     "source": "กรุงเทพธุรกิจ (สมาคมค้าทองคำ)",
+     "url": "https://www.bangkokbiznews.com/news/news-update/1258951"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-11-03",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.75,
+     "asOf": "3 พ.ย. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "brent",
+     "group": "energy",
+     "name": "น้ำมันดิบเบรนท์",
+     "unit": "USD/บาร์เรล",
+     "side": "buy",
+     "value": 107.03,
+     "asOf": "3 พ.ย. 69 (ราคาตลาดจริง EIA)",
+     "source": "EIA ผ่าน FRED (thetrading.tools)",
+     "url": "https://www.thetrading.tools/brent-crude-price"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-11-04",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.43,
+     "asOf": "4 พ.ย. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-11-05",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.51,
+     "asOf": "5 พ.ย. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-11-06",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.57,
+     "asOf": "6 พ.ย. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-11-09",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.39,
+     "asOf": "9 พ.ย. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
+   "date": "2026-11-10",
+   "backfill": true,
+   "headline": "ข้อมูลย้อนหลังเฉพาะราคา (เติมภายหลังจากแหล่งที่อ้างอิงไว้ในแต่ละรายการ) วันนี้ไม่มีข่าว บทสรุป และการเฝ้าระวังโรค",
+   "procurementNote": "",
+   "items": [
+    {
+     "id": "usd_thb",
+     "group": "fx",
+     "name": "ดอลลาร์สหรัฐ / บาท",
+     "unit": "บาท/USD",
+     "side": "buy",
+     "value": 33.64,
+     "asOf": "10 พ.ย. 69 (อัตรากลางตลาด รายวัน)",
+     "source": "CurrencyBeacon",
+     "url": "https://currencybeacon.com/rates/USD/THB"
+    },
+    {
+     "id": "gold_bar_sell",
+     "group": "gold",
+     "name": "ทองคำแท่ง 96.5% (ขายออก)",
+     "unit": "บาท/บาททองคำ",
+     "side": "neutral",
+     "value": 65250,
+     "asOf": "10 พ.ย. 69 (เปิดตลาด)",
+     "source": "ไทยรัฐ (สมาคมค้าทองคำ)",
+     "url": "https://www.thairath.co.th/news/society/2971502"
+    }
+   ],
+   "news": [],
+   "alerts": [],
+   "harvest": []
+  },
+  {
    "date": "2026-11-11",
    "updatedAt": "2026-11-11T08:15:00Z",
    "headline": "ดอลลาร์แข็งค่าหลังเงินเฟ้อสหรัฐเดือน ต.ค. สูงเกินคาด ตลาดเริ่มคาดว่าเฟดจะขึ้นดอกเบี้ยในเดือน ธ.ค. เงินบาทอ่อนไปอยู่แถว 33.60 บาท/ดอลลาร์ ส่วนน้ำมันโลกลงมาต่ำสุดในรอบ 2 เดือนจากความหวังว่าสงครามสหรัฐ–อิหร่านจะยุติ ปตท.และบางจากลดดีเซล 1 บาท วัตถุดิบในประเทศอย่างข้าวโพด รำ และปลายข้าวขยับขึ้น ขณะที่กากถั่วเหลืองอ่อนลง",

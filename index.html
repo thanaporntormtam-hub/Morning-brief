@@ -114,7 +114,9 @@ h1,h2,h3,h4{font-family:var(--font-head);font-weight:600;margin:0;line-height:1.
 .sec-h h2{font-size:1.04rem;display:flex;align-items:center;gap:8px}
 .sec-h h2 .ic{color:var(--muted)}
 .sec-note{font-size:.78rem;color:var(--muted)}
-.panel{padding:14px 16px;display:grid;gap:12px;align-content:start}
+.panel{padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-content:start}
+#histBody,.sh-body{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;min-width:0}
+.sheet-p{grid-template-columns:minmax(0,1fr)}
 .duo{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
 @media (min-width:960px){.duo{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}}
 
@@ -705,13 +707,13 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
   // ---------- header + summary ----------
   function renderHeader(day){
     const sel = $("daySel"); sel.textContent = ""; sel.disabled = !state.days.length;
-    state.days.slice().reverse().forEach((d, i) => sel.appendChild(el("option",{value:d.date,text:thDate(d.date)})));
+    state.days.slice().reverse().forEach((d, i) => sel.appendChild(el("option",{value:d.date,text:thDate(d.date) + (d.backfill ? " · ราคา" : "")})));
     if (state.current) sel.value = state.current;
     $("brandSub").textContent = day ? (isLatest() ? "ข้อมูลล่าสุด" : "ข้อมูลย้อนหลัง") + (day.updatedAt ? " · อัปเดต " + thTime(day.updatedAt) : "") : "ยังไม่มีข้อมูล";
     const od = $("oldDay"); od.textContent = "";
     od.hidden = !day || isLatest();
     if (!od.hidden){
-      od.appendChild(el("span",{text:"กำลังดูข้อมูลย้อนหลังของวันที่ " + thDate(day.date)}));
+      od.appendChild(el("span",{text:(day.backfill ? "ข้อมูลย้อนหลังเฉพาะราคา วันที่ " : "กำลังดูข้อมูลย้อนหลังของวันที่ ") + thDate(day.date)}));
       const b = el("button",{type:"button",text:"กลับไปวันล่าสุด"});
       b.addEventListener("click", () => { state.current = state.days[state.days.length-1].date; renderAll(); });
       od.appendChild(b);
@@ -1059,7 +1061,8 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
     const d = decimals(hi);
     const labelW = Math.max(...[0,1,2,3,4].map(i => nf(lo + (hi - lo) * i / 4, d).length)) * 6.6 + 10;
     const m = {l:Math.min(78, Math.max(40, labelW)), r:16, t:22, b:30};
-    const x = i => pts.length === 1 ? m.l + (W - m.l - m.r) / 2 : m.l + i * (W - m.l - m.r) / (pts.length - 1);
+    const ts = pts.map(p => Date.parse(p.date + "T00:00:00Z")), t0 = ts[0], t1 = ts[ts.length - 1];
+    const x = i => (pts.length === 1 || t1 === t0) ? m.l + (W - m.l - m.r) / 2 : m.l + (ts[i] - t0) * (W - m.l - m.r) / (t1 - t0);
     const y = v => m.t + (hi - v) * (H - m.t - m.b) / (hi - lo);
     const svg = mk("svg",{viewBox:"0 0 " + W + " " + H, role:"img", "aria-label":"กราฟ " + s.name + " " + pts.length + " วัน"});
     const gG = mk("g",{class:"grid"}), gA = mk("g",{class:"axis"});
@@ -1068,8 +1071,12 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
       gG.appendChild(mk("line",{x1:m.l, x2:W - m.r, y1:yy, y2:yy}));
       const t = mk("text",{x:m.l - 6, y:yy + 4, "text-anchor":"end"}); t.textContent = nf(v, d); gA.appendChild(t);
     }
-    const step = Math.max(1, Math.ceil(pts.length / Math.max(2, Math.floor((W - m.l - m.r) / 72))));
-    pts.forEach((p, i) => { if (i % step === 0 || i === pts.length - 1){ const anchor = pts.length === 1 ? "middle" : (i === 0 ? "start" : (i === pts.length - 1 ? "end" : "middle")); const t = mk("text",{x:x(i), y:H - 8, "text-anchor":anchor}); t.textContent = thDate(p.date); gA.appendChild(t); } });
+    // date labels placed on a real time scale; skip any that would overlap
+    const labs = []; const minGap = 74;
+    pts.forEach((p, i) => { const xx = x(i); if (!labs.length || xx - labs[labs.length-1].x >= minGap) labs.push({i, x:xx}); });
+    const li = pts.length - 1;
+    if (labs[labs.length-1].i !== li){ while (labs.length > 1 && x(li) - labs[labs.length-1].x < minGap) labs.pop(); labs.push({i:li, x:x(li)}); }
+    labs.forEach(({i, x:xx}) => { const anchor = pts.length === 1 ? "middle" : (i === 0 ? "start" : (i === li ? "end" : "middle")); const t = mk("text",{x:xx, y:H - 8, "text-anchor":anchor}); t.textContent = thDate(pts[i].date); gA.appendChild(t); });
     svg.appendChild(gG); svg.appendChild(gA);
     const col = gcolVal(s.group);
     const gid = "g" + Math.random().toString(36).slice(2,8);
@@ -1163,7 +1170,7 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
       P.appendChild(el("div",{class:"sh-meta"}, "ประกาศ " + (it.asOf || "-") + (c ? " · " + c.basis : "") + " · ที่มา: ", link(it.source || "ลิงก์", it.url)));
       if (it.note && !/^(ทรงตัว|ยืนราคา|คงราคา)$/.test(it.note)) P.appendChild(el("div",{class:"sh-note",text:it.note}));
     }
-    const body = el("div",{style:"display:grid;gap:12px"}); P.appendChild(body);
+    const body = el("div",{class:"sh-body"}); P.appendChild(body);
     const acts = el("div",{class:"sh-acts"});
     const go = el("button",{type:"button",class:"tbtn"}, "เปิดในหน้ากราฟย้อนหลัง");
     go.addEventListener("click", () => { state.histId = id; closeSheet(); selectView("hist", true); });
@@ -1204,6 +1211,7 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
 
   buildNav(); paintThemeBtn(); measure();
   const h = (location.hash || "").slice(1); if (h) selectView(h, false);
+  window.addEventListener("hashchange", () => { const v = (location.hash || "").slice(1) || "overview"; if (v !== state.view) selectView(v, true); });
   (async function load(){
     try {
       const res = await fetch("data.json?v=" + Date.now(), {cache:"no-store"});
