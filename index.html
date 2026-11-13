@@ -608,8 +608,8 @@ footer{font-size:.76rem;color:var(--muted);display:grid;gap:3px;padding:8px 2px 
     {id:"feedad", name:"วิตามิน / แร่ธาตุ / FeedAd", hint:"", open:false}
   ];
   const GMAP = {}; GROUPS.forEach(g => GMAP[g.id] = g);
-  const KEY_IDS = ["usd_thb","cny_thb","diesel_b7","corn_th","sbm_th","rice_bran"];
-  const KEY_LABEL = {usd_thb:"USD/THB",cny_thb:"CNY/THB",diesel_b7:"ดีเซล B7",corn_th:"ข้าวโพดเม็ด",sbm_th:"กากถั่วเหลือง",rice_bran:"รำละเอียด"};
+  const KEY_IDS = ["usd_thb","brent","diesel_b7","corn_th","sbm_th","rice_bran"];
+  const KEY_LABEL = {usd_thb:"USD/THB",cny_thb:"CNY/THB",brent:"น้ำมันดิบโลก (เบรนท์)",diesel_b7:"ดีเซล B7",corn_th:"ข้าวโพดเม็ด",sbm_th:"กากถั่วเหลือง",rice_bran:"รำละเอียด"};
   const EXTRA = new Set(["diesel_b20","corn_silo","rice_bran_ext","fishmeal_60","pig_west","duck_egg_retail"]);
   const NEWS_COLORS = {"เศรษฐกิจ":"#1d4ed8","ค่าเงิน":"#1e3a8a","สงคราม/ภูมิรัฐศาสตร์":"#b91c1c","พลังงาน":"#c2410c","วัตถุดิบอาหารสัตว์":"#15803d","ปศุสัตว์":"#be185d","ข้าว/เก็บเกี่ยว":"#92400e","วิตามิน/FeedAd":"#6d28d9","เวชภัณฑ์/วัคซีน":"#0e7490"};
   const VIEWS = [
